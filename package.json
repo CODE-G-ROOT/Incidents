@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "app": "nodemon --quiet ./api/app.js",
     "start": "nodemon --quiet ./api/helpers/gen/auto.js",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
