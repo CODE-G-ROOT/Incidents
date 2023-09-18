@@ -1,6 +1,7 @@
 # Generables
 package-lock.json
 .env
+auto_setting.js
 
 # Logs
 logs
