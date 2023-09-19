@@ -1,17 +1,268 @@
 use("incidents_system");
 const max = -1;
 function auto_increment(col) {
-    const collection = db.getCollection(col); // Cambiado db.collection a db.getCollection
+    const collection = db.getCollection(col);
 
     const data = collection //retorna el id mayor
         .find()
         .sort({ id: -1 })
         .limit(1)
-        .toArray().map( function(p) { return p.id; });
+        .toArray().map(function (p) { return p.id; });
 
-    if(Number(data) >= -1) {
-        max++ ;
+    if (Number(data) >= -1) {
+        max++;
         return max
     }
+
     else return max;
 };
+
+db.createCollection("users", {
+    capped: true,
+    size: 150,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["id", "creation_date"],
+            properties: {
+                id: {
+                    bsonType: "int",
+                    description: "id is required, this must be type interger"
+                },
+                name: {
+                    bsonType: "string",
+                    description: "name is required and must be string type",
+                    // pattern: "/^[A-Za-zÁáÉéÍíÓóÚúÑñÜü\s]+$/"
+                },
+                rol: {
+                    bsonType: "string",
+                    description: "rol fild is required and must be string type"
+                },
+                number_phone: {
+                    bsonType: "string",
+                    description: "number phone must be string type"
+                },
+                email: {
+                    bsonType: "string",
+                    description: "email field is required and must be string type "
+                },
+                creation_date: {
+                    bsonType: "date",
+                    description: "creation date field is required and must be date type"
+                },
+            }
+        }
+    },
+    validationAction: "error"
+});
+
+db.createCollection("admin", {
+    capped: true,
+    size: 160,
+    properties: {
+        bsonType: "object",
+        required: ["id", "creation_date"],
+        $jsonSchema: {
+            id: {
+                bsonType: "int",
+                description: "id field is required and must be type interger"
+            },
+            name: {
+                bsonType: "string",
+                description: "name field is required and must be type string"
+            },
+            rol: {
+                bsonType: "string",
+                description: "rol field is required and must be type string"
+            },
+            number_phone: {
+                bsonType: "string",
+                description: "number phone field is required and must be type string"
+            },
+            email: {
+                bsonType: "string",
+                description: "email field is required and must be type string"
+            },
+            creation_date: {
+                bsonType: "date",
+                description: "creation date field is required and must be type date"
+            },
+        }
+    },
+    validationAction: "error"
+});
+
+db.createCollection("incidents", {
+    capped: true,
+    size: 300,
+    properties: {
+        bsonType: "object",
+        required: ["id", "creation_date"],
+        $jsonSchema: {
+            id: {
+                bsonType: "int",
+                description: "id field is required and must be type interger"
+            },
+            category: {
+                bsonType: "string",
+                description: "category field is required and must be type string"
+            },
+            type: {
+                bsonType: "string",
+                description: "type field is required and must be type string"
+            },
+            description: {
+                bsonType: "string",
+                description: "description field is required and must be type string"
+            },
+            equipment: {
+                bsonType: "json",
+                description: "equipment field is required and must be type json"
+            },
+            location: {
+                bsonType: "json",
+                description: "location field is required and must be type json"
+            },
+            status: {
+                bsonType: "string",
+                description: "status field is required and must be type string"
+            },
+            observation: {
+                bsonType: "string",
+                description: "observation field is required and must be type string"
+            },
+            creation_date: {
+                bsonType: "date",
+                description: "creation date field is required and must be type string"
+            },
+            update_date: {
+                bsonType: [null, "date"],
+                description: "update date field must be type date or null"
+            },
+            close_date: {
+                bsonType: [null,"date"],
+                description: "close date field must be type null or date"
+            },
+            report_by: {
+                bsonType: "string",
+                description: "report_by field and must be type string"
+            },
+        }
+    }
+})
+
+db.users.insertMany([
+    {
+        id: auto_increment("users"),
+        name: 'JuanAvila',
+        rol: 'Usuario',
+        number_phone: '123-456-7890',
+        email: 'usuario1@example.com',
+        creation_date: new Date(),
+    },
+    {
+        id: auto_increment("users"),
+        name: 'JuanDavid',
+        rol: 'Usuario',
+        number_phone: '987-654-3210',
+        email: 'usuario2@example.com',
+        creation_date: new Date(),
+    },
+    {
+        id: auto_increment("users"),
+        name: 'JuanJose',
+        rol: 'Usuario',
+        number_phone: '555-555-5555',
+        email: 'usuario3@example.com',
+        creation_date: new Date(),
+    },
+]);
+
+db.admin.insertOne({
+    id: auto_increment("admin"),
+    name: "Juan",
+    rol: "administrador",
+    number_phone: "317-653-7249",
+    email: "juanavila8856@gmail.com",
+    creation_date: new Date()
+});
+
+db.incidents.insertMany([
+    {
+        id: auto_increment("incidents"),
+        category: 'Hardware',
+        type: 'reporte de daño',
+        description: 'el mouse no funciona',
+        equipment: {
+            cereal: "A65C4SD",
+            type: "mouse"
+        },
+        location: {
+            area: "campus",
+            room: "sputnik"
+        },
+        status: 'dañado',
+        observation: 'Requiere mantenimiento',
+        creation_date: new Date(),
+        report_by: 0,
+    },
+    {
+        id: auto_increment("incidents"),
+        category: 'Hardware',
+        type: 'reporte de daño',
+        description: 'el mouse no funciona',
+        equipment: {
+            cereal: "A65C4SD",
+            type: "mouse"
+        },
+        location: {
+            area: "campus",
+            room: "sputnik"
+        },
+        status: 'dañado',
+        observation: 'Requiere mantenimiento',
+        creation_date: 
+    },
+    {
+        id: auto_increment("incidents"),
+        category: 'Hardware',
+        type: 'reporte de daño',
+        description: 'el mouse no funciona',
+        equipment: {
+            cereal: "A65C4SD",
+            type: "mouse"
+        },
+        location: {
+            area: "campus",
+            room: "sputnik"
+        },
+        status: 'dañado',
+        observation: 'Requiere mantenimiento',
+        creation_date: 
+    },
+    {
+        id: auto_increment("incidents"),
+        category: 'Seguridad',
+        type: 'Incidente de Seguridad',
+        description: 'Detección de actividad sospechosa en el servidor',
+        equipment: 'Servidor de Datos',
+        location: 'Centro de Datos',
+        status: 'Abierto',
+        observation: 'Se está investigando el incidente',
+        creation_date: new Date(),
+        report_by: 1,
+    },
+    {
+        id: auto_increment("incidents"),
+        category: 'Hardware',
+        type: 'Error',
+        description: 'Problema con el teclado',
+        equipment: 'Computadora Portátil A',
+        location: 'Oficina 301',
+        status: 'Cerrado',
+        observation: 'Se reemplazó el teclado',
+        creation_date: new Date(),
+        report_by: 2,
+    },
+]);
+
