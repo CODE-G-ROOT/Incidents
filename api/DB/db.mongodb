@@ -1,0 +1,232 @@
+use("incidents_system");
+function autoIncrementar (categoria, id){
+    use("incidents_system");
+    let data = db[categoria]
+        .find()
+        .sort({[id]: -1})
+        .toArray();
+    if(data.length < 1) return 1; 
+    
+    let lastNumber = data[0][id];
+    return lastNumber + 1;
+}
+
+db.createCollection("users", {
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            required: ["id", "creation_date"],
+            properties: {
+                name: {
+                    bsonType: "string",
+                    description: "name is required and must be string type",
+                    // pattern: "/^[A-Za-zÁáÉéÍíÓóÚúÑñÜü\s]+$/"
+                },
+                rol: {
+                    bsonType: "string",
+                    description: "rol fild is required and must be string type"
+                },
+                number_phone: {
+                    bsonType: "string",
+                    description: "number phone must be string type"
+                },
+                email: {
+                    bsonType: "string",
+                    description: "email field is required and must be string type "
+                },
+                creation_date: {
+                    bsonType: "date",
+                    description: "creation date field is required and must be date type"
+                },
+            }
+        }
+    },
+    validationAction: "error"
+});
+
+db.createCollection("incidents", {
+    capped: true,
+    size: 300,
+    validator: {
+        $jsonSchema: {
+            bsonType: "object",
+            title: "Incidents object validation",
+            required: ["id", "creation_date"],
+            properties: {
+                id: {
+                    bsonType: "int",
+                    description: "id field is required and must be type integer"
+                },
+                category: {
+                    bsonType: "string",
+                    enum: [
+                        "Hardware",
+                        "Software",
+                        "Red",
+                        "Seguridad",
+                        "Usuarios",
+                        "Comunicaciones",
+                        "Servidores",
+                        "Aplicaciones",
+                        "Almacenamiento",
+                    ],
+                    description: "category field is required and must be type string"
+                },
+                type: {
+                    bsonType: "string",
+                    enum: [
+                        "Error",
+                        "Problema",
+                        "Mantenimiento",
+                        "Actualización",
+                        "Configuración",
+                        "Otro",
+                    ],
+                    description: "type field is required and must be type string"
+                },
+                description: {
+                    bsonType: "string",
+                    description: "description field is required and must be type string"
+                },
+                equipment: {
+                    bsonType: ["null", "object"],
+                    required: ["name", "marca", "cod"],
+                    properties: {
+                        name: {
+                            bsonType: "string",
+                            description: "name field is required and must be type string"
+                        },
+                        marca: {
+                            bsonType: "string",
+                            description: "marca field is required and must be type string"
+                        },
+                        cod: {
+                            bsonType: "string",
+                            description: "cod field is required and must be type string"
+                        },
+                    }
+                },
+                location: {
+                    bsonType: "object",
+                    required: ["area"],
+                    properties: {
+                        area: {
+                            bsonType: "string",
+                            description: "area field is required and must be type string"
+                        },
+                        pizza: {
+                            bsonType: "string",
+                            description: "pizza field is required and must be type string"
+                        },
+                        salón: {
+                            bsonType: "string",
+                            description: "salón field is required and must be type string"
+                        },
+                    }
+                },
+                status: {
+                    bsonType: "string",
+                    enum: [
+                        "malo",
+                        "dañado",
+                        "vuelto...",
+                        "necesita mantenimiento",
+                        "Rechazado",
+                        "Necesita más Información",
+                        "en proceso",
+                        "Resuelto"
+                    ],
+                    description: "status field is required and must be type string"
+                },
+                observation: {
+                    bsonType: "string",
+                    description: "observation field is required and must be type string"
+                },
+                creation_date: {
+                    bsonType: "date",
+                    description: "creation date field is required and must be type date"
+                },
+                update_date: {
+                    bsonType: "date",
+                    description: "update date field must be type date"
+                },
+                close_date: {
+                    bsonType: ["null", "date"],
+                    description: "close date field must be type null or date"
+                },
+                report_by: {
+                    bsonType: "int",
+                    description: "report_by field must be type int"
+                },
+            }
+        }
+    }
+});
+
+db.users.insertOne(
+    {
+        id: autoIncrementar("users", "id"),
+        name: "Juan",
+        rol: "admin",
+        number_phone: "317-653-7249",
+        email: "juanavila8856@gmail.com",
+        creation_date: new Date()
+    }
+);
+
+db.users.insertOne(
+    {
+        id: autoIncrementar("users", "id"),
+        name: 'JuanAvila',
+        rol: 'Usuario',
+        number_phone: '123-456-7890',
+        email: 'usuario1@example.com',
+        creation_date: new Date(),
+    }
+);
+
+db.users.insertOne(
+    {
+        id: autoIncrementar("users", "id"),
+        name: 'JuanDavid',
+        rol: 'Usuario',
+        number_phone: '987-654-3210',
+        email: 'usuario2@example.com',
+        creation_date: new Date(),
+    }
+);
+
+db.users.insertOne(
+    {
+        id: autoIncrementar("users", "id"),
+        name: 'JuanJose',
+        rol: 'Usuario',
+        number_phone: '555-555-5555',
+        email: 'usuario3@example.com',
+        creation_date: new Date(),
+    },
+);
+
+
+db.incidents.insertOne({
+    id: autoIncrementar("incidents", 'id'),
+    category: "Hardware",
+    type: "Error",
+    description: "La pantalla no prende",
+    equipment: {
+        name: "Pantalla",
+        marca: "Compumax",
+        cod: "PT-145"
+    },
+    location: {
+        area: "Review",
+        pizza: "12",
+    },
+    status: "malo",
+    observation: "Requiere mantenimiento",
+    creation_date: new Date(),
+    update_date: new Date(),
+    close_date: null,
+    report_by: 1
+});
+
