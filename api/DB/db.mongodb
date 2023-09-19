@@ -1,0 +1,17 @@
+use("incidents_system");
+const max = -1;
+function auto_increment(col) {
+    const collection = db.getCollection(col); // Cambiado db.collection a db.getCollection
+
+    const data = collection //retorna el id mayor
+        .find()
+        .sort({ id: -1 })
+        .limit(1)
+        .toArray().map( function(p) { return p.id; });
+
+    if(Number(data) >= -1) {
+        max++ ;
+        return max
+    }
+    else return max;
+};
