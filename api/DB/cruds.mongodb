@@ -1180,6 +1180,11 @@ db.incidents.aggregate([
         $unwind: "$report"
     },
     {
+        $match: {
+            id: 1
+        }
+    },
+    {
         $group: {
             _id: "$_id",
             category: { $first: "$category" },
