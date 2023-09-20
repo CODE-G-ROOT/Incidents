@@ -10,8 +10,8 @@ export const createToken = async (req, res, next) => {
 
     const result = await db.collection('users').findOne(req.body);
 
-    if (JSON.stringify(Object.keys(req.body)) !== JSON.stringify(['name', 'id'])) //el usuario es el discord y su id es el identificador unico de discord
-        return res.status(417).send({ message: "Para iniciar sesion se require: name [nombre del usuario] y id [password]" })
+    // if (JSON.stringify(Object.keys(req.body)) !== JSON.stringify(['name', 'id', 'rol'])) //el usuario es el discord y su id es el identificador unico de discord
+    //     return res.status(417).send({ message: "Para iniciar sesion se require: name [nombre del usuario] y id [password]" })
 
     if (!result)
         return res.status(401).send({ mesaage: "session no encontrada" });
@@ -27,14 +27,15 @@ export const createToken = async (req, res, next) => {
     next();
 }
 
-export const verifyToken = async (req, token) => {
+// ?    QUEDA PENDIENTE POR REVISAR
+export const verifyToken = async (req, token) => { 
     try {
         const encoder = new TextEncoder();
         const jwtData = await jwtVerify(
             token,
-            encoder.encode(CONFIG.key)
+            encoder.encode(data.key)
         );
-        let res = await db.collection('session').findOne(
+        let res = await db.collection('users').findOne(
             {
                 _id: new ObjectId(jwtData.payload.id),
                 [`permisos.${req.baseUrl}`]: `${req.headers["accept-version"]}`
