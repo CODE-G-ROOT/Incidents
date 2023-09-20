@@ -21,7 +21,8 @@ const data = {
     atlas_pass: config.ATLAS_PASSWORD,
     atlas_db: config.ATLAS_DB,
     privateKey: config.JWT_PRIVATE_KEY,
-    server: server
+    server: server,
+    key: config.JWT_PRIVATE_KEY
 };
 
 export default data;
