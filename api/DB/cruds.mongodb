@@ -1,0 +1,1266 @@
+
+//? USURIOS
+
+// Trae todos los usuarios
+use("incidents_system");
+db.users.aggregate([
+    {
+        $group: {
+            _id: "$_id",
+            name: { $first: "$name" },
+            rol: { $first: "$rol" },
+            number_phone: { $first: "$number_phone" },
+            email: { $first: "$email" },
+            creation_date: { $first: "$creation_date" }
+        }
+    },
+    {
+        $project: {
+            id: 1,
+            name: 1,
+            rol: 1,
+            number_phone: 1,
+            email: 1,
+            creation_date: {
+                date: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            }
+        }
+    }
+]);
+
+// Usuarios por rol "user"
+use("incidents_system");
+db.users.aggregate([
+    {
+        $group: {
+            _id: "$_id",
+            name: { $first: "$name" },
+            rol: { $first: "$rol" },
+            number_phone: { $first: "$number_phone" },
+            email: { $first: "$email" },
+            creation_date: { $first: "$creation_date" }
+        }
+    },
+    {
+        $match: {
+            rol: "Usuario"
+        }
+    },
+    {
+        $project: {
+            id: 1,
+            name: 1,
+            rol: 1,
+            number_phone: 1,
+            email: 1,
+            creation_date: {
+                date: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            }
+        }
+    }
+]);
+
+// Usuarios por rol "admin"
+use("incidents_system");
+db.users.aggregate([
+    {
+        $group: {
+            _id: "$_id",
+            name: { $first: "$name" },
+            rol: { $first: "$rol" },
+            number_phone: { $first: "$number_phone" },
+            email: { $first: "$email" },
+            creation_date: { $first: "$creation_date" }
+        }
+    },
+    {
+        $match: {
+            rol: "admin"
+        }
+    },
+    {
+        $project: {
+            id: 1,
+            name: 1,
+            rol: 1,
+            number_phone: 1,
+            email: 1,
+            creation_date: {
+                date: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            }
+        }
+    }
+]);
+
+// Todos losUsuarios por recha de creación
+use("incidents_system");
+db.users.aggregate([
+    {
+        $group: {
+            _id: "$_id",
+            name: { $first: "$name" },
+            rol: { $first: "$rol" },
+            number_phone: { $first: "$number_phone" },
+            email: { $first: "$email" },
+            creation_date: { $first: "$creation_date" }
+        }
+    },
+    {
+        $project: {
+            id: 1,
+            name: 1,
+            rol: 1,
+            number_phone: 1,
+            email: 1,
+            creation_date: {
+                date: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            }
+        }
+    },
+    {
+        $sort: { creation_date: 1 }
+    }
+]);
+
+// todos los usuarios de rol usuario por fecha de creación
+use("incidents_system");
+db.users.aggregate([
+    {
+        $group: {
+            _id: "$_id",
+            name: { $first: "$name" },
+            rol: { $first: "$rol" },
+            number_phone: { $first: "$number_phone" },
+            email: { $first: "$email" },
+            creation_date: { $first: "$creation_date" }
+        }
+    },
+    {
+        $match: {
+            rol: "Usuario"
+        }
+    },
+    {
+        $project: {
+            id: 1,
+            name: 1,
+            rol: 1,
+            number_phone: 1,
+            email: 1,
+            creation_date: {
+                date: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            }
+        }
+    },
+    {
+        $sort: { creation_date: 1 }
+    }
+]);
+
+//? INCIDENCIAS
+
+// trae todas las incidencias
+use("incidents_system");
+db.incidents.aggregate([
+    {
+        $lookup: {
+            from: "users",
+            localField: "report_by",
+            foreignField: "id",
+            as: "report"
+        }
+    },
+    {
+        $unwind: "$report"
+    },
+    {
+        $group: {
+            _id: "$_id",
+            category: { $first: "$category" },
+            type: { $first: "$type" },
+            description: { $first: "$description" },
+            equipment: { $first: "$equipment" },
+            location: { $first: "$location" },
+            status: { $first: "$status" },
+            observation: { $first: "$observation" },
+            creation_date: { $first: "$creation_date" },
+            update_date: { $first: "$update_date" },
+            close_date: { $first: "$close_date" },
+            report_by: { $addToSet: "$report" },
+        }
+    },
+    {
+        $project: {
+            category: 1,
+            type: 1,
+            description: 1,
+            equipment: 1,
+            location: 1,
+            status: 1,
+            observation: 1,
+            creation_date: {
+                date: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            update_date: {
+                date: {
+                    $dateToString: {
+                        date: "$update_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            close_date: {
+                date: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            report_by: {
+                name: 1,
+                email: 1,
+            },
+        }
+    }
+]);
+
+//filtra solo por fecha de creación
+use("incidents_system");
+db.incidents.aggregate([
+    {
+        $lookup: {
+            from: "users",
+            localField: "report_by",
+            foreignField: "id",
+            as: "report"
+        }
+    },
+    {
+        $unwind: "$report"
+    },
+    {
+        $group: {
+            _id: "$_id",
+            category: { $first: "$category" },
+            type: { $first: "$type" },
+            description: { $first: "$description" },
+            equipment: { $first: "$equipment" },
+            location: { $first: "$location" },
+            status: { $first: "$status" },
+            observation: { $first: "$observation" },
+            creation_date: { $first: "$creation_date" },
+            update_date: { $first: "$update_date" },
+            close_date: { $first: "$close_date" },
+            report_by: { $addToSet: "$report" },
+        }
+    },
+    {
+        $project: {
+            category: 1,
+            type: 1,
+            description: 1,
+            equipment: 1,
+            location: 1,
+            status: 1,
+            observation: 1,
+            creation_date: {
+                date: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            update_date: {
+                date: {
+                    $dateToString: {
+                        date: "$update_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            close_date: {
+                date: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            report_by: {
+                name: 1,
+                email: 1,
+            },
+        }
+    },
+    {
+        $sort: {
+            creation_date: 1,
+        }
+    }
+]);
+
+// las filtra por fecha de creación y actualización
+use("incidents_system");
+db.incidents.aggregate([
+    {
+        $lookup: {
+            from: "users",
+            localField: "report_by",
+            foreignField: "id",
+            as: "report"
+        }
+    },
+    {
+        $unwind: "$report"
+    },
+    {
+        $group: {
+            _id: "$_id",
+            category: { $first: "$category" },
+            type: { $first: "$type" },
+            description: { $first: "$description" },
+            equipment: { $first: "$equipment" },
+            location: { $first: "$location" },
+            status: { $first: "$status" },
+            observation: { $first: "$observation" },
+            creation_date: { $first: "$creation_date" },
+            update_date: { $first: "$update_date" },
+            close_date: { $first: "$close_date" },
+            report_by: { $addToSet: "$report" },
+        }
+    },
+    {
+        $project: {
+            category: 1,
+            type: 1,
+            description: 1,
+            equipment: 1,
+            location: 1,
+            status: 1,
+            observation: 1,
+            creation_date: {
+                date: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            update_date: {
+                date: {
+                    $dateToString: {
+                        date: "$update_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            close_date: {
+                date: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            report_by: {
+                name: 1,
+                email: 1,
+            },
+        }
+    },
+    {
+        $sort: {
+            creation_date: 1,
+            update_date: 1,
+        }
+    }
+]);
+
+//filtra por estado
+use("incidents_system");
+db.incidents.aggregate([
+    {
+        $lookup: {
+            from: "users",
+            localField: "report_by",
+            foreignField: "id",
+            as: "report"
+        }
+    },
+    {
+        $unwind: "$report"
+    },
+    {
+        $group: {
+            _id: "$_id",
+            category: { $first: "$category" },
+            type: { $first: "$type" },
+            description: { $first: "$description" },
+            equipment: { $first: "$equipment" },
+            location: { $first: "$location" },
+            status: { $first: "$status" },
+            observation: { $first: "$observation" },
+            creation_date: { $first: "$creation_date" },
+            update_date: { $first: "$update_date" },
+            close_date: { $first: "$close_date" },
+            report_by: { $addToSet: "$report" },
+        }
+    },
+    {
+        $project: {
+            category: 1,
+            type: 1,
+            description: 1,
+            equipment: 1,
+            location: 1,
+            status: 1,
+            observation: 1,
+            creation_date: {
+                date: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            update_date: {
+                date: {
+                    $dateToString: {
+                        date: "$update_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            close_date: {
+                date: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            report_by: {
+                name: 1,
+                email: 1,
+            },
+        }
+    },
+    {
+        $sort: {
+            status: 1
+        }
+    }
+]);
+
+//estado bueno, "malo", "dañado", "vuelto...", "necesita mantenimiento", "Rechazado", "Necesita más Información", "en proceso", "Resuelto"
+//todo ESto va a ser dinámico
+//? me da cule pereza crear uno para cada estado
+use("incidents_system");
+db.incidents.aggregate([
+    {
+        $lookup: {
+            from: "users",
+            localField: "report_by",
+            foreignField: "id",
+            as: "report"
+        }
+    },
+    {
+        $unwind: "$report"
+    },
+    {
+        $match: {
+            status: "malo"
+        }
+    },
+    {
+        $group: {
+            _id: "$_id",
+            category: { $first: "$category" },
+            type: { $first: "$type" },
+            description: { $first: "$description" },
+            equipment: { $first: "$equipment" },
+            location: { $first: "$location" },
+            status: { $first: "$status" },
+            observation: { $first: "$observation" },
+            creation_date: { $first: "$creation_date" },
+            update_date: { $first: "$update_date" },
+            close_date: { $first: "$close_date" },
+            report_by: { $addToSet: "$report" },
+        }
+    },
+    {
+        $project: {
+            category: 1,
+            type: 1,
+            description: 1,
+            equipment: 1,
+            location: 1,
+            status: 1,
+            observation: 1,
+            creation_date: {
+                date: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            update_date: {
+                date: {
+                    $dateToString: {
+                        date: "$update_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            close_date: {
+                date: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            report_by: {
+                name: 1,
+                email: 1,
+            },
+        }
+    },
+]);
+
+
+//filtra por nombre de equipo
+use("incidents_system");
+db.incidents.aggregate([
+    {
+        $lookup: {
+            from: "users",
+            localField: "report_by",
+            foreignField: "id",
+            as: "report"
+        }
+    },
+    {
+        $unwind: "$report"
+    },
+    {
+        $match: {
+            //eso va a ser dinámico
+            equipment: {
+                name:"Pantalla"
+            } 
+        }
+    },
+    {
+        $group: {
+            _id: "$_id",
+            category: { $first: "$category" },
+            type: { $first: "$type" },
+            description: { $first: "$description" },
+            equipment: { $first: "$equipment" },
+            location: { $first: "$location" },
+            status: { $first: "$status" },
+            observation: { $first: "$observation" },
+            creation_date: { $first: "$creation_date" },
+            update_date: { $first: "$update_date" },
+            close_date: { $first: "$close_date" },
+            report_by: { $addToSet: "$report" },
+        }
+    },
+    {
+        $project: {
+            category: 1,
+            type: 1,
+            description: 1,
+            equipment: 1,
+            location: 1,
+            status: 1,
+            observation: 1,
+            creation_date: {
+                date: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            update_date: {
+                date: {
+                    $dateToString: {
+                        date: "$update_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            close_date: {
+                date: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            report_by: {
+                name: 1,
+                email: 1,
+            },
+        }
+    },
+]);
+
+//filtra por marca
+use("incidents_system");
+db.incidents.aggregate([
+    {
+        $lookup: {
+            from: "users",
+            localField: "report_by",
+            foreignField: "id",
+            as: "report"
+        }
+    },
+    {
+        $unwind: "$report"
+    },
+    {
+        $match: {
+            //eso va a ser dinámico
+            equipment: {
+                marca:"Compumax"
+            } 
+        }
+    },
+    {
+        $group: {
+            _id: "$_id",
+            category: { $first: "$category" },
+            type: { $first: "$type" },
+            description: { $first: "$description" },
+            equipment: { $first: "$equipment" },
+            location: { $first: "$location" },
+            status: { $first: "$status" },
+            observation: { $first: "$observation" },
+            creation_date: { $first: "$creation_date" },
+            update_date: { $first: "$update_date" },
+            close_date: { $first: "$close_date" },
+            report_by: { $addToSet: "$report" },
+        }
+    },
+    {
+        $project: {
+            category: 1,
+            type: 1,
+            description: 1,
+            equipment: 1,
+            location: 1,
+            status: 1,
+            observation: 1,
+            creation_date: {
+                date: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            update_date: {
+                date: {
+                    $dateToString: {
+                        date: "$update_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            close_date: {
+                date: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            report_by: {
+                name: 1,
+                email: 1,
+            },
+        }
+    },
+]);
+
+//filtra por codigo
+use("incidents_system");
+db.incidents.aggregate([
+    {
+        $lookup: {
+            from: "users",
+            localField: "report_by",
+            foreignField: "id",
+            as: "report"
+        }
+    },
+    {
+        $unwind: "$report"
+    },
+    {
+        $match: {
+            //eso va a ser dinámico
+            equipment: {
+                cod:"PT-145"
+            } 
+        }
+    },
+    {
+        $group: {
+            _id: "$_id",
+            category: { $first: "$category" },
+            type: { $first: "$type" },
+            description: { $first: "$description" },
+            equipment: { $first: "$equipment" },
+            location: { $first: "$location" },
+            status: { $first: "$status" },
+            observation: { $first: "$observation" },
+            creation_date: { $first: "$creation_date" },
+            update_date: { $first: "$update_date" },
+            close_date: { $first: "$close_date" },
+            report_by: { $addToSet: "$report" },
+        }
+    },
+    {
+        $project: {
+            category: 1,
+            type: 1,
+            description: 1,
+            equipment: 1,
+            location: 1,
+            status: 1,
+            observation: 1,
+            creation_date: {
+                date: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            update_date: {
+                date: {
+                    $dateToString: {
+                        date: "$update_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            close_date: {
+                date: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            report_by: {
+                name: 1,
+                email: 1,
+            },
+        }
+    },
+]);
+
+//filtra por ubicación
+use("incidents_system");
+db.incidents.aggregate([
+    {
+        $lookup: {
+            from: "users",
+            localField: "report_by",
+            foreignField: "id",
+            as: "report"
+        }
+    },
+    {
+        $unwind: "$report"
+    },
+    {
+        $match: {
+            //eso va a ser dinámico
+            location: {
+                area: "Review" // y los otros
+            } 
+        }
+    },
+    {
+        $group: {
+            _id: "$_id",
+            category: { $first: "$category" },
+            type: { $first: "$type" },
+            description: { $first: "$description" },
+            equipment: { $first: "$equipment" },
+            location: { $first: "$location" },
+            status: { $first: "$status" },
+            observation: { $first: "$observation" },
+            creation_date: { $first: "$creation_date" },
+            update_date: { $first: "$update_date" },
+            close_date: { $first: "$close_date" },
+            report_by: { $addToSet: "$report" },
+        }
+    },
+    {
+        $project: {
+            category: 1,
+            type: 1,
+            description: 1,
+            equipment: 1,
+            location: 1,
+            status: 1,
+            observation: 1,
+            creation_date: {
+                date: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            update_date: {
+                date: {
+                    $dateToString: {
+                        date: "$update_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            close_date: {
+                date: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            report_by: {
+                name: 1,
+                email: 1,
+            },
+        }
+    },
+]);
+
+//filtra por reporte
+use("incidents_system");
+db.incidents.aggregate([
+    {
+        $lookup: {
+            from: "users",
+            localField: "report_by",
+            foreignField: "id",
+            as: "report"
+        }
+    },
+    {
+        $unwind: "$report"
+    },
+    {
+        $match: {
+            report_by: 1
+        }
+    },
+    {
+        $group: {
+            _id: "$_id",
+            category: { $first: "$category" },
+            type: { $first: "$type" },
+            description: { $first: "$description" },
+            equipment: { $first: "$equipment" },
+            location: { $first: "$location" },
+            status: { $first: "$status" },
+            observation: { $first: "$observation" },
+            creation_date: { $first: "$creation_date" },
+            update_date: { $first: "$update_date" },
+            close_date: { $first: "$close_date" },
+            report_by: { $addToSet: "$report" },
+        }
+    },
+    {
+        $project: {
+            category: 1,
+            type: 1,
+            description: 1,
+            equipment: 1,
+            location: 1,
+            status: 1,
+            observation: 1,
+            creation_date: {
+                date: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            update_date: {
+                date: {
+                    $dateToString: {
+                        date: "$update_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            close_date: {
+                date: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            report_by: {
+                name: 1,
+                email: 1,
+            },
+        }
+    },
+]);
+
+//filtra por id
+use("incidents_system");
+db.incidents.aggregate([
+    {
+        $lookup: {
+            from: "users",
+            localField: "report_by",
+            foreignField: "id",
+            as: "report"
+        }
+    },
+    {
+        $unwind: "$report"
+    },
+    {
+        $match: {
+            id: 1
+        }
+    },
+    {
+        $group: {
+            _id: "$_id",
+            category: { $first: "$category" },
+            type: { $first: "$type" },
+            description: { $first: "$description" },
+            equipment: { $first: "$equipment" },
+            location: { $first: "$location" },
+            status: { $first: "$status" },
+            observation: { $first: "$observation" },
+            creation_date: { $first: "$creation_date" },
+            update_date: { $first: "$update_date" },
+            close_date: { $first: "$close_date" },
+            report_by: { $addToSet: "$report" },
+        }
+    },
+    {
+        $project: {
+            category: 1,
+            type: 1,
+            description: 1,
+            equipment: 1,
+            location: 1,
+            status: 1,
+            observation: 1,
+            creation_date: {
+                date: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            update_date: {
+                date: {
+                    $dateToString: {
+                        date: "$update_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            close_date: {
+                date: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            report_by: {
+                name: 1,
+                email: 1,
+            },
+        }
+    },
+    {
+        $sort: {
+            id: 1
+        }
+    }
+]);
+
