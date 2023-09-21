@@ -73,10 +73,10 @@ export const get_user_rol = async (req, res, next) => {
 export const get_incidences = async (res, res, next) => {
     try {
         const { id } = req.query;
-        const user = await get_incidences(id);
+        const incidence = await get_incidences(id);
 
-        user.length > 0
-            ? res.status(302).send(user)
+        incidence.length > 0
+            ? res.status(302).send(incidence)
             : res.status(400).send({
                 message: "Query not found",
                 reference: "https://http.cat/400"
@@ -96,10 +96,10 @@ export const get_incidences = async (res, res, next) => {
 
 export const get_incidences_date = async (req, res, next) => {
     try {
-        const user = await get_incidences_date();
+        const incidence = await get_incidences_date();
 
-        user.length > 0
-            ? res.status(302).send(user)
+        incidence.length > 0
+            ? res.status(302).send(incidence)
             : res.status(400).send({
                 message: "Query not found",
                 reference: "https://http.cat/400"
@@ -120,10 +120,10 @@ export const get_incidences_date = async (req, res, next) => {
 export const get_incidences_state = async (res, req, next) => {
     try {
         const { status } = req.query;
-        const user = await get_incidences_state(status);
+        const incidence = await get_incidences_state(status);
 
-        user.length > 0
-            ? res.status(302).send(user)
+        incidence.length > 0
+            ? res.status(302).send(incidence)
             : res.status(400).send({
                 message: "Query not found",
                 reference: "https://http.cat/400"
@@ -144,10 +144,10 @@ export const get_incidences_state = async (res, req, next) => {
 export const get_incidences_equipo = async (res, req, next) => {
     try {
         const { nam, mar, cod } = req.query;
-        const user = await get_incidences_equipo(nam, mar, cod);
+        const incidence = await get_incidences_equipo(nam, mar, cod);
 
-        user.length > 0
-            ? res.status(302).send(user)
+        incidence.length > 0
+            ? res.status(302).send(incidence)
             : res.status(400).send({
                 message: "Query not found",
                 reference: "https://http.cat/400"
@@ -168,10 +168,10 @@ export const get_incidences_equipo = async (res, req, next) => {
 export const get_incidences_location = async (res, req, next) => {
     try {
         const { area, pizza, room } = req.query;
-        const user = await get_incidences_location(area, pizza, room);
+        const incidence = await get_incidences_location(area, pizza, room);
 
-        user.length > 0
-            ? res.status(302).send(user)
+        incidence.length > 0
+            ? res.status(302).send(incidence)
             : res.status(400).send({
                 message: "Query not found",
                 reference: "https://http.cat/400"
@@ -192,10 +192,10 @@ export const get_incidences_location = async (res, req, next) => {
 export const get_incidences_report = async (res, req, next) => {
     try {
         const { area, pizza, room } = req.query;
-        const user = await get_incidences_report(area, pizza, room);
+        const incidence = await get_incidences_report(area, pizza, room);
 
-        user.length > 0
-            ? res.status(302).send(user)
+        incidence.length > 0
+            ? res.status(302).send(incidence)
             : res.status(400).send({
                 message: "Query not found",
                 reference: "https://http.cat/400"
