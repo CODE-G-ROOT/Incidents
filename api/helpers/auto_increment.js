@@ -1,14 +1,13 @@
-import con from '../../connection/conect.js'
+import db from '../../connection/conect.js'
 
-export default async function auth_id(collection){
-
-    let db = await con();
-    let counter = db.collection("counters");
-
-    const secuencesValues = await counter.findOneAndUpdate(
-        { counter: `${collection}id` },
-        { $inc: { sequence_value: 1 } },
-        { returnDocument: "after" }
-    );
-    return secuencesValues.value.sequence_value;
+export default async function autoIncrementar (categoria, id){
+    use("incidents_system");
+    let data = db[categoria]
+        .find()
+        .sort({[id]: -1})
+        .toArray();
+    if(data.length < 1) return 1; 
+    
+    let lastNumber = data[0][id];
+    return lastNumber + 1;
 };
