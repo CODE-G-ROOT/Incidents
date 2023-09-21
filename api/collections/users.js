@@ -171,14 +171,12 @@ class User{
         }
     }
 
-    async post_user(data){
+    async delete_user(id){
         try {
-            const con = await this.connection();
-            let new_id = await autoIncrementar("users", "id");
-            let body = { "id": new_id, ...data, "creation_date": new Date(date.creation_date) };
-            //? no falta validar que el body sea exactamente el requerido????
-            const results = await con.insertOne(body);
-            return results;
+            const con = this.connection();
+            const result = (await con).deleteOne({"id": parseInt(id)});
+            return result
+
         } catch (error) {
             throw error;
         }

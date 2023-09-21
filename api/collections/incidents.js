@@ -15,9 +15,9 @@ class Incidents {
     update_date;
     close_date;
     report_by;
-    constructor(){}
+    constructor() { }
 
-    async connection(){
+    async connection() {
         try {
             const results = await new_collection("incidents");
             return results;
@@ -26,13 +26,13 @@ class Incidents {
         }
     }
 
-    async get_incidences(id){
+    async get_incidences(id) {
         try {
-            
+
             const con = await this.connection();
 
             // si hay id, retorna todas las incidencias
-            if(!id) return await con.aggregate([
+            if (!id) return await con.aggregate([
                 {
                     $lookup: {
                         from: "users",
@@ -118,7 +118,7 @@ class Incidents {
                     }
                 }
             ]).toArray();
-            
+
             // si hay id, retorna solo el id requerido
             return await con.aggregate([
                 {
@@ -206,15 +206,15 @@ class Incidents {
                     }
                 }
             ]).toArray();
-    
+
         } catch (error) {
             throw error
         }
     }
 
-    async get_incidences_date(){
+    async get_incidences_date() {
         try {
-            
+
             const con = await this.connection();
 
             return await con.aggregate([
@@ -315,9 +315,9 @@ class Incidents {
         }
     }
 
-    async get_incidences_state(status){
+    async get_incidences_state(status) {
         try {
-            
+
             const con = await this.connection();
             const result = await con.aggregate([
                 {
@@ -415,11 +415,11 @@ class Incidents {
         }
     }
 
-    async get_incidences_equipo(nam, mar, cod){
+    async get_incidences_equipo(nam, mar, cod) {
         try {
-            
+
             const con = await this.connection();
-            if(nam && mar && cod) {
+            if (nam && mar && cod) {
                 const result = con.aggregate([
                     {
                         $lookup: {
@@ -519,7 +519,7 @@ class Incidents {
                 return result;
             }
 
-            else if(nam && mar) {
+            else if (nam && mar) {
                 const result = con.aggregate([
                     {
                         $lookup: {
@@ -618,7 +618,7 @@ class Incidents {
                 return result;
             }
 
-            else if(nam && cod) {
+            else if (nam && cod) {
                 const result = con.aggregate([
                     {
                         $lookup: {
@@ -717,7 +717,7 @@ class Incidents {
                 return result;
             }
 
-            else if(mar) {
+            else if (mar) {
                 const result = con.aggregate([
                     {
                         $lookup: {
@@ -815,7 +815,7 @@ class Incidents {
                 return result;
             }
 
-            else if(cod) {
+            else if (cod) {
                 const result = con.aggregate([
                     {
                         $lookup: {
@@ -913,7 +913,7 @@ class Incidents {
                 return result;
             }
 
-            else if(nam) {
+            else if (nam) {
                 const result = con.aggregate([
                     {
                         $lookup: {
@@ -1016,12 +1016,12 @@ class Incidents {
         }
     }
 
-    async get_incidences_location(area, pizza, room ){
+    async get_incidences_location(area, pizza, room) {
         try {
-            
+
             const con = await this.connection();
-    
-            if(area && pizza && room) {
+
+            if (area && pizza && room) {
                 const results = con.aggregate([
                     {
                         $lookup: {
@@ -1121,7 +1121,7 @@ class Incidents {
                 return results;
             }
 
-            else if(area && room) {
+            else if (area && room) {
                 const results = con.aggregate([
                     {
                         $lookup: {
@@ -1220,7 +1220,7 @@ class Incidents {
                 return results;
             }
 
-            else if(area && pizza) {
+            else if (area && pizza) {
                 const results = con.aggregate([
                     {
                         $lookup: {
@@ -1319,7 +1319,7 @@ class Incidents {
                 return results;
             }
 
-            else if(area) {
+            else if (area) {
                 const results = con.aggregate([
                     {
                         $lookup: {
@@ -1417,7 +1417,7 @@ class Incidents {
                 return results;
             }
 
-            else if(pizza && room) {
+            else if (pizza && room) {
                 const results = con.aggregate([
                     {
                         $lookup: {
@@ -1516,7 +1516,7 @@ class Incidents {
                 return results;
             }
 
-            else if(pizza && area) {
+            else if (pizza && area) {
                 const results = con.aggregate([
                     {
                         $lookup: {
@@ -1615,7 +1615,7 @@ class Incidents {
                 return results;
             }
 
-            else if(pizza) {
+            else if (pizza) {
                 const results = con.aggregate([
                     {
                         $lookup: {
@@ -1718,9 +1718,9 @@ class Incidents {
         }
     }
 
-    async get_incidences_report(id){
+    async get_incidences_report(id) {
         try {
-            
+
             const con = await this.connection();
 
             const results = con.aggregate([
@@ -1821,6 +1821,41 @@ class Incidents {
         }
     }
 
+    async post_incidence(data) {
+        try {
+            const con = await this.connection();
+            let new_id = await autoIncrementar("incidents");
+            let body = { "id": new_id, ...data, "creation_date": new Date(data.creation_date), "update_date": new Date(data.update_date), close_date: null };
+            const results = await con.inserOne(body);
+            return results;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async update_incidence(id) {
+        try {
+            const con = await this.connection();
+            let body = { ...data, "update_date": new Date(data.update_date) };
+            const result = await con.updateOne(
+                { "id": parseInt(id) },
+                { $set: body }
+            );
+            return result;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async delete_incidente(id){
+        try {
+            const con = await this.connection();
+            const result = await con.deleteOne({"id": parseInt(id)});
+            return result;
+        } catch (error) {
+            
+        }
+    }
 }
 
 export default Incidents
