@@ -13,6 +13,11 @@ try {
 
 let db = conn.db('incidets_system');
 
+const new_collection = async (col)=>{
+    return  await db.createCollection(col);
+}
+
+export {new_collection};
 export default db;
 
 
