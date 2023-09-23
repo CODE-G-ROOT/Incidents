@@ -1,4 +1,4 @@
-import Incidents from "../collections/incidents,js";
+import Incidents from "../collections/incidents.js";
 
 const incident = new Incidents();
 
