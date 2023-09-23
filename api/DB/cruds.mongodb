@@ -1,6 +1,5 @@
 
 //? USURIOS
-
 // Trae todos los usuarios
 use("incidents_system");
 db.users.aggregate([
@@ -13,6 +12,9 @@ db.users.aggregate([
             email: { $first: "$email" },
             creation_date: { $first: "$creation_date" }
         }
+    },
+    {
+        $match: { "id": 1 }
     },
     {
         $project: {
@@ -43,91 +45,10 @@ db.users.aggregate([
 use("incidents_system");
 db.users.aggregate([
     {
-        $group: {
-            _id: "$_id",
-            name: { $first: "$name" },
-            rol: { $first: "$rol" },
-            number_phone: { $first: "$number_phone" },
-            email: { $first: "$email" },
-            creation_date: { $first: "$creation_date" }
-        }
-    },
-    {
         $match: {
-            rol: "Usuario"
+            id: 1
         }
     },
-    {
-        $project: {
-            id: 1,
-            name: 1,
-            rol: 1,
-            number_phone: 1,
-            email: 1,
-            creation_date: {
-                date: {
-                    $dateToString: {
-                        date: "$creation_date",
-                        format: "%Y-%m-%d"
-                    }
-                },
-                hour: {
-                    $dateToString: {
-                        date: "$creation_date",
-                        format: "%H:%M:%S"
-                    }
-                }
-            }
-        }
-    }
-]);
-
-// Usuarios por rol "admin"
-use("incidents_system");
-db.users.aggregate([
-    {
-        $group: {
-            _id: "$_id",
-            name: { $first: "$name" },
-            rol: { $first: "$rol" },
-            number_phone: { $first: "$number_phone" },
-            email: { $first: "$email" },
-            creation_date: { $first: "$creation_date" }
-        }
-    },
-    {
-        $match: {
-            rol: "admin"
-        }
-    },
-    {
-        $project: {
-            id: 1,
-            name: 1,
-            rol: 1,
-            number_phone: 1,
-            email: 1,
-            creation_date: {
-                date: {
-                    $dateToString: {
-                        date: "$creation_date",
-                        format: "%Y-%m-%d"
-                    }
-                },
-                hour: {
-                    $dateToString: {
-                        date: "$creation_date",
-                        format: "%H:%M:%S"
-                    }
-                }
-            }
-        }
-    }
-]);
-
-// Todos losUsuarios por recha de creación
-use("incidents_system");
-db.users.aggregate([
     {
         $group: {
             _id: "$_id",
@@ -160,57 +81,9 @@ db.users.aggregate([
                 }
             }
         }
-    },
-    {
-        $sort: { creation_date: 1 }
     }
-]);
+]).toArray();
 
-// todos los usuarios de rol usuario por fecha de creación
-use("incidents_system");
-db.users.aggregate([
-    {
-        $group: {
-            _id: "$_id",
-            name: { $first: "$name" },
-            rol: { $first: "$rol" },
-            number_phone: { $first: "$number_phone" },
-            email: { $first: "$email" },
-            creation_date: { $first: "$creation_date" }
-        }
-    },
-    {
-        $match: {
-            rol: "Usuario"
-        }
-    },
-    {
-        $project: {
-            id: 1,
-            name: 1,
-            rol: 1,
-            number_phone: 1,
-            email: 1,
-            creation_date: {
-                date: {
-                    $dateToString: {
-                        date: "$creation_date",
-                        format: "%Y-%m-%d"
-                    }
-                },
-                hour: {
-                    $dateToString: {
-                        date: "$creation_date",
-                        format: "%H:%M:%S"
-                    }
-                }
-            }
-        }
-    },
-    {
-        $sort: { creation_date: 1 }
-    }
-]);
 
 //? INCIDENCIAS
 
