@@ -1,5 +1,4 @@
 import { new_collection } from "../connection/connection.js";
-import autoIncrementar from "../helpers/auto_increment.js";
 
 class User{
     _id;
@@ -20,16 +19,65 @@ class User{
         }
     }
 
-    async get_user(id){
+    async get_user(data){
         try {
             // inicia la connexión con mongo
             const con = await this.connection();
-            // valida que el campo id no esté vació, y si lo está, retorna todos los usuarios
-            if(!id) return await con.find({}).toArray();
-            // si el campo id no está vacío, realiza la consulta
-            return await con.aggregate([
+
+            const { id, rol } = data;
+
+            console.log(data);
+
+            let result;
+
+            // retorna todos los usuarios
+            if(!id && !rol) result = await con.aggregate([
                 {
-                    $match: { "id": parseInt(id) }
+                    $group: {
+                        _id: "$_id",
+                        name: { $first: "$name" },
+                        rol: { $first: "$rol" },
+                        number_phone: { $first: "$number_phone" },
+                        email: { $first: "$email" },
+                        creation_date: { $first: "$creation_date" }
+                    }
+                },
+                {
+                    $project: {
+                        id: 1,
+                        name: 1,
+                        rol: 1,
+                        number_phone: 1,
+                        email: 1,
+                        creation_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    $sort: {
+                        creation_date: 1,
+                    }
+                }
+            ]).toArray();
+
+            // usuarios por rol
+            if(!id && rol) result = await con.aggregate([
+                {
+                    $match: {
+                        "rol": rol
+                    }
                 },
                 {
                     $group: {
@@ -64,20 +112,15 @@ class User{
                         }
                     }
                 }
-            ]);
+            ]).toArray();
 
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    async get_user_date(date){
-        try {
-            const con = await this.connection();
-
-            if(!date) return await con.find({}).toArray();
-
-            return await con.aggregate([
+            // usuarios por id
+            if(id && !rol)  result = await con.aggregate([
+                {
+                    $match: {
+                        "id": Number(id)
+                    }
+                },
                 {
                     $group: {
                         _id: "$_id",
@@ -87,9 +130,6 @@ class User{
                         email: { $first: "$email" },
                         creation_date: { $first: "$creation_date" }
                     }
-                },
-                {
-                    $match: { creation_date: date }
                 },
                 {
                     $project: {
@@ -114,62 +154,70 @@ class User{
                         }
                     }
                 }
-            ]);
+            ]).toArray();
+
+            // console.log(result);
+            return result;
 
         } catch (error) {
             throw error;
         }
     }
 
-    async get_user_rol(rol){
-        try {
-            const con = await this.connection();
+    // async get_user_id(id){
+    //     try {
+    //         // inicia la connexión con mongo
+    //         const id_ = id;
+    //         const con = await this.connection();
 
-            if(!rol) return await con.find({}).toArray();
+    //         // retorna todos los usuarios
+    //         if(!id) return 
+    //         return await con.aggregate([
+    //             {
+    //                 $group: {
+    //                     _id: "$_id",
+    //                     name: { $first: "$name" },
+    //                     rol: { $first: "$rol" },
+    //                     number_phone: { $first: "$number_phone" },
+    //                     email: { $first: "$email" },
+    //                     creation_date: { $first: "$creation_date" }
+    //                 }
+    //             },
+    //             {
+    //                 $project: {
+    //                     id: 1,
+    //                     name: 1,
+    //                     rol: 1,
+    //                     number_phone: 1,
+    //                     email: 1,
+    //                     creation_date: {
+    //                         date: {
+    //                             $dateToString: {
+    //                                 date: "$creation_date",
+    //                                 format: "%Y-%m-%d"
+    //                             }
+    //                         },
+    //                         hour: {
+    //                             $dateToString: {
+    //                                 date: "$creation_date",
+    //                                 format: "%H:%M:%S"
+    //                             }
+    //                         }
+    //                     }
+    //                 }
+    //             },
+    //             {
+    //                 $sort: {
+    //                     creation_date: 1,
+    //                 }
+    //             }
+    //         ]);
 
-            return await con.aggregate([
-                {
-                    $group: {
-                        _id: "$_id",
-                        name: { $first: "$name" },
-                        rol: { $first: "$rol" },
-                        number_phone: { $first: "$number_phone" },
-                        email: { $first: "$email" },
-                        creation_date: { $first: "$creation_date" }
-                    }
-                },
-                {
-                    $match: { "rol": rol }
-                },
-                {
-                    $project: {
-                        id: 1,
-                        name: 1,
-                        rol: 1,
-                        number_phone: 1,
-                        email: 1,
-                        creation_date: {
-                            date: {
-                                $dateToString: {
-                                    date: "$creation_date",
-                                    format: "%Y-%m-%d"
-                                }
-                            },
-                            hour: {
-                                $dateToString: {
-                                    date: "$creation_date",
-                                    format: "%H:%M:%S"
-                                }
-                            }
-                        }
-                    }
-                }
-            ]);
-
-        } catch (error) {
-            throw error;
-        }
-    }
+    //     } catch (error) {
+    //         throw error;
+    //     }
+    // }
+    // async get_user_rol(id, rol)
 
     async delete_user(id){
         try {
