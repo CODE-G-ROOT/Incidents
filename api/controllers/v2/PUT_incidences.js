@@ -2,7 +2,7 @@
 import { update_incidence } from "../../services/PUT.js";
 import { rateLimit } from "express-rate-limit";
 
-export const update_incidence = async (req, res, next) => {
+export const update_incidence_controller = async (req, res, next) => {
     try {
         const data = req.body;
         const { id } = req.query;
