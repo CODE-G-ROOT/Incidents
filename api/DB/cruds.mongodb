@@ -380,6 +380,13 @@ db.incidents.aggregate([
         $unwind: "$report"
     },
     {
+        $match: {
+            "equipment": {
+                name: "Pantalla"
+            }
+        }
+    },
+    {
         $group: {
             _id: "$_id",
             category: { $first: "$category" },
@@ -574,8 +581,8 @@ db.incidents.aggregate([
         $match: {
             //eso va a ser dinámico
             equipment: {
-                name:"Pantalla"
-            } 
+                name: "Pantalla"
+            }
         }
     },
     {
@@ -671,8 +678,8 @@ db.incidents.aggregate([
         $match: {
             //eso va a ser dinámico
             equipment: {
-                marca:"Compumax"
-            } 
+                marca: "Compumax"
+            }
         }
     },
     {
@@ -768,8 +775,8 @@ db.incidents.aggregate([
         $match: {
             //eso va a ser dinámico
             equipment: {
-                cod:"PT-145"
-            } 
+                cod: "PT-145"
+            }
         }
     },
     {
@@ -866,7 +873,7 @@ db.incidents.aggregate([
             //eso va a ser dinámico
             location: {
                 area: "Review" // y los otros
-            } 
+            }
         }
     },
     {
