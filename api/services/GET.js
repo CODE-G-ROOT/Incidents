@@ -1,28 +1,18 @@
 import Incidents from "../collections/incidents.js";
 import User from "../collections/users.js";
 
-
+// relaciona los métodos de la clase con los controladores
 const incidents = new Incidents();
 const user = new User();
-// se exportan constantes que son funciones que instancian
-// las clases ya construidas para poder utilizar sus metodos
-export const get_user = async(id) => {
-    return await user.get_user(id);
-};
 
-// retorna el listado de usuarios ordenados por fecha de creación
-export const get_user_date = async(date) => {
-    return await user.get_user_date(date);
-};
-
-// obtiene todos los usuarios relacionados a ese rol
-export const get_user_rol = async(rol) => {
-    return await user.get_user_rol(rol);
+// si hay id en los parámetros, lo pasa, si no, lanza todos
+export const get_user_id = async(data) => {
+    return await user.get_user(data);
 };
 
 // obtiene todas las incidencias o solo una incidencia según el parámetro
-export const get_incidences = async(id) => {
-    return await incidents.get_incidences(id);
+export const get_incidences = async(data) => {
+    return await incidents.get_incidences(data);
 };
 
 // organiza las incidencias por fechas de la más reciente a la menos reciente
@@ -35,8 +25,8 @@ export const get_incidences_state = async(status) => {
 };
 
 // incidencia por equipos; esta también es dinámica
-export const get_incidences_equipo = async(nam, mar, cod) => {
-    return await incidents.get_incidences_equipo(nam, mar, cod);
+export const get_incidences_equipo = async(data) => {
+    return await incidents.get_incidences_equipo(data);
 };
 
 // ubicación de la incidencia; esta es dinámica
