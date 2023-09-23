@@ -1,12 +1,10 @@
 import express from 'express';
-// import routesVersioning from 'express-routes-versioning';
-const app = express();
+import app from './routers/router.js';
+const exp = express();
 
-app.use(express.json());
 
-// app.use("/token", token);
-
-// app.use("/api");
-export default app
+exp.use(express.json());
+exp.use('/', app)
+export default exp
 
 
