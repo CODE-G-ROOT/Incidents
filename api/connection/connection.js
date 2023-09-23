@@ -1,26 +1,30 @@
+import data from "../../auto_setting.js";
 import { MongoClient } from "mongodb";
 
-let conn = undefined;
+export async function connect(){
+    try {
+        
+        const url = 'mongodb+srv://JuanDev856:juan856@juandev856.ikw3dq6.mongodb.net/';
+        const client = await MongoClient.connect(url);
+        const con = client.db("incidents_system")
+        return con
 
-const connect_String = '';
-const cliente = new MongoClient(connect_String);
-
-try {
-    conn = await cliente.connect();
-} catch (error) {
-    console.error(error);
-};
-
-let db = conn.db('incidets_system');
-
-const new_collection = async (col)=>{
-    return  await db.createCollection(col);
+    } catch (error) {
+        return { status: 500, message: error.message }
+    }
 }
 
-export {new_collection};
-export default db;
+//? VERIFICAR LA CONNEXIÓN DESCOMENTANDo EL SIGUIENTE SCRIPT
+// (async () => {
+//     try {
+//         const db = await connect();
+//         console.log(db); // Aquí puedes imprimir o utilizar la conexión a la base de datos
+//     } catch (error) {
+//         console.error(error);
+//     }
+// })();
 
-
-
-
-
+export const new_collection = async (col) => {
+    const db = await connect();
+    return await db.collection(col)
+}
