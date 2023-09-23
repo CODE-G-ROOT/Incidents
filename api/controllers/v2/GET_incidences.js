@@ -1,11 +1,16 @@
-import { use } from "passport";
-import { get_incidences, get_incidences_date, get_incidences_equipo, get_incidences_location, get_incidences_report, get_incidences_state, get_user, get_user_date, get_user_rol } from "../../services/GET.js";
+// import { use } from "passport";
+import * as services from "../../services/GET.js";
 import { rateLimit } from "express-rate-limit";
 
-export const get_user = async (req, res, next) => {
+//*check
+export const get_user_controller = async (req, res, next) => {
     try {
-        const { id } = req.query;
-        const user = await get_user(id);
+
+        const data = req.query;
+        
+        console.log(data);
+
+        const user = await services.get_user_id(data);
 
         user.length > 0
             ? res.status(302).send(user)
@@ -14,7 +19,7 @@ export const get_user = async (req, res, next) => {
                 reference: "https://http.cat/400"
             });
 
-        console.log(req.rateLimit);
+        // console.log(req.rateLimit);
 
     } catch (error) {
         console.error(error);
@@ -22,150 +27,67 @@ export const get_user = async (req, res, next) => {
     next();
 };
 
-export const get_user_date = async (req, res, next) => {
+//*check
+export const get_incidences_controller = async (req, res, next) => {
     try {
-        const { date } = req.query;
-        const user = await get_user_date(date);
+        
+        const data = req.query;
+        
+        console.log(data);
 
-        user.length > 0
-            ? res.status(302).send(user)
+        const incidence = await services.get_incidences(data);
+
+        incidence.length > 0
+            ? res.status(302).send(incidence)
             : res.status(400).send({
                 message: "Query not found",
                 reference: "https://http.cat/400"
-            })
+            });
 
         console.log(req.rateLimit);
+
+    } catch (error) {
+        console.error(error);;
+        res.status(500).json({
+            message: error.message,
+            reference: "https://http.cat/500"
+        })
+    }
+    next();
+};
+
+//TODO PENDIENTE
+export const get_incidences_equipo_controller = async (req, res, next) => {
+    try {
+
+        const data = req.query;
+
+        // console.log(data);
+
+        const incidence = await services.get_incidences_equipo(data);
+
+        console.log(incidence);
+
+        incidence.length > 0
+            ? res.status(302).send(incidence)
+            : res.status(400).send({
+                message: "Query not found",
+                reference: "https://http.cat/400"
+            });
+
+        // console.log(req.rateLimit);
 
     } catch (error) {
         console.error(error);
-        res.status(500).json({
-            message: error,
+        res.status(500).send({
+            message: error.message,
             reference: "https://http.cat/500"
         })
     }
     next();
 };
 
-export const get_user_rol = async (req, res, next) => {
-    try {
-        const { rol } = req.query;
-        const user = await get_user_rol(rol);
-
-        user.length > 0
-            ? res.status(302).send(use)
-            : res.status(400).send({
-                message: "Query not found",
-                reference: "https://http.cat/400"
-            });
-
-        console.log(req.rateLimit);
-
-    } catch (error) {
-        console.error(error);;
-        res.status(500).json({
-            message: error,
-            reference: "https://http.cat/500"
-        })
-    }
-    next();
-};
-
-export const get_incidences = async (res, res, next) => {
-    try {
-        const { id } = req.query;
-        const incidence = await get_incidences(id);
-
-        incidence.length > 0
-            ? res.status(302).send(incidence)
-            : res.status(400).send({
-                message: "Query not found",
-                reference: "https://http.cat/400"
-            });
-
-        console.log(req.rateLimit);
-
-    } catch (error) {
-        console.error(error);;
-        res.status(500).json({
-            message: error,
-            reference: "https://http.cat/500"
-        })
-    }
-    next();
-};
-
-export const get_incidences_date = async (req, res, next) => {
-    try {
-        const incidence = await get_incidences_date();
-
-        incidence.length > 0
-            ? res.status(302).send(incidence)
-            : res.status(400).send({
-                message: "Query not found",
-                reference: "https://http.cat/400"
-            });
-
-        console.log(req.rateLimit);
-
-    } catch (error) {
-        console.error(error);;
-        res.status(500).json({
-            message: error,
-            reference: "https://http.cat/500"
-        })
-    }
-    next();
-};
-
-export const get_incidences_state = async (res, req, next) => {
-    try {
-        const { status } = req.query;
-        const incidence = await get_incidences_state(status);
-
-        incidence.length > 0
-            ? res.status(302).send(incidence)
-            : res.status(400).send({
-                message: "Query not found",
-                reference: "https://http.cat/400"
-            });
-
-        console.log(req.rateLimit);
-
-    } catch (error) {
-        console.error(error);;
-        res.status(500).json({
-            message: error,
-            reference: "https://http.cat/500"
-        })
-    }
-    next();
-};
-
-export const get_incidences_equipo = async (res, req, next) => {
-    try {
-        const { nam, mar, cod } = req.query;
-        const incidence = await get_incidences_equipo(nam, mar, cod);
-
-        incidence.length > 0
-            ? res.status(302).send(incidence)
-            : res.status(400).send({
-                message: "Query not found",
-                reference: "https://http.cat/400"
-            });
-
-        console.log(req.rateLimit);
-
-    } catch (error) {
-        console.error(error);;
-        res.status(500).json({
-            message: error,
-            reference: "https://http.cat/500"
-        })
-    }
-    next();
-};
-
-export const get_incidences_location = async (res, req, next) => {
+export const get_incidences_location_controller = async (res, req, next) => {
     try {
         const { area, pizza, room } = req.query;
         const incidence = await get_incidences_location(area, pizza, room);
@@ -178,7 +100,7 @@ export const get_incidences_location = async (res, req, next) => {
             });
 
         console.log(req.rateLimit);
-        
+
     } catch (error) {
         console.error(error);;
         res.status(500).json({
@@ -189,10 +111,10 @@ export const get_incidences_location = async (res, req, next) => {
     next();
 };
 
-export const get_incidences_report = async (res, req, next) => {
+export const get_incidences_report_controller = async (res, req, next) => {
     try {
-        const { area, pizza, room } = req.query;
-        const incidence = await get_incidences_report(area, pizza, room);
+        const { id } = req.query;
+        const incidence = await get_incidences_report(id);
 
         incidence.length > 0
             ? res.status(302).send(incidence)
@@ -202,7 +124,7 @@ export const get_incidences_report = async (res, req, next) => {
             });
 
         console.log(req.rateLimit);
-        
+
     } catch (error) {
         console.error(error);;
         res.status(500).json({
