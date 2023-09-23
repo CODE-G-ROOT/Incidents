@@ -1,7 +1,7 @@
 import { rateLimit } from "express-rate-limit";
-import { post_incidence } from "../../services/POST";
+import { post_incidence } from "../../services/POST.js";
 
-export const post_incidence = async (req, res, next) => {
+export const post_incidence_controller = async (req, res, next) => {
     if (!rateLimit) return;
     try {
 
