@@ -140,7 +140,7 @@ class Incidents {
                     $unwind: "$report"
                 },
                 {
-                    $match : { "id": Number(id) }
+                    $match: { "id": Number(id) }
                 },
                 {
                     $group: {
@@ -516,7 +516,7 @@ class Incidents {
                     $unwind: "$report"
                 },
                 {
-                    $match: { "status": status, "category": category  }
+                    $match: { "status": status, "category": category }
                 },
                 {
                     $group: {
@@ -1519,7 +1519,7 @@ class Incidents {
                             "room": rom
                         }
                     }
-                },    
+                },
                 {
                     $lookup: {
                         from: "users",
@@ -1615,7 +1615,7 @@ class Incidents {
                     $match: {
                         "location.area": are
                     }
-                },    
+                },
                 {
                     $lookup: {
                         from: "users",
@@ -1704,14 +1704,14 @@ class Incidents {
                     $sort: { creation_date: 1 }
                 }
             ]).toArray();
-            
+
             //solo pizza
             if (!are && piz && !rom) return await con.aggregate([
                 {
                     $match: {
                         "location.pizza": piz,
                     }
-                },    
+                },
                 {
                     $lookup: {
                         from: "users",
@@ -1807,7 +1807,7 @@ class Incidents {
                     $match: {
                         "location.room": rom
                     }
-                },    
+                },
                 {
                     $lookup: {
                         from: "users",
@@ -1896,7 +1896,7 @@ class Incidents {
                     $sort: { creation_date: 1 }
                 }
             ]).toArray();
-            
+
             // area y pizza
             if (are && piz && !rom) return await con.aggregate([
                 {
@@ -1906,7 +1906,7 @@ class Incidents {
                             "pizza": piz,
                         }
                     }
-                },    
+                },
                 {
                     $lookup: {
                         from: "users",
@@ -1995,7 +1995,7 @@ class Incidents {
                     $sort: { creation_date: 1 }
                 }
             ]).toArray();
-            
+
             // area y room 
             if (!are && !piz && rom) return await con.aggregate([
                 {
@@ -2005,7 +2005,7 @@ class Incidents {
                             "room": rom
                         }
                     }
-                },    
+                },
                 {
                     $lookup: {
                         from: "users",
@@ -2104,7 +2104,7 @@ class Incidents {
                             "room": rom
                         }
                     }
-                },    
+                },
                 {
                     $lookup: {
                         from: "users",
@@ -2205,7 +2205,7 @@ class Incidents {
             const { id, nam } = data
             const con = await this.connection();
 
-            if(id && !nam) return await con.aggregate([
+            if (id && !nam) return await con.aggregate([
                 {
                     $lookup: {
                         from: "users",
@@ -2217,7 +2217,7 @@ class Incidents {
                 {
                     $unwind: "$report"
                 },
-                
+
                 {
                     $group: {
                         _id: "$_id",
@@ -2297,10 +2297,10 @@ class Incidents {
                         },
                     }
                 },
-                
+
             ]).toArray();
 
-            if(nam && !id) return await con.aggregate([
+            if (nam && !id) return await con.aggregate([
                 {
                     $lookup: {
                         from: "users",
@@ -2312,7 +2312,7 @@ class Incidents {
                 {
                     $unwind: "$report"
                 },
-                
+
                 {
                     $group: {
                         _id: "$_id",
@@ -2392,7 +2392,7 @@ class Incidents {
                         },
                     }
                 },
-                
+
             ]).toArray();
 
         } catch (error) {
@@ -2412,14 +2412,137 @@ class Incidents {
         }
     }
 
-    async update_incidence(id, data) {
+    async update_incidence(id, body) {
         try {
+
             const con = await this.connection();
-            let body = { ...data, "update_date": new Date(data.update_date) };
+
+            const {
+                category,
+                type,
+                description,
+                equipment,
+                location,
+                status,
+                observation,
+            } = body
+
+            const validate = await con.aggregate([
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "report_by",
+                        foreignField: "id",
+                        as: "report"
+                    }
+                },
+                {
+                    $unwind: "$report"
+                },
+                {
+                    $match: { "id": Number(id) }
+                },
+                {
+                    $group: {
+                        _id: "$_id",
+                        category: { $first: "$category" },
+                        type: { $first: "$type" },
+                        description: { $first: "$description" },
+                        equipment: { $first: "$equipment" },
+                        location: { $first: "$location" },
+                        status: { $first: "$status" },
+                        observation: { $first: "$observation" },
+                        creation_date: { $first: "$creation_date" },
+                        update_date: { $first: "$update_date" },
+                        close_date: { $first: "$close_date" },
+                        report_by: { $addToSet: "$report" },
+                    }
+                },
+                {
+                    $project: {
+                        category: 1,
+                        type: 1,
+                        description: 1,
+                        equipment: 1,
+                        location: 1,
+                        status: 1,
+                        observation: 1,
+                        creation_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        update_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$update_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        close_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$close_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$close_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        report_by: {
+                            name: 1,
+                            email: 1,
+                        },
+                    }
+                },
+                {
+                    $sort: { creation_date: 1 }
+                }
+            ]).toArray();
+
             const result = await con.updateOne(
-                { "id": parseInt(id) },
-                { $set: body }
-            );
+                {
+                    id: Number(id)
+                },
+                {
+                    $set: {
+                        category: category,
+                        type: type,
+                        description: description,
+                        equipment: equipment,
+                        location: location,
+                        status: status,
+                        observation: observation,
+                        update_date: new Date(),
+                    }
+            });
+
+            if(result.modifiedCount === 1) return {
+                error: 200,
+                message: "Document update",
+                doc: validate
+            }
+
             return result;
         } catch (error) {
             throw error;
