@@ -2552,10 +2552,15 @@ class Incidents {
     async delete_incidente(id) {
         try {
             const con = await this.connection();
+            const encontrada = await con.find({"id": Number(id)}).toArray();
             const result = await con.deleteOne({ "id": parseInt(id) });
-            return result;
+            console.log(result);
+            return {
+                encontrada,
+                result
+            };
         } catch (error) {
-
+            throw error
         }
     }
 }

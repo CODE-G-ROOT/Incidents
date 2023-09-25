@@ -9,6 +9,6 @@ export const delete_user = async(id) =>{
 };
 
 export const delete_incidente = async(id) => {
-    return incident.delete_incidente({"id": parseInt(id)});
+    return incident.delete_incidente(id);
 };
 
