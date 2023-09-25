@@ -45,8 +45,6 @@ db.createCollection("users", {
 });
 
 db.createCollection("incidents", {
-    capped: true,
-    size: 300,
     validator: {
         $jsonSchema: {
             bsonType: "object",
@@ -89,8 +87,7 @@ db.createCollection("incidents", {
                     description: "description field is required and must be type string"
                 },
                 equipment: {
-                    bsonType: ["null", "object"],
-                    required: ["name", "marca", "cod"],
+                    bsonType: ["object", "null"],
                     properties: {
                         name: {
                             bsonType: "string",
