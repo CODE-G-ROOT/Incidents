@@ -1,21 +1,18 @@
 
 import { update_incidence } from "../../services/PUT.js";
-import { rateLimit } from "express-rate-limit";
 
 export const update_incidence_controller = async (req, res, next) => {
     try {
-        const data = req.body;
+        const body = req.body;
         const { id } = req.query;
-        const incidente = await update_incidence(id, data);
+        const incidente = await update_incidence(id, body);
 
-        incidente.length > 0
-            ? res.status(302).send(user)
+        incidente.error === 200
+            ? res.status(200).send(incidente)
             : res.status(400).send({
                 message: "Query not found",
                 reference: "https://http.cat/400"
             });
-
-        console.log(req.rateLimit);
 
     } catch (error) {
 
