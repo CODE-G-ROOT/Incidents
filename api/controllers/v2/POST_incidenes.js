@@ -6,7 +6,7 @@ export const post_incidence_controller = async (req, res, next) => {
 
         const data = req.body
         const incidence = await post_incidence(data);
-
+        console.log(incidence);
         if(incidence.error === 302)  return res.status(302).send(incidence)
 
         incidence.length > 0

@@ -1,11 +1,15 @@
 import express from 'express';
-import auth from './routers/auth.routers.js';
-import dashboard from './routers/dashboard.routers.js';
-import incidences from './routers/incidences.routers.js';
-import user from './routers/users.routers.js';
+import * as ejs from 'ejs';
+import auth from './routers/auth.routes.js';
+import dashboard from './routers/dashboard.routes.js';
+import incidences from './routers/incidences.routes.js';
+import user from './routers/users.routes.js';
 
 const exp = express();
 
+// SETTINGS
+
+// Routes
 
 exp.use(express.json());
 exp.use('/auth', auth)

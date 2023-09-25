@@ -2404,8 +2404,41 @@ class Incidents {
         try {
             const con = await this.connection();
             let new_id = await autoIncrementar("incidents", "id");
-            let body = { "id": new_id, ...data, "creation_date": new Date(data.creation_date), "update_date": new Date(data.update_date), close_date: null };
-            const results = await con.inserOne(body);
+
+            const {
+                category,
+                type,
+                description,
+                equipment,
+                location,
+                status,
+                observation,
+                report_by,
+            } = data;
+
+            const validar = await con.findOne(data);
+            console.log(validar);
+            if(validar) return {
+                error: 302,
+                message: "This document already exist",
+                document: validar
+            };
+
+            let body = { 
+                "id": new_id, 
+                "category": category,
+                "type": type,
+                "description": description,
+                "equipment": equipment,
+                "location": location,
+                "status": status,
+                "observation": observation,
+                "report_by": report_by,
+                "creation_date": new Date(), 
+                "update_date": new Date(), 
+                close_date: null 
+            };
+            const results = await con.insertOne(body);
             return results;
         } catch (error) {
             throw error;

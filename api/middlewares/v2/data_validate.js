@@ -41,7 +41,7 @@ const incidents = [
         .isString().withMessage("description field must be type string"),
 
     check(`${incidencia.equipment}`)
-        .notEmpty().withMessage("equipment field cannot be empty")
+        .optional()
         .isJSON().withMessage("equipment field must be type JSON"),
 
     check(`${incidencia.location}`)
@@ -53,7 +53,7 @@ const incidents = [
         .isString().withMessage("status field must be type string"),
 
     check(`${incidencia.observation}`)
-        .optional().withMessage("optional field is optional")
+        .notEmpty().withMessage("optional field is required and must be type string")
         .isString().withMessage("type field must be type string"),
 
     check(`${incidencia.creation_date}`)
@@ -65,7 +65,7 @@ const incidents = [
         .isDate().withMessage("update_date field must be type date"),
 
     check(`${incidencia.close_date}`)
-        .optional().withMessage("update_date field is optional")
+        .optional()
         .isDate().withMessage("update_date field must be type date"),
 
     check(`${incidencia.report_by}`)
