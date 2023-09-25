@@ -30,11 +30,11 @@ export const get_incidences_equipo = async(data) => {
 };
 
 // ubicación de la incidencia; esta es dinámica
-export const get_incidences_location = async(area, pizza, room) => {
-    return await incidents.get_incidences_location(area, pizza, room);
+export const get_incidences_location = async(data) => {
+    return await incidents.get_incidences_location(data);
 };
 
 // retorna la incidencia de la persona relacionada con el id
-export const get_incidences_report = async(id) => {
-    return await incidents.get_incidences_report(id);
+export const get_incidences_report = async(data) => {
+    return await incidents.get_incidences_report(data);
 };

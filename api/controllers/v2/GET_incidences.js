@@ -62,11 +62,14 @@ export const get_incidences_equipo_controller = async (req, res, next) => {
 
         const data = req.query;
 
-        // console.log(data);
+        // if (!data.id || !data.nam || !data.cod) return res.status(400).send({
+        //     message: "Query not found",
+        //     reference: "https://http.cat/400"
+        // });
 
         const incidence = await services.get_incidences_equipo(data);
 
-        console.log(incidence);
+        // console.log(incidence);
 
         incidence.length > 0
             ? res.status(302).send(incidence)
@@ -87,10 +90,11 @@ export const get_incidences_equipo_controller = async (req, res, next) => {
     next();
 };
 
-export const get_incidences_location_controller = async (res, req, next) => {
+export const get_incidences_location_controller = async (req, res, next) => {
     try {
-        const { area, pizza, room } = req.query;
-        const incidence = await get_incidences_location(area, pizza, room);
+        const data = req.query;
+
+        const incidence = await services.get_incidences_location(data);
 
         incidence.length > 0
             ? res.status(302).send(incidence)
@@ -111,10 +115,10 @@ export const get_incidences_location_controller = async (res, req, next) => {
     next();
 };
 
-export const get_incidences_report_controller = async (res, req, next) => {
+export const get_incidences_report_controller = async (req, res, next) => {
     try {
-        const { id } = req.query;
-        const incidence = await get_incidences_report(id);
+        const data = req.query;
+        const incidence = await services.get_incidences_report(data);
 
         incidence.length > 0
             ? res.status(302).send(incidence)

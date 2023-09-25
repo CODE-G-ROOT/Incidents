@@ -1500,734 +1500,26 @@ class Incidents {
         }
     }
 
-    async get_incidences_location(area, pizza, room) {
+    async get_incidences_location(data) {
         try {
+
+            const { are, piz, rom } = data;
 
             const con = await this.connection();
 
-            if (area && pizza && room) {
-                const results = con.aggregate([
-                    {
-                        $lookup: {
-                            from: "users",
-                            localField: "report_by",
-                            foreignField: "id",
-                            as: "report"
+            console.log(data);
+
+            // todo
+            if (are && piz && rom) return await con.aggregate([
+                {
+                    $match: {
+                        "location": {
+                            "area": are,
+                            "pizza": piz,
+                            "room": rom
                         }
-                    },
-                    {
-                        $unwind: "$report"
-                    },
-                    {
-                        $match: {
-                            location: {
-                                "area": area,
-                                "pizza": pizza,
-                                "room": room
-                            }
-                        }
-                    },
-                    {
-                        $group: {
-                            _id: "$_id",
-                            category: { $first: "$category" },
-                            type: { $first: "$type" },
-                            description: { $first: "$description" },
-                            equipment: { $first: "$equipment" },
-                            location: { $first: "$location" },
-                            status: { $first: "$status" },
-                            observation: { $first: "$observation" },
-                            creation_date: { $first: "$creation_date" },
-                            update_date: { $first: "$update_date" },
-                            close_date: { $first: "$close_date" },
-                            report_by: { $addToSet: "$report" },
-                        }
-                    },
-                    {
-                        $project: {
-                            category: 1,
-                            type: 1,
-                            description: 1,
-                            equipment: 1,
-                            location: 1,
-                            status: 1,
-                            observation: 1,
-                            creation_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            update_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$update_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            close_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$close_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$close_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            report_by: {
-                                name: 1,
-                                email: 1,
-                            },
-                        }
-                    },
-                    {
-                        $sort: { creation_date: 1 }
                     }
-                ]);
-
-                return results;
-            }
-
-            else if (area && room && !pizza) {
-                const results = con.aggregate([
-                    {
-                        $lookup: {
-                            from: "users",
-                            localField: "report_by",
-                            foreignField: "id",
-                            as: "report"
-                        }
-                    },
-                    {
-                        $unwind: "$report"
-                    },
-                    {
-                        $match: {
-                            location: {
-                                "area": area,
-                                "room": room
-                            }
-                        }
-                    },
-                    {
-                        $group: {
-                            _id: "$_id",
-                            category: { $first: "$category" },
-                            type: { $first: "$type" },
-                            description: { $first: "$description" },
-                            equipment: { $first: "$equipment" },
-                            location: { $first: "$location" },
-                            status: { $first: "$status" },
-                            observation: { $first: "$observation" },
-                            creation_date: { $first: "$creation_date" },
-                            update_date: { $first: "$update_date" },
-                            close_date: { $first: "$close_date" },
-                            report_by: { $addToSet: "$report" },
-                        }
-                    },
-                    {
-                        $project: {
-                            category: 1,
-                            type: 1,
-                            description: 1,
-                            equipment: 1,
-                            location: 1,
-                            status: 1,
-                            observation: 1,
-                            creation_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            update_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$update_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            close_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$close_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$close_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            report_by: {
-                                name: 1,
-                                email: 1,
-                            },
-                        }
-                    },
-                    {
-                        $sort: { creation_date: 1 }
-                    }
-                ]);
-
-                return results;
-            }
-
-            else if (area && pizza && !room) {
-                const results = con.aggregate([
-                    {
-                        $lookup: {
-                            from: "users",
-                            localField: "report_by",
-                            foreignField: "id",
-                            as: "report"
-                        }
-                    },
-                    {
-                        $unwind: "$report"
-                    },
-                    {
-                        $match: {
-                            location: {
-                                "area": area,
-                                "pizza": pizza,
-                            }
-                        }
-                    },
-                    {
-                        $group: {
-                            _id: "$_id",
-                            category: { $first: "$category" },
-                            type: { $first: "$type" },
-                            description: { $first: "$description" },
-                            equipment: { $first: "$equipment" },
-                            location: { $first: "$location" },
-                            status: { $first: "$status" },
-                            observation: { $first: "$observation" },
-                            creation_date: { $first: "$creation_date" },
-                            update_date: { $first: "$update_date" },
-                            close_date: { $first: "$close_date" },
-                            report_by: { $addToSet: "$report" },
-                        }
-                    },
-                    {
-                        $project: {
-                            category: 1,
-                            type: 1,
-                            description: 1,
-                            equipment: 1,
-                            location: 1,
-                            status: 1,
-                            observation: 1,
-                            creation_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            update_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$update_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            close_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$close_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$close_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            report_by: {
-                                name: 1,
-                                email: 1,
-                            },
-                        }
-                    },
-                    {
-                        $sort: { creation_date: 1 }
-                    }
-                ]);
-
-                return results;
-            }
-
-            else if (area && !pizza && !room) {
-                const results = con.aggregate([
-                    {
-                        $lookup: {
-                            from: "users",
-                            localField: "report_by",
-                            foreignField: "id",
-                            as: "report"
-                        }
-                    },
-                    {
-                        $unwind: "$report"
-                    },
-                    {
-                        $match: {
-                            location: {
-                                "area": area,
-                            }
-                        }
-                    },
-                    {
-                        $group: {
-                            _id: "$_id",
-                            category: { $first: "$category" },
-                            type: { $first: "$type" },
-                            description: { $first: "$description" },
-                            equipment: { $first: "$equipment" },
-                            location: { $first: "$location" },
-                            status: { $first: "$status" },
-                            observation: { $first: "$observation" },
-                            creation_date: { $first: "$creation_date" },
-                            update_date: { $first: "$update_date" },
-                            close_date: { $first: "$close_date" },
-                            report_by: { $addToSet: "$report" },
-                        }
-                    },
-                    {
-                        $project: {
-                            category: 1,
-                            type: 1,
-                            description: 1,
-                            equipment: 1,
-                            location: 1,
-                            status: 1,
-                            observation: 1,
-                            creation_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            update_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$update_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            close_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$close_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$close_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            report_by: {
-                                name: 1,
-                                email: 1,
-                            },
-                        }
-                    },
-                    {
-                        $sort: { creation_date: 1 }
-                    }
-                ]);
-
-                return results;
-            }
-
-            else if (pizza && room && !area) {
-                const results = con.aggregate([
-                    {
-                        $lookup: {
-                            from: "users",
-                            localField: "report_by",
-                            foreignField: "id",
-                            as: "report"
-                        }
-                    },
-                    {
-                        $unwind: "$report"
-                    },
-                    {
-                        $match: {
-                            location: {
-                                "pizza": pizza,
-                                "room": room
-                            }
-                        }
-                    },
-                    {
-                        $group: {
-                            _id: "$_id",
-                            category: { $first: "$category" },
-                            type: { $first: "$type" },
-                            description: { $first: "$description" },
-                            equipment: { $first: "$equipment" },
-                            location: { $first: "$location" },
-                            status: { $first: "$status" },
-                            observation: { $first: "$observation" },
-                            creation_date: { $first: "$creation_date" },
-                            update_date: { $first: "$update_date" },
-                            close_date: { $first: "$close_date" },
-                            report_by: { $addToSet: "$report" },
-                        }
-                    },
-                    {
-                        $project: {
-                            category: 1,
-                            type: 1,
-                            description: 1,
-                            equipment: 1,
-                            location: 1,
-                            status: 1,
-                            observation: 1,
-                            creation_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            update_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$update_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            close_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$close_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$close_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            report_by: {
-                                name: 1,
-                                email: 1,
-                            },
-                        }
-                    },
-                    {
-                        $sort: { creation_date: 1 }
-                    }
-                ]);
-
-                return results;
-            }
-
-            else if (!pizza && room && !area) {
-                const results = con.aggregate([
-                    {
-                        $lookup: {
-                            from: "users",
-                            localField: "report_by",
-                            foreignField: "id",
-                            as: "report"
-                        }
-                    },
-                    {
-                        $unwind: "$report"
-                    },
-                    {
-                        $match: {
-                            location: {
-                                "room": room,
-                            }
-                        }
-                    },
-                    {
-                        $group: {
-                            _id: "$_id",
-                            category: { $first: "$category" },
-                            type: { $first: "$type" },
-                            description: { $first: "$description" },
-                            equipment: { $first: "$equipment" },
-                            location: { $first: "$location" },
-                            status: { $first: "$status" },
-                            observation: { $first: "$observation" },
-                            creation_date: { $first: "$creation_date" },
-                            update_date: { $first: "$update_date" },
-                            close_date: { $first: "$close_date" },
-                            report_by: { $addToSet: "$report" },
-                        }
-                    },
-                    {
-                        $project: {
-                            category: 1,
-                            type: 1,
-                            description: 1,
-                            equipment: 1,
-                            location: 1,
-                            status: 1,
-                            observation: 1,
-                            creation_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            update_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$update_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            close_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$close_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$close_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            report_by: {
-                                name: 1,
-                                email: 1,
-                            },
-                        }
-                    },
-                    {
-                        $sort: { creation_date: 1 }
-                    }
-                ]);
-
-                return results;
-            }
-
-            else if (pizza && !room && !area) {
-                const results = con.aggregate([
-                    {
-                        $lookup: {
-                            from: "users",
-                            localField: "report_by",
-                            foreignField: "id",
-                            as: "report"
-                        }
-                    },
-                    {
-                        $unwind: "$report"
-                    },
-                    {
-                        $match: {
-                            location: {
-                                "pizza": pizza,
-                            }
-                        }
-                    },
-                    {
-                        $group: {
-                            _id: "$_id",
-                            category: { $first: "$category" },
-                            type: { $first: "$type" },
-                            description: { $first: "$description" },
-                            equipment: { $first: "$equipment" },
-                            location: { $first: "$location" },
-                            status: { $first: "$status" },
-                            observation: { $first: "$observation" },
-                            creation_date: { $first: "$creation_date" },
-                            update_date: { $first: "$update_date" },
-                            close_date: { $first: "$close_date" },
-                            report_by: { $addToSet: "$report" },
-                        }
-                    },
-                    {
-                        $project: {
-                            category: 1,
-                            type: 1,
-                            description: 1,
-                            equipment: 1,
-                            location: 1,
-                            status: 1,
-                            observation: 1,
-                            creation_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            update_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$update_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$creation_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            close_date: {
-                                date: {
-                                    $dateToString: {
-                                        date: "$close_date",
-                                        format: "%Y-%m-%d"
-                                    }
-                                },
-                                hour: {
-                                    $dateToString: {
-                                        date: "$close_date",
-                                        format: "%H:%M:%S"
-                                    }
-                                }
-                            },
-                            report_by: {
-                                name: 1,
-                                email: 1,
-                            },
-                        }
-                    },
-                    {
-                        $sort: { creation_date: 1 }
-                    }
-                ]);
-
-                return results;
-            };
-
-        } catch (error) {
-            throw error;
-        }
-    }
-
-    async get_incidences_report(id) {
-        try {
-
-            const con = await this.connection();
-
-            const results = con.aggregate([
+                },    
                 {
                     $lookup: {
                         from: "users",
@@ -2238,11 +1530,6 @@ class Incidents {
                 },
                 {
                     $unwind: "$report"
-                },
-                {
-                    $match: {
-                        report_by: id
-                    }
                 },
                 {
                     $group: {
@@ -2317,9 +1604,797 @@ class Incidents {
                         },
                     }
                 },
-            ]);
+                {
+                    $sort: { creation_date: 1 }
+                }
+            ]).toArray();
 
-            return results;
+            // solo area
+            if (are && !piz && !rom) return await con.aggregate([
+                {
+                    $match: {
+                        "location.area": are
+                    }
+                },    
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "report_by",
+                        foreignField: "id",
+                        as: "report"
+                    }
+                },
+                {
+                    $unwind: "$report"
+                },
+                {
+                    $group: {
+                        _id: "$_id",
+                        category: { $first: "$category" },
+                        type: { $first: "$type" },
+                        description: { $first: "$description" },
+                        equipment: { $first: "$equipment" },
+                        location: { $first: "$location" },
+                        status: { $first: "$status" },
+                        observation: { $first: "$observation" },
+                        creation_date: { $first: "$creation_date" },
+                        update_date: { $first: "$update_date" },
+                        close_date: { $first: "$close_date" },
+                        report_by: { $addToSet: "$report" },
+                    }
+                },
+                {
+                    $project: {
+                        category: 1,
+                        type: 1,
+                        description: 1,
+                        equipment: 1,
+                        location: 1,
+                        status: 1,
+                        observation: 1,
+                        creation_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        update_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$update_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        close_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$close_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$close_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        report_by: {
+                            name: 1,
+                            email: 1,
+                        },
+                    }
+                },
+                {
+                    $sort: { creation_date: 1 }
+                }
+            ]).toArray();
+            
+            //solo pizza
+            if (!are && piz && !rom) return await con.aggregate([
+                {
+                    $match: {
+                        "location.pizza": piz,
+                    }
+                },    
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "report_by",
+                        foreignField: "id",
+                        as: "report"
+                    }
+                },
+                {
+                    $unwind: "$report"
+                },
+                {
+                    $group: {
+                        _id: "$_id",
+                        category: { $first: "$category" },
+                        type: { $first: "$type" },
+                        description: { $first: "$description" },
+                        equipment: { $first: "$equipment" },
+                        location: { $first: "$location" },
+                        status: { $first: "$status" },
+                        observation: { $first: "$observation" },
+                        creation_date: { $first: "$creation_date" },
+                        update_date: { $first: "$update_date" },
+                        close_date: { $first: "$close_date" },
+                        report_by: { $addToSet: "$report" },
+                    }
+                },
+                {
+                    $project: {
+                        category: 1,
+                        type: 1,
+                        description: 1,
+                        equipment: 1,
+                        location: 1,
+                        status: 1,
+                        observation: 1,
+                        creation_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        update_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$update_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        close_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$close_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$close_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        report_by: {
+                            name: 1,
+                            email: 1,
+                        },
+                    }
+                },
+                {
+                    $sort: { creation_date: 1 }
+                }
+            ]).toArray();
+
+            // solo room
+            if (!are && !piz && rom) return await con.aggregate([
+                {
+                    $match: {
+                        "location.room": rom
+                    }
+                },    
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "report_by",
+                        foreignField: "id",
+                        as: "report"
+                    }
+                },
+                {
+                    $unwind: "$report"
+                },
+                {
+                    $group: {
+                        _id: "$_id",
+                        category: { $first: "$category" },
+                        type: { $first: "$type" },
+                        description: { $first: "$description" },
+                        equipment: { $first: "$equipment" },
+                        location: { $first: "$location" },
+                        status: { $first: "$status" },
+                        observation: { $first: "$observation" },
+                        creation_date: { $first: "$creation_date" },
+                        update_date: { $first: "$update_date" },
+                        close_date: { $first: "$close_date" },
+                        report_by: { $addToSet: "$report" },
+                    }
+                },
+                {
+                    $project: {
+                        category: 1,
+                        type: 1,
+                        description: 1,
+                        equipment: 1,
+                        location: 1,
+                        status: 1,
+                        observation: 1,
+                        creation_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        update_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$update_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        close_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$close_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$close_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        report_by: {
+                            name: 1,
+                            email: 1,
+                        },
+                    }
+                },
+                {
+                    $sort: { creation_date: 1 }
+                }
+            ]).toArray();
+            
+            // area y pizza
+            if (are && piz && !rom) return await con.aggregate([
+                {
+                    $match: {
+                        "location": {
+                            "area": are,
+                            "pizza": piz,
+                        }
+                    }
+                },    
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "report_by",
+                        foreignField: "id",
+                        as: "report"
+                    }
+                },
+                {
+                    $unwind: "$report"
+                },
+                {
+                    $group: {
+                        _id: "$_id",
+                        category: { $first: "$category" },
+                        type: { $first: "$type" },
+                        description: { $first: "$description" },
+                        equipment: { $first: "$equipment" },
+                        location: { $first: "$location" },
+                        status: { $first: "$status" },
+                        observation: { $first: "$observation" },
+                        creation_date: { $first: "$creation_date" },
+                        update_date: { $first: "$update_date" },
+                        close_date: { $first: "$close_date" },
+                        report_by: { $addToSet: "$report" },
+                    }
+                },
+                {
+                    $project: {
+                        category: 1,
+                        type: 1,
+                        description: 1,
+                        equipment: 1,
+                        location: 1,
+                        status: 1,
+                        observation: 1,
+                        creation_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        update_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$update_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        close_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$close_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$close_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        report_by: {
+                            name: 1,
+                            email: 1,
+                        },
+                    }
+                },
+                {
+                    $sort: { creation_date: 1 }
+                }
+            ]).toArray();
+            
+            // area y room 
+            if (!are && !piz && rom) return await con.aggregate([
+                {
+                    $match: {
+                        "location": {
+                            "area": are,
+                            "room": rom
+                        }
+                    }
+                },    
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "report_by",
+                        foreignField: "id",
+                        as: "report"
+                    }
+                },
+                {
+                    $unwind: "$report"
+                },
+                {
+                    $group: {
+                        _id: "$_id",
+                        category: { $first: "$category" },
+                        type: { $first: "$type" },
+                        description: { $first: "$description" },
+                        equipment: { $first: "$equipment" },
+                        location: { $first: "$location" },
+                        status: { $first: "$status" },
+                        observation: { $first: "$observation" },
+                        creation_date: { $first: "$creation_date" },
+                        update_date: { $first: "$update_date" },
+                        close_date: { $first: "$close_date" },
+                        report_by: { $addToSet: "$report" },
+                    }
+                },
+                {
+                    $project: {
+                        category: 1,
+                        type: 1,
+                        description: 1,
+                        equipment: 1,
+                        location: 1,
+                        status: 1,
+                        observation: 1,
+                        creation_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        update_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$update_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        close_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$close_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$close_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        report_by: {
+                            name: 1,
+                            email: 1,
+                        },
+                    }
+                },
+                {
+                    $sort: { creation_date: 1 }
+                }
+            ]).toArray();
+
+            // pizza y room
+            if (!are && piz && rom) return await con.aggregate([
+                {
+                    $match: {
+                        "location": {
+                            "pizza": piz,
+                            "room": rom
+                        }
+                    }
+                },    
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "report_by",
+                        foreignField: "id",
+                        as: "report"
+                    }
+                },
+                {
+                    $unwind: "$report"
+                },
+                {
+                    $group: {
+                        _id: "$_id",
+                        category: { $first: "$category" },
+                        type: { $first: "$type" },
+                        description: { $first: "$description" },
+                        equipment: { $first: "$equipment" },
+                        location: { $first: "$location" },
+                        status: { $first: "$status" },
+                        observation: { $first: "$observation" },
+                        creation_date: { $first: "$creation_date" },
+                        update_date: { $first: "$update_date" },
+                        close_date: { $first: "$close_date" },
+                        report_by: { $addToSet: "$report" },
+                    }
+                },
+                {
+                    $project: {
+                        category: 1,
+                        type: 1,
+                        description: 1,
+                        equipment: 1,
+                        location: 1,
+                        status: 1,
+                        observation: 1,
+                        creation_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        update_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$update_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        close_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$close_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$close_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        report_by: {
+                            name: 1,
+                            email: 1,
+                        },
+                    }
+                },
+                {
+                    $sort: { creation_date: 1 }
+                }
+            ]).toArray();
+
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async get_incidences_report(data) {
+        try {
+
+            const { id, nam } = data
+            const con = await this.connection();
+
+            if(id && !nam) return await con.aggregate([
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "report_by",
+                        foreignField: "id",
+                        as: "report"
+                    }
+                },
+                {
+                    $unwind: "$report"
+                },
+                
+                {
+                    $group: {
+                        _id: "$_id",
+                        category: { $first: "$category" },
+                        type: { $first: "$type" },
+                        description: { $first: "$description" },
+                        equipment: { $first: "$equipment" },
+                        location: { $first: "$location" },
+                        status: { $first: "$status" },
+                        observation: { $first: "$observation" },
+                        creation_date: { $first: "$creation_date" },
+                        update_date: { $first: "$update_date" },
+                        close_date: { $first: "$close_date" },
+                        report_by: { $addToSet: "$report" },
+                    }
+                },
+                {
+                    $match: {
+                        "report_by.id": Number(id)
+                    }
+                },
+                {
+                    $project: {
+                        category: 1,
+                        type: 1,
+                        description: 1,
+                        equipment: 1,
+                        location: 1,
+                        status: 1,
+                        observation: 1,
+                        creation_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        update_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$update_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        close_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$close_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$close_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        report_by: {
+                            id: 1,
+                            name: 1,
+                            email: 1,
+                        },
+                    }
+                },
+                
+            ]).toArray();
+
+            if(nam && !id) return await con.aggregate([
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "report_by",
+                        foreignField: "id",
+                        as: "report"
+                    }
+                },
+                {
+                    $unwind: "$report"
+                },
+                
+                {
+                    $group: {
+                        _id: "$_id",
+                        category: { $first: "$category" },
+                        type: { $first: "$type" },
+                        description: { $first: "$description" },
+                        equipment: { $first: "$equipment" },
+                        location: { $first: "$location" },
+                        status: { $first: "$status" },
+                        observation: { $first: "$observation" },
+                        creation_date: { $first: "$creation_date" },
+                        update_date: { $first: "$update_date" },
+                        close_date: { $first: "$close_date" },
+                        report_by: { $addToSet: "$report" },
+                    }
+                },
+                {
+                    $match: {
+                        "report_by.name": nam
+                    }
+                },
+                {
+                    $project: {
+                        category: 1,
+                        type: 1,
+                        description: 1,
+                        equipment: 1,
+                        location: 1,
+                        status: 1,
+                        observation: 1,
+                        creation_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        update_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$update_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        close_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$close_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$close_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        report_by: {
+                            id: 1,
+                            name: 1,
+                            email: 1,
+                        },
+                    }
+                },
+                
+            ]).toArray();
+
         } catch (error) {
             throw error;
         }
@@ -2328,7 +2403,7 @@ class Incidents {
     async post_incidence(data) {
         try {
             const con = await this.connection();
-            let new_id = await autoIncrementar("incidents");
+            let new_id = await autoIncrementar("incidents", "id");
             let body = { "id": new_id, ...data, "creation_date": new Date(data.creation_date), "update_date": new Date(data.update_date), close_date: null };
             const results = await con.inserOne(body);
             return results;
