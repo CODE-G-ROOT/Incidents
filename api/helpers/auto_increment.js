@@ -1,8 +1,6 @@
 import { connect } from '../connection/connection.js'; // Importa la función 'connect' correctamente
 
 export default async function autoIncrementar(categoria, id) {
-    use("incidents_system");
-    
     try {
         const db = await connect(); // Utiliza la función 'connect' para obtener la conexión a la base de datos
         const data = await db.collection(categoria) // Utiliza la categoría para seleccionar la colección
