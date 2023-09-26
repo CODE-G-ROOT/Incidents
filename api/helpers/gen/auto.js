@@ -1,11 +1,14 @@
 import fs from 'fs/promises';
 
 const archivo = '.env';
-const contenido = `ATLAS_USER=""
-ATLAS_PASSWORD=""
-ATLAS_DB="incidents"
-JWT_PRIVATE_KEY="im_the_key"
-MY_SERVER={"hostname":"localhost","port":5510}
+const contenido = `
+ATLAS_DB="incidents_system"
+MONGO_ATLAS_CONNECT=""
+JWT_PRIVATE_KEY=""
+VITE_HOST=""
+VITE_FRONT_PORT=
+VITE_BACK_PORT=
+
 `;
 
 const setting_env_file = 'auto_setting.js';
@@ -14,18 +17,22 @@ const setting_env_contain = `import dotenv from 'dotenv';
 dotenv.config();
 
 const config = JSON.parse(JSON.stringify(process.env));
-const server = JSON.parse(config.MY_SERVER);
 
 const data = {
-    atlas_user: config.ATLAS_USER,
-    atlas_pass: config.ATLAS_PASSWORD,
-    atlas_db: config.ATLAS_DB,
-    privateKey: config.JWT_PRIVATE_KEY,
-    server: server,
-    key: config.JWT_PRIVATE_KEY
+    DB: config.ATLAS_DB,
+    CONNECTION: config.MONGO_ATLAS_CONNECT,
+    KEY: config.JWT_PRIVATE_KEY || "asñdlkfjas",
+    SERVER_FRONT: {
+        host: config.VITE_HOST || "localhost",
+        port: config.VITE_FRONT_PORT || 5520
+    },
+    SERVER_BACK: {
+        host: config.VITE_HOST  || "localhost",
+        port: config.VITE_BACK_PORT || 5510
+    }
 };
 
-export default data;
+export default data
 `;
 
 // Función para verificar si un archivo existe
