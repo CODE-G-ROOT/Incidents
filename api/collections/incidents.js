@@ -51,6 +51,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -66,6 +67,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -144,7 +147,8 @@ class Incidents {
                 },
                 {
                     $group: {
-                        _id: "$_id",
+                        id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -160,6 +164,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -238,7 +244,8 @@ class Incidents {
                 },
                 {
                     $group: {
-                        _id: "$_id",
+                        id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -254,6 +261,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -333,6 +342,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -348,6 +358,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -427,6 +439,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -442,6 +455,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -521,6 +536,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -536,6 +552,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -615,6 +633,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -630,6 +649,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -709,6 +730,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -724,6 +746,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -821,6 +845,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -836,6 +861,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -919,6 +946,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -934,6 +962,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -1017,6 +1047,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -1032,6 +1063,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -1115,6 +1148,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -1130,6 +1164,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -1214,6 +1250,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -1229,6 +1266,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -1313,6 +1352,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -1328,6 +1368,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -1412,6 +1454,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -1427,6 +1470,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -1534,6 +1579,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -1549,6 +1595,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -1630,6 +1678,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -1645,6 +1694,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -1726,6 +1777,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -1741,6 +1793,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -1822,6 +1876,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -1837,6 +1892,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -1921,6 +1978,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -1936,6 +1994,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -2020,6 +2080,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -2035,6 +2096,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -2119,6 +2182,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -2134,6 +2198,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -2221,6 +2287,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -2241,6 +2308,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -2316,6 +2385,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -2336,6 +2406,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -2403,8 +2475,7 @@ class Incidents {
     async post_incidence(data) {
         try {
             const con = await this.connection();
-            let new_id = await autoIncrementar("incidents", "id");
-
+            // almacena la data y la reparte
             const {
                 category,
                 type,
@@ -2418,14 +2489,16 @@ class Incidents {
 
             const validar = await con.findOne(data);
             console.log(validar);
-            if(validar) return {
+            if (validar) return {
                 error: 302,
                 message: "This document already exist",
                 document: validar
             };
 
-            let body = { 
-                "id": new_id, 
+            let new_id = await autoIncrementar("incidents", "id");
+
+            let body = {
+                "id": new_id,
                 "category": category,
                 "type": type,
                 "description": description,
@@ -2434,9 +2507,9 @@ class Incidents {
                 "status": status,
                 "observation": observation,
                 "report_by": report_by,
-                "creation_date": new Date(), 
-                "update_date": new Date(), 
-                close_date: null 
+                "creation_date": new Date(),
+                "update_date": new Date(),
+                close_date: null
             };
             const results = await con.insertOne(body);
             return results;
@@ -2460,7 +2533,7 @@ class Incidents {
                 observation,
             } = body
 
-            const validate = await con.aggregate([
+            const doc_original = await con.aggregate([
                 {
                     $lookup: {
                         from: "users",
@@ -2478,6 +2551,7 @@ class Incidents {
                 {
                     $group: {
                         _id: "$_id",
+                        id: { $first: "$id" },
                         category: { $first: "$category" },
                         type: { $first: "$type" },
                         description: { $first: "$description" },
@@ -2493,6 +2567,8 @@ class Incidents {
                 },
                 {
                     $project: {
+                        _id: 0,
+                        id: 1,
                         category: 1,
                         type: 1,
                         description: 1,
@@ -2570,10 +2646,107 @@ class Incidents {
                     }
             });
 
-            if(result.modifiedCount === 1) return {
+            const doc_update = await con.aggregate([
+                {
+                    $lookup: {
+                        from: "users",
+                        localField: "report_by",
+                        foreignField: "id",
+                        as: "report"
+                    }
+                },
+                {
+                    $unwind: "$report"
+                },
+                {
+                    $match: { "id": Number(id) }
+                },
+                {
+                    $group: {
+                        _id: "$_id",
+                        id: { $first: "$id" },
+                        category: { $first: "$category" },
+                        type: { $first: "$type" },
+                        description: { $first: "$description" },
+                        equipment: { $first: "$equipment" },
+                        location: { $first: "$location" },
+                        status: { $first: "$status" },
+                        observation: { $first: "$observation" },
+                        creation_date: { $first: "$creation_date" },
+                        update_date: { $first: "$update_date" },
+                        close_date: { $first: "$close_date" },
+                        report_by: { $addToSet: "$report" },
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        id: 1,
+                        category: 1,
+                        type: 1,
+                        description: 1,
+                        equipment: 1,
+                        location: 1,
+                        status: 1,
+                        observation: 1,
+                        creation_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        update_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$update_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        close_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$close_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$close_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        },
+                        report_by: {
+                            name: 1,
+                            email: 1,
+                        },
+                    }
+                },
+                {
+                    $sort: { creation_date: 1 }
+                }
+            ]).toArray();
+
+            if (result.modifiedCount === 1) return {
                 error: 200,
                 message: "Document update",
-                doc: validate
+                last_update: doc_original,
+                new_update: doc_update
             }
 
             return result;
@@ -2585,7 +2758,7 @@ class Incidents {
     async delete_incidente(id) {
         try {
             const con = await this.connection();
-            const encontrada = await con.find({"id": Number(id)}).toArray();
+            const encontrada = await con.find({ "id": Number(id) }).toArray();
             const result = await con.deleteOne({ "id": parseInt(id) });
             console.log(result);
             return {
