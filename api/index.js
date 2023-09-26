@@ -1,5 +1,5 @@
 import express from 'express';
-import * as ejs from 'ejs';
+// import * as ejs from 'ejs';
 import auth from './routers/auth.routes.js';
 import dashboard from './routers/dashboard.routes.js';
 import incidences from './routers/incidences.routes.js';
