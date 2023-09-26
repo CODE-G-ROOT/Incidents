@@ -15,9 +15,11 @@
     "class-transformer": "^0.5.1",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
+    "ejs": "^3.1.9",
     "express": "^4.18.2",
     "express-rate-limit": "^7.0.1",
     "express-routes-versioning": "^1.0.1",
+    "express-session": "^1.17.3",
     "express-validator": "^7.0.1",
     "jose": "^4.14.6",
     "localforage": "^1.10.0",
@@ -25,12 +27,13 @@
     "mongodb": "^6.1.0",
     "nodemon": "^3.0.1",
     "passport": "^0.6.0",
+    "passport-discord": "^0.1.4",
     "passport-http-bearer": "^1.0.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.16.0",
     "reflect-metadata": "^0.1.13",
-    "sort-by": "^1.2.0"
+    "sort-by": "^0.0.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

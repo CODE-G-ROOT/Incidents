@@ -1,4 +1,3 @@
-import data from "../../auto_setting.js";
 import { MongoClient } from "mongodb";
 
 export async function connect(){
