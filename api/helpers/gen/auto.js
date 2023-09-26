@@ -8,6 +8,8 @@ JWT_PRIVATE_KEY=""
 VITE_HOST=""
 VITE_FRONT_PORT=
 VITE_BACK_PORT=
+DISCORD_CLIENT_ID=1156187400515629086
+DISCORD_CLIENT_SECRET=HdUu45e7nlJ4ZnQhaoMqRzgh8NP0bgY_
 
 `;
 
@@ -29,6 +31,10 @@ const data = {
     SERVER_BACK: {
         host: config.VITE_HOST  || "localhost",
         port: config.VITE_BACK_PORT || 5510
+    },
+    CREDENTIALS_DISCORD: {
+        CLIENT: config.DISCORD_CLIENT_ID,
+        CLIENT_SECRET: config.DISCORD_CLIENT_SECRET
     }
 };
 
