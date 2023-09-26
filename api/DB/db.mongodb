@@ -111,10 +111,6 @@ db.createCollection("incidents", {
                             bsonType: "string",
                             description: "area field is required and must be type string"
                         },
-                        pizza: {
-                            bsonType: "string",
-                            description: "pizza field is required and must be type string"
-                        },
                         salón: {
                             bsonType: "string",
                             description: "salón field is required and must be type string"
