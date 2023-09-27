@@ -5,11 +5,13 @@ const contenido = `
 ATLAS_DB="incidents_system"
 MONGO_ATLAS_CONNECT=""
 JWT_PRIVATE_KEY=""
+SERCRET_KEY=""
 VITE_HOST=""
 VITE_FRONT_PORT=
 VITE_BACK_PORT=
 DISCORD_CLIENT_ID=1156187400515629086
 DISCORD_CLIENT_SECRET=HdUu45e7nlJ4ZnQhaoMqRzgh8NP0bgY_
+DISCORD_URL="https://discord.com/api/oauth2/authorize?client_id=1156187400515629086&redirect_uri=http%3A%2F%2Flocalhost%3A5510%2Fauth%2Fredirect&response_type=code&scope=identify%20guilds%20email%20guilds.join%20role_connections.write"
 
 `;
 
@@ -23,7 +25,10 @@ const config = JSON.parse(JSON.stringify(process.env));
 const data = {
     DB: config.ATLAS_DB,
     CONNECTION: config.MONGO_ATLAS_CONNECT,
-    KEY: config.JWT_PRIVATE_KEY || "asñdlkfjas",
+    KEYS: {
+        JWT: config.JWT_PRIVATE_KEY || "asñdlkfjas",
+        SECRET: config.SERCRET_KEY
+    },
     SERVER_FRONT: {
         host: config.VITE_HOST || "localhost",
         port: config.VITE_FRONT_PORT || 5520
@@ -34,8 +39,10 @@ const data = {
     },
     CREDENTIALS_DISCORD: {
         CLIENT: config.DISCORD_CLIENT_ID,
-        CLIENT_SECRET: config.DISCORD_CLIENT_SECRET
-    }
+        CLIENT_SECRET: config.DISCORD_CLIENT_SECRET,
+        URL: config.DISCORD_URL
+    },
+
 };
 
 export default data

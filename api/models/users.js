@@ -24,14 +24,14 @@ class User {
             // inicia la connexión con mongo
             const con = await this.connection();
 
-            const { id, rol } = data;
+            const { id, rol, nam } = data;
 
             console.log(data);
 
             let result;
 
             // retorna todos los usuarios
-            if (!id && !rol) result = await con.aggregate([
+            if (!id && !rol && !nam) result = await con.aggregate([
                 {
                     $group: {
                         _id: "$_id",
@@ -75,7 +75,7 @@ class User {
             ]).toArray();
 
             // usuarios por rol
-            if (!id && rol) result = await con.aggregate([
+            if (!id && rol && !nam) result = await con.aggregate([
                 {
                     $match: {
                         "rol": rol
@@ -117,10 +117,54 @@ class User {
             ]).toArray();
 
             // usuarios por id
-            if (id && !rol) result = await con.aggregate([
+            if (id && !rol && !nam) result = await con.aggregate([
                 {
                     $match: {
                         "id": Number(id)
+                    }
+                },
+                {
+                    $group: {
+                        _id: "$_id",
+                        id: { $first: "$id" }, _id: 0,
+                        name: { $first: "$name" },
+                        rol: { $first: "$rol" },
+                        number_phone: { $first: "$number_phone" },
+                        email: { $first: "$email" },
+                        creation_date: { $first: "$creation_date" }
+                    }
+                },
+                {
+                    $project: {
+                        _id: 0,
+                        id: 1, id: 1,
+                        name: 1,
+                        rol: 1,
+                        number_phone: 1,
+                        email: 1,
+                        creation_date: {
+                            date: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%Y-%m-%d"
+                                }
+                            },
+                            hour: {
+                                $dateToString: {
+                                    date: "$creation_date",
+                                    format: "%H:%M:%S"
+                                }
+                            }
+                        }
+                    }
+                }
+            ]).toArray();
+
+            // usuarios por nombre
+            if(!id && !rol && nam ) result = await con.aggregate([
+                {
+                    $match: {
+                        "name":nam
                     }
                 },
                 {

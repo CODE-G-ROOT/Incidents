@@ -1,8 +1,8 @@
 import { Router } from "express";
+import checkAuthentication from './helpers/passport/auth.js';
+
 const dashboard = Router();
-
-dashboard.get('/', (req, res)=>{
-    res.send('dashboard')
+dashboard.get('/dashboard', checkAuthentication, (req, res) => {
+    res.sendFile('dashboard.jsx', { root: '../src/components'});
 });
-
 export default dashboard;

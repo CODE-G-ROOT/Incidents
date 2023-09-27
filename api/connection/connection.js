@@ -13,7 +13,8 @@ export async function connect(){
     }
 }
 
-//? VERIFICAR LA CONNEXIÓN DESCOMENTANDo EL SIGUIENTE SCRIPT
+//? Verifica la conexión descomentando el siguiente script
+
 // (async () => {
 //     try {
 //         const db = await connect();

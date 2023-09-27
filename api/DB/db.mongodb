@@ -11,6 +11,8 @@ function autoIncrementar (categoria, id){
     return lastNumber + 1;
 }
 
+db.createCollection("discord");
+
 db.createCollection("users", {
     validator: {
         $jsonSchema: {
