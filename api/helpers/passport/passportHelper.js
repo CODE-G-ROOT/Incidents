@@ -1,7 +1,7 @@
 import passport from "passport";
 import { Strategy } from "passport-discord";
 import data from "../../../auto_setting.js";
-import { connect } from "../../connection/connection.js";
+import { connect, new_collection } from "../../connection/connection.js";
 import autoIncrementar from "../auto_increment.js";
 // import incidences from "../../routers/incidences.routes.js";
 
@@ -45,20 +45,23 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       try {
 
-        const con = await connect();
-        const discord = await con.collection('discord');
+        const con = await new_collection('discord');
+        // const discord = await connect.collection('discord');
+        console.log(await con.findOne());
 
-        let exist_user = await discord.findOne({ discord_id: profile.id }).toArray()
+        const exist_user = await con.findOne(); // está retornando null
 
-        if (exist_user.lenght == 0) return done(null, exist_user);
+        // console.log( exist_user );
+
+        if (exist_user === null) return done(null, exist_user);
 
         let new_user = {
           id_user: ( await autoIncrementar("discord", "id_user") ),
           username: profile.username,
-          global_name: profile.global_name,
-          discord_id: profile.id,
-          id_rol: 2,
-          created_in: new Date()
+          // global_name: profile.global_name,
+          // discord_id: profile.id,
+          // id_rol: 2,
+          // created_in: new Date()
         };
 
         await discord.inserOne(new_user);
