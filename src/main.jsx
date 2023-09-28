@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
@@ -34,6 +35,8 @@ ReactDOM.createRoot( document.getElementById('root')).render(
 
 
 =======
+=======
+>>>>>>> aee391d (feat: :construction: TEsting react)
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 // import App from './components/Bienvenidos.jsx'
@@ -51,4 +54,43 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </Oficial_Login>
   </React.StrictMode>,
 )
+<<<<<<< HEAD
 >>>>>>> f3b048e (feat: :construction: Contrucción login)
+=======
+=======
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+
+//? styles
+
+import './App.css'
+
+//? Components
+
+import { App } from './App';
+
+ReactDOM.createRoot( document.getElementById('root')).render(
+    <React.StrictMode>
+        <App />
+    </React.StrictMode>
+);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> bcf0076 (feat: :construction: TEsting react)
+>>>>>>> aee391d (feat: :construction: TEsting react)
