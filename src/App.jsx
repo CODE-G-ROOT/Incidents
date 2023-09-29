@@ -1,21 +1,29 @@
 import PropTypes from "prop-types";
 
-
-const new_message = 'Juan';
-
+import { useState } from "react";
 
 
-export const App = ({ title }) => {
+export const App = ({ value }) => {
 
-    console.log(title);
+    //? Hooks
+    const [count, setCount ] = useState(value);
 
-    return (<>
-        <h1>{ title }</h1>
-        <h1>{ cout }</h1>
+    //? Handlers
+    const change_sum_value = () => setCount(count +1);
+    const change_res_value = () => setCount(count -1);
+    const change_reset_value = () => setCount(value);
+
+    return (
+    <>
+        <h1>Counter APP</h1>
+        <h3>{ count }</h3>
+        <button onClick={ change_sum_value } >+1</button>
+        <button onClick={ change_res_value } >-1</button>
+        <button onClick={ change_reset_value } > reset </button>
     </>);
 };
 
 
-App.propTypes = {
-    title: PropTypes.string.isRequired
-}
+// App.propTypes = {
+//     title: PropTypes.string.isRequired
+// }
