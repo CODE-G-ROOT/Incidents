@@ -1127,7 +1127,7 @@ class Incidents {
                 }
             ]).toArray();
 
-            // //retorna por codigo
+            //retorna por codigo
             if (!nam && !mar && cod) return con.aggregate([
                 {
                     $lookup: {
@@ -1228,7 +1228,7 @@ class Incidents {
                 }
             ]).toArray();
 
-            // //retorna por nombre y marca
+            //retorna por nombre y marca
             if (nam && mar && !cod) return con.aggregate([
                 {
                     $lookup: {
