@@ -11,7 +11,7 @@ VITE_FRONT_PORT=
 VITE_BACK_PORT=
 DISCORD_CLIENT_ID=1156187400515629086
 DISCORD_CLIENT_SECRET=HdUu45e7nlJ4ZnQhaoMqRzgh8NP0bgY_
-DISCORD_URL="https://discord.com/api/oauth2/authorize?client_id=1156187400515629086&redirect_uri=http%3A%2F%2Flocalhost%3A5510%2Fauth%2Fredirect&response_type=code&scope=identify%20guilds%20email%20guilds.join%20role_connections.write"
+DISCORD_URL="http://localhost:5510/login/redirect"
 
 `;
 
