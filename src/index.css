@@ -1,3 +1,29 @@
-body {
-    background: #1D283A;
+.container {
+    width: 550px;
+    height: 750px;
+    flex-shrink: 0;
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.title {
+    text-shadow: 9px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+.input {
+    width: 350px;
+    height: 45px;
+}
+
+.input::placeholder {
+    text-indent: 30px;
+}
+
+.para_span {
+    color: #FFF;
+    font-family: Sansation Light;
+    font-size: 17px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
 }
