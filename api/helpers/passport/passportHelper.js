@@ -1,36 +1,27 @@
 import passport from "passport";
 import { Strategy } from "passport-discord";
 import data from "../../../auto_setting.js";
-import { connect, new_collection } from "../../connection/connection.js";
+import { connect as connectToMongoDB } from "../../connection/connection.js";
 import autoIncrementar from "../auto_increment.js";
-// import incidences from "../../routers/incidences.routes.js";
-
 
 const discord = data.CREDENTIALS_DISCORD;
 
-
 passport.serializeUser((user, done) => {
-  done(null, user[0].id_user);
+  done(null, user.id);
 });
 
 passport.deserializeUser(async (id, done) => {
   try {
-
-    const con = await connect();
-    //? Esta colección es temporal
-    //? Toca esperar a la validación, para ver si pasa y validar que datos pasan
-    //? cuando eso pase, se cambiará a la colección de "user"
-    const collection = await con.collection('discord');
-    const user = await collection.findOne({ id_user: id });
+    const db = await connectToMongoDB();
+    const users = db.collection("users");
+    const user = await users.findOne({ id });
 
     done(null, user);
-
   } catch (error) {
-
     done(error, null);
-
   }
 });
+
 
 
 passport.use(
@@ -39,151 +30,55 @@ passport.use(
       clientID: discord.CLIENT,
       clientSecret: discord.CLIENT_SECRET,
       callbackURL: discord.URL,
-      scope: ['identify', 'guilds']
+      scope: ['identify', 'guilds', 'guilds.join', 'guilds.members.read'],
     },
 
     async (accessToken, refreshToken, profile, done) => {
       try {
+        const db = await connectToMongoDB();
+        const users = db.collection("users");
 
-        const con = await new_collection('discord');
-        // const discord = await connect.collection('discord');
-        console.log(await con.findOne());
+        console.log('Estoy en la db: '+ db);
+        console.log('Soy el usuario: '+ users);
 
-        const exist_user = await con.findOne(); // está retornando null
+        const existUser = await users.findOne({ id: profile.id });
 
-        // console.log( exist_user );
+        console.log('existo? ' + existUser);
 
-        if (exist_user === null) return done(null, exist_user);
+        if (existUser) {
+          profile.id_user = existUser.id_user;
+          profile.avatar = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}`;
+          return done(null, profile);
+        } else {
+          const isInServer = profile.guilds.some(guild => guild.id === discord.server);
 
-        let new_user = {
-          id_user: ( await autoIncrementar("discord", "id_user") ),
-          username: profile.username,
-          // global_name: profile.global_name,
-          // discord_id: profile.id,
-          // id_rol: 2,
-          // created_in: new Date()
-        };
+          if (profile.guilds.length < 1 || !isInServer) {
+            return done(null, false, { message: "401" });
+          } else {
+            const newUser = {
+              id_user: await autoIncrementar("user", "id_user"),
+              username: profile.username,
+              global_name: profile.global_name,
+              discord_id: profile.id,
+              authentication: profile.guilds,
+              rol: 'user',
+              created_in: new Date(),
+            };
 
-        await discord.inserOne(new_user);
-        done(null, new_user); 
+            console.log(newUser);
 
-      } catch (error) {
-
-        console.error(error);
-        return done(error, null)
+            profile.id_user = newUser.id_user;
+            profile.avatar = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}`;
+            await users.insertOne(newUser);
+            return done(null, profile);
+          }
+        }
+      } catch (err) {
+        console.log(err);
+        return done(err, null);
       }
     }
   )
-)
+);
 
 export default passport;
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import passport from "passport";
-// import data from "../../../auto_setting.js";
-// import { Strategy as DiscordStrategy } from "passport-discord";
-// import { connect } from "../../connection/connection.js";
-
-// passport.serializeUser((user, done) => {
-//     console.log("serializeUser");
-//     done(null, user.discordId);
-// });
-
-// passport.deserializeUser(async (id, done) => {
-//     try {
-//         const db = await con();
-//         const collection = db.collection("discord");
-//         const user = await collection.find({ discordId: id });
-
-//         if (!user) {
-//             return done(new Error('Usuario no encontrado'), null);
-//         }
-
-//         return done(null, user);
-
-//     } catch (error) {
-//         console.error(error);
-
-//         return done(error, null);
-//     }
-// });
-
-// const scopes = ['identify', 'email', 'guilds', 'guilds.join']
-
-// passport.use(
-//     new DiscordStrategy(
-//         {
-//             clientID: data.CREDENTIALS_DISCORD.CLIENT,
-//             clientSecret: data.CREDENTIALS_DISCORD.CLIENT_SECRET,
-//             callbackURL: data.CREDENTIALS_DISCORD.DISCROD_URL,
-//             scope: scopes
-//         },
-
-//         async (accessToken, refreshToken, profile, cb) => {
-//             try {
-
-//                 const db = await connect();
-//                 const collection = db.collection("discord");
-//                 const exist_user = await collection.findOne({ discordId: profile.id });
-
-//                 console.log(exist_user);
-
-//                 if (exist_user) return cb(null, exist_user);
-
-//                 const new_user = {
-//                     discordId: profile.id,
-//                     username: profile.username,
-//                     global_name: profile.global_name,
-//                     email: profile.email,
-//                     guilds: profile.guilds,
-//                 };
-//                 const result = await collection.insertOne(new_user);
-
-//                 if (!result.acknowledged) return cb(new Error('Error al crear un nuevo usuario'), null);
-
-//                 console.log(profile);
-
-//                 return cb(null, new_user);
-
-
-//             } catch (error) {
-
-//                 console.log(error);
-//                 return cb(error, null)
-//             }
-//         }
-//     )
-// );
-
-// export default passport;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
