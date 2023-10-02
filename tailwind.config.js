@@ -11,8 +11,14 @@ export default {
         extend: {
             colors: {
                 'regal-blue': '#243c5a',
+                'dark-blue' : '#1D283A',
+                'relax' : '#1D283A'
             }
         },
+        fontFamily: {
+            'title_login' : ['Sansation Light', 'Sansation', 'Secular One' ,'Scope One' ,'Sarala', 'Sawarabi Gothic', 'Scada']
+        }
     },
+    
     plugins: [nextui()],
 }

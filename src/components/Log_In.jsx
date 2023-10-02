@@ -1,84 +1,95 @@
-// import { useState } from 'react'
-// import './App.css'
-// /** @type {import('tailwindcss').Config} */
-// module.exports = {
-//     content: ["./src/**/*.{html,js}"],
-//     theme: {
-//         extend: {},
-//     },
-//     plugins: [],
-// }
+//? Next UI
+import { NextUIProvider, useDisclosure } from "@nextui-org/react";
 
-{/* import tailwind
-            <link href="/dist/output.css" rel="stylesheet"></link>
- */}
+//? SVG - ICONS
+import Apple_Icon from '../assets/svg/Apple_icon_.svg';
+import Google_Icon from '../assets/svg/Google_icon_.svg';
+import Discord from '../assets/svg/Discord_icon_.svg';
 
-import { NextUIProvider } from "@nextui-org/react";
+//? SVG - ADDS
+import Small_line from '../assets/svg/Small_line.svg';
+import Big_line from '../assets/svg/Big_line.svg';
+import Title_line from '../assets/svg/Title_line.svg';
+
+//? Backgrounds
+import Bb_Login from '../assets/svg/Background_Log_in_.svg';
+import Bb_Panel from '../assets/svg/Background_Panel_.svg';
+
+// //? Enviroment Variables
+// import data from '../../auto_setting.js';
+
+// const { SERVER_FRONT: { host, port } } = data;
 
 function Login() {
-    // const [count, setCount] = useState(0)
+
+    const { isOpen, onOpen, onOpenChange } = useDisclosure();
+
+    const Login = async () => {
+        try {
+            let response = await fetch`http://localhost:5146/`;
+            if (response.ok) {
+                window.location.href = "http://localhost:5146/login"
+            }
+        } catch (error) {
+            let type = error.name;
+            type == "TypeError"
+                ? onOpen()
+                : console.log(error.name);
+        }
+    };
+
+    //? Cambiar el a w-full y h-full bg-relax
 
     return (
         <>
-            <NextUIProvider>
-                <div className="container_login">
-                    <div className="container_container_login">
+            <div className="w-[561px] h-[825px] bg-white bg-opacity-5 rounded-[22px] flex flex-col text-center items-center ">
+                <div className="flex flex-col items-center pt-32">
+                    <h1 className="w-[306px] h-[84px] text-white text-[79px] font-light font-['Sansation Light'] title">SIGN IN</h1>
+                    <img
+                        className="p-14"
+                        src={Title_line}
+                    />
+                </div>
+                <div className="flex flex-col space-y-10">
+                    <input
+                        type="text"
+                        placeholder='Username'
+                        className="input rounded-2xl"
+                    />
 
-                        <h1 className="text-3xl font-bold underline" >SIGN IN</h1>
-                        <hr className='line_sing_in' />
-
-                        <div className='container_inputs'>
-                            <input type="text" placeholder='Username' />
-                            <input type="password" placeholder='Password' />
-                        </div>
-
-                        <span className='forgot_password'>Forgot password ?</span>
-
-                        <div className='container_social_account'>
-                            {/* ? Linea del login account */}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="76" height="1" viewBox="0 0 76 1" fill="none">
-                                <path d="M0.444458 0.5H37.7778H75.1111" stroke="white" />
-                            </svg>
-
-                            <span>Login with account</span>
-
-                            {/* ? Linea cierre del login account */}
-                            <svg xmlns="http://www.w3.org/2000/svg" width="76" height="1" viewBox="0 0 76 1" fill="none">
-                                <path d="M0.444458 0.5H37.7778H75.1111" stroke="white" />
-                            </svg>
-                        </div>
-
-                        {/* icons */}
-                        <div className='icons_container'>
-
-                            {/* discord */}
-                            <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="38" viewBox="0 0 48 38" fill="none">
-                                    <path d="M40.5773 3.7126C37.4751 2.27497 34.171 1.21567 30.6905 0.610352C30.2617 1.367 29.7573 2.40108 29.4294 3.23339C25.7471 2.67852 22.0899 2.67852 18.4832 3.23339C18.1301 2.40108 17.6257 1.367 17.197 0.610352C13.7164 1.21567 10.4124 2.27497 7.31011 3.7126C1.05517 13.1455 -0.634678 22.3513 0.197633 31.4059C4.35919 34.5081 8.36941 36.3745 12.3292 37.6104C13.3128 36.2736 14.1704 34.836 14.927 33.3479C13.4894 32.8183 12.1274 32.1373 10.8411 31.3554C11.1942 31.1032 11.5221 30.8258 11.85 30.5735C19.7443 34.2559 28.2944 34.2559 36.0879 30.5735C36.4158 30.851 36.7436 31.1032 37.0967 31.3554C35.8104 32.1373 34.4233 32.793 33.0109 33.3479C33.7675 34.836 34.625 36.2736 35.6087 37.6104C39.5685 36.3745 43.6039 34.5081 47.7402 31.4059C48.7239 20.8885 46.0504 11.7835 40.6278 3.7126H40.5773ZM15.9863 25.8571C13.6155 25.8571 11.6734 23.6628 11.6734 20.9641C11.6734 18.2654 13.5651 16.0712 15.9863 16.0712C18.4076 16.0712 20.3244 18.2654 20.2992 20.9641C20.2992 23.6376 18.4076 25.8571 15.9863 25.8571ZM31.9011 25.8571C29.5303 25.8571 27.5882 23.6628 27.5882 20.9641C27.5882 18.2654 29.4798 16.0712 31.9011 16.0712C34.3224 16.0712 36.2392 18.2654 36.214 20.9641C36.214 23.6376 34.3224 25.8571 31.9011 25.8571Z" fill="white" />
-                                </svg>
-                            </div>
-
-                            {/* Apple */}
-                            <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="38" height="46" viewBox="0 0 38 46" fill="none">
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M35.1396 38.9558C36.479 36.9127 36.9784 35.8684 38 33.5756C30.4631 30.7152 29.2599 19.9774 36.706 15.8684C34.4359 13.008 31.235 11.3508 28.2157 11.3508C26.0363 11.3508 24.538 11.9184 23.1986 12.4405C22.0636 12.8719 21.042 13.2578 19.7707 13.2578C18.4086 13.2578 17.2055 12.8264 15.9342 12.3724C14.5494 11.873 13.0964 11.3508 11.2803 11.3508C7.89776 11.3508 4.28825 13.4167 1.9954 16.9581C-1.22821 21.9524 -0.660673 31.3054 4.53796 39.2963C6.39948 42.1567 8.89665 45.3576 12.143 45.403C13.505 45.4257 14.3904 45.0171 15.3666 44.5858C16.479 44.0864 17.6822 43.5415 19.7934 43.5415C21.9047 43.5188 23.0851 44.0864 24.1975 44.5858C25.151 45.0171 26.0136 45.4257 27.353 45.403C30.6447 45.3576 33.2781 41.8162 35.1396 38.9558Z" fill="white" />
-                                    <path fill-rule="evenodd" clip-rule="evenodd" d="M27.7396 0C28.1028 2.49716 27.0813 4.97164 25.7419 6.69696C24.3117 8.55848 21.8145 10.0113 19.4082 9.92054C18.9768 7.51419 20.0892 5.0397 21.4513 3.3825C22.9723 1.56638 25.5376 0.15891 27.7396 0Z" fill="white" />
-                                </svg>
-                            </div>
-
-                            {/* Google */}
-                            <div>
-                                <svg xmlns="http://www.w3.org/2000/svg" width="38" height="39" viewBox="0 0 38 39" fill="none">
-                                    <path d="M37.8837 17.8013C37.7867 16.8125 36.9531 16.0758 35.9643 16.0758H21.3265C20.2602 16.0758 19.3877 16.9482 19.3877 18.0145V21.3298C19.3877 22.3962 20.2602 23.2686 21.3265 23.2686H30.0704C29.8571 25.0523 28.6939 27.7472 26.1153 29.5503C24.4673 30.6941 22.2765 31.489 19.3877 31.489C19.252 31.489 19.1357 31.489 19 31.4696C14.0561 31.3145 9.86838 27.9992 8.35613 23.4431C7.94899 22.2217 7.71634 20.9421 7.71634 19.6043C7.71634 18.2666 7.94899 16.9676 8.33674 15.7655C8.45307 15.4166 8.58879 15.0676 8.74389 14.7186C10.5276 10.7054 14.4245 7.87472 19 7.73901C19.1163 7.71962 19.252 7.71962 19.3877 7.71962C22.1602 7.71962 24.2347 8.63083 25.6888 9.63899C26.4449 10.1625 27.4531 10.0461 28.1122 9.40634L30.8071 6.76962C31.6602 5.93595 31.5826 4.52062 30.6133 3.82266C27.5306 1.55429 23.7694 0.216553 19.3877 0.216553C19.252 0.216553 19.1357 0.216572 19 0.23596C11.5745 0.371674 5.19592 4.67576 2.07449 10.8992C0.756124 13.536 0 16.4829 0 19.6043C0 22.7258 0.756124 25.6727 2.07449 28.3094H2.09388C5.21531 34.5329 11.5939 38.837 19 38.9727C19.1357 38.9921 19.252 38.9921 19.3877 38.9921C24.6224 38.9921 29.0235 37.2666 32.2224 34.3003C35.8867 30.9074 38 25.9441 38 20.0309C38 19.1972 37.9612 18.4798 37.8837 17.8013Z" fill="white" />
-                                </svg>
-                            </div>
-
-                        </div>
+                    <input
+                        type="password"
+                        placeholder='Password'
+                        className="input rounded-2xl"
+                    />
+                </div>
+                <span
+                    className="w-[300px] h-[29px] text-white text-[17px] font-light font-['Sansation Light'] flex p-5">
+                    Forgot password ?
+                </span>
+                <div className="w-50 h-2 mt-14 flex flex-row items-center space-x-3">
+                    <div>
+                        <img
+                        className="w-20 h-px border-white" src={Small_line} alt="" />
+                    </div>
+                    <span className="w-30 h-7 text-stone-300 text-base font-light font-['Sansation Light']">Login with social account</span>
+                    <div>
+                        <img className="w-20 h-px border-white" src={Small_line} alt="" />
                     </div>
                 </div>
-            </NextUIProvider>
+                <div className='flex flex-row align-middle mt-12 space-x-10'>
+                    <div onClick={Login} className="cursor-pointer">
+                        <img className="w-14 h-14" src={Discord} />
+                    </div>
+                    <div>
+                        <img className="w-12 h-12" src={Apple_Icon} alt="" />
+                    </div>
+                    <div>
+                        <img className="w-10 h-14" src={Google_Icon} alt="" />
+                    </div>
+                </div>
+            </div>
         </>
     )
 }
-
 export default Login
