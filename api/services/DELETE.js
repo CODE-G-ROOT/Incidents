@@ -1,5 +1,5 @@
-import User from "../collections/users.js";
-import Incidents from "../collections/incidents.js";
+import User from "../models/users.js";
+import Incidents from "../models/incidents.js";
 
 const user = new User();
 const incident = new Incidents();

@@ -11,6 +11,8 @@ function autoIncrementar (categoria, id){
     return lastNumber + 1;
 }
 
+db.createCollection("discord");
+
 db.createCollection("users", {
     validator: {
         $jsonSchema: {
@@ -110,10 +112,6 @@ db.createCollection("incidents", {
                         area: {
                             bsonType: "string",
                             description: "area field is required and must be type string"
-                        },
-                        pizza: {
-                            bsonType: "string",
-                            description: "pizza field is required and must be type string"
                         },
                         salón: {
                             bsonType: "string",

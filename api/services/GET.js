@@ -1,5 +1,5 @@
-import Incidents from "../collections/incidents.js";
-import User from "../collections/users.js";
+import Incidents from "../models/incidents.js";
+import User from "../models/users.js";
 
 // relaciona los métodos de la clase con los controladores
 const incidents = new Incidents();

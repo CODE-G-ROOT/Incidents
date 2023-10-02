@@ -13,7 +13,7 @@ export const get_user_controller = async (req, res, next) => {
         const user = await services.get_user_id(data);
 
         user.length > 0
-            ? res.status(302).send(user)
+            ? res.status(200).send(user)
             : res.status(400).send({
                 message: "Query not found",
                 reference: "https://http.cat/400"
@@ -38,7 +38,7 @@ export const get_incidences_controller = async (req, res, next) => {
         const incidence = await services.get_incidences(data);
 
         incidence.length > 0
-            ? res.status(302).send(incidence)
+            ? res.status(200).send(incidence)
             : res.status(400).send({
                 message: "Query not found",
                 reference: "https://http.cat/400"
@@ -72,7 +72,7 @@ export const get_incidences_equipo_controller = async (req, res, next) => {
         // console.log(incidence);
 
         incidence.length > 0
-            ? res.status(302).send(incidence)
+            ? res.status(200).send(incidence)
             : res.status(400).send({
                 message: "Query not found",
                 reference: "https://http.cat/400"
@@ -97,7 +97,7 @@ export const get_incidences_location_controller = async (req, res, next) => {
         const incidence = await services.get_incidences_location(data);
 
         incidence.length > 0
-            ? res.status(302).send(incidence)
+            ? res.status(200).send(incidence)
             : res.status(400).send({
                 message: "Query not found",
                 reference: "https://http.cat/400"
@@ -121,7 +121,7 @@ export const get_incidences_report_controller = async (req, res, next) => {
         const incidence = await services.get_incidences_report(data);
 
         incidence.length > 0
-            ? res.status(302).send(incidence)
+            ? res.status(200).send(incidence)
             : res.status(400).send({
                 message: "Query not found",
                 reference: "https://http.cat/400"

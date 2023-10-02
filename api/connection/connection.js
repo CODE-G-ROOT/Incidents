@@ -1,12 +1,11 @@
-import data from "../../auto_setting.js";
 import { MongoClient } from "mongodb";
-
+import data from '../../auto_setting.js'
 export async function connect(){
     try {
-        
-        const url = 'mongodb+srv://JuanDev856:juan856@juandev856.ikw3dq6.mongodb.net/';
+        const url = data.CONNECTION;
         const client = await MongoClient.connect(url);
-        const con = client.db("incidents_system")
+        const con = client.db(data.DB)
+        console.log('Connected with MongoDB');
         return con
 
     } catch (error) {
@@ -14,7 +13,8 @@ export async function connect(){
     }
 }
 
-//? VERIFICAR LA CONNEXIÓN DESCOMENTANDo EL SIGUIENTE SCRIPT
+//? Verifica la conexión descomentando el siguiente script
+
 // (async () => {
 //     try {
 //         const db = await connect();
