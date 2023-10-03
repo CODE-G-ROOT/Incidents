@@ -10,12 +10,12 @@ import { createBrowserRouter, RouterProvider, } from "react-router-dom";
 
 
 // ? Routers Directions
-// import { Menu_Incidences } from './components/List';
-// import { Menu_Complete } from './components/List';
+import { Menu_Incidences } from './components/List';
+import { Menu_Complete } from './components/List';
 // import { Search_Button } from './components/Background_panel';
 // import Error_404 from './components/Error_404';
 import { Oficial_Login } from './components/Oficial_Login';
-import { Error_401 } from './components/Error_404';
+// import { Error_401 } from './components/Errors_';
 
 //? Routers Management
 // const router = createBrowserRouter([
@@ -59,7 +59,7 @@ import { Error_401 } from './components/Error_404';
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <NextUIProvider>
-      <Oficial_Login/>
+      <Menu_Incidences/>
     </NextUIProvider>
   </React.StrictMode>,
 )

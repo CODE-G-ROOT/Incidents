@@ -76,7 +76,9 @@ function Login() {
                     />
                 </div>
                 <span
-                    className="cursor-pointer w-[300px] h-[29px] text-white text-[17px] font-light font-['Sansation Light'] flex p-5">
+                    className="cursor-pointer w-[300px] h-[29px] text-white text-[17px] font-light font-['Sansation Light'] flex p-5"
+                    onClick={() => Without_access('blur')}>
+                        
                     Forgot password ?
                 </span>
                 <div className="w-50 h-2 mt-14 flex flex-row items-center space-x-3">
@@ -102,14 +104,14 @@ function Login() {
                 </div>
             </div>
             <Modal backdrop={backdrop} isOpen={isOpen} onClose={onClose}>
-                <ModalContent>
+                <ModalContent className="bg-[#596375] bg-opacity-25">
                     {(onClose) => (
                         <>
-                            <ModalHeader className="flex flex-col gap-1  bg-white bg-opacity-5">Whitouth Access</ModalHeader>
+                            <ModalHeader className="flex flex-col gap-5 text-white">Whitouth Access</ModalHeader>
                             <ModalBody>
-                                <h1>Oops!</h1>
-                                <img src="https://http.cat/406" />
-                                <p><b>Sorry!</b>, This option is currently disabled</p>
+                                <h1 className="text-white">Oops!</h1>
+                                <img src="https://http.cat/401" />
+                                <p className="text-white"><b>Sorry!</b>, This option is currently disabled</p>
                             </ModalBody>
                             <ModalFooter>
                                 <Button color="danger" variant="light" onPress={onClose}>

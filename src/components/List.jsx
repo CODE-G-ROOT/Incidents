@@ -17,8 +17,6 @@ export function Menu_Incidences() {
 
     return (
         <>
-
-
             <button
                 data-drawer-target="default-sidebar"
                 data-drawer-toggle="default-sidebar"
@@ -51,7 +49,7 @@ export function Menu_Incidences() {
                     <li className="flex justify-between" >
                         <Avatar className="m-3" src="https://i.pravatar.cc/150?u=a04258114e29026702d" />
                         <a
-                            href="#"
+                            href="/home"
                             className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
                         >
                             <svg
@@ -75,24 +73,19 @@ export function Menu_Incidences() {
                     <ul className="font-medium">
 
                         <li className="my-10">
-                            <a
-                                href="#"
-                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                            >
-                                <div className="text-center">
-                                    <span className="w-full h-8 text-center text-white text-3xl font-normal font-['Noto Sans'] leading-tight">INCIDENTS</span>
-                                    <div className="w-full">
-                                        <img src={Title_line} />
-                                    </div>
+                            <div className="text-center">
+                                <span className="w-full h-8 text-center text-white text-3xl font-normal cursor-default font-['Noto Sans'] leading-tight">INCIDENTS</span>
+                                <div className="w-full">
+                                    <img src={Title_line} />
                                 </div>
-                            </a>
+                            </div>
                         </li>
 
                         <div className="space-y-2  mt-5 pl-3">
                             <li>
                                 <a
                                     href="#"
-                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group"
                                 >
                                     <svg
                                         className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -109,7 +102,7 @@ export function Menu_Incidences() {
                             <li>
                                 <a
                                     href="#"
-                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group"
                                 >
                                     <svg
                                         className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -127,7 +120,7 @@ export function Menu_Incidences() {
                             <li>
                                 <a
                                     href="#"
-                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group"
                                 >
                                     <svg
                                         className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -144,7 +137,7 @@ export function Menu_Incidences() {
                             <li>
                                 <a
                                     href="#"
-                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group"
                                 >
                                     <svg
                                         className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -161,24 +154,19 @@ export function Menu_Incidences() {
                         </div>
 
                         <li className="my-10">
-                            <a
-                                href="#"
-                                className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
-                            >
-                                <div className="text-center">
-                                    <span className="w-full h-8 text-center text-white text-3xl font-normal font-['Noto Sans'] leading-tight">USERS</span>
-                                    <div className="w-full">
-                                        <img src={Title_line} />
-                                    </div>
+                            <div className="text-center">
+                                <span className="w-full h-8 text-center text-white text-3xl font-normal font-['Noto Sans'] leading-tight cursor-default">USERS</span>
+                                <div className="w-full">
+                                    <img src={Title_line} />
                                 </div>
-                            </a>
+                            </div>
                         </li>
 
                         <div className="space-y-2 mt-5 pl-3">
                             <li>
                                 <a
                                     href="#"
-                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group"
                                 >
                                     <svg
                                         className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -195,7 +183,7 @@ export function Menu_Incidences() {
                             <li>
                                 <a
                                     href="#"
-                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group"
                                 >
                                     <svg
                                         className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -213,7 +201,7 @@ export function Menu_Incidences() {
                             <li>
                                 <a
                                     href="#"
-                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group"
                                 >
                                     <svg
                                         className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
@@ -230,7 +218,7 @@ export function Menu_Incidences() {
                             <li>
                                 <a
                                     href="#"
-                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
+                                    className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group"
                                 >
                                     <svg
                                         className="flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white"
