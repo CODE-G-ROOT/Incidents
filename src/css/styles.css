@@ -596,6 +596,10 @@ video {
   bottom: 0px;
 }
 
+.bottom-5 {
+  bottom: 1.25rem;
+}
+
 .bottom-\[10\%\] {
   bottom: 10%;
 }
@@ -726,6 +730,10 @@ video {
 
 .m-3 {
   margin: 0.75rem;
+}
+
+.m-5 {
+  margin: 1.25rem;
 }
 
 .mx-0 {
@@ -900,6 +908,10 @@ video {
 
 .h-2\.5 {
   height: 0.625rem;
+}
+
+.h-20 {
+  height: 5rem;
 }
 
 .h-3 {
@@ -1105,6 +1117,10 @@ video {
 
 .w-9 {
   width: 2.25rem;
+}
+
+.w-96 {
+  width: 24rem;
 }
 
 .w-\[260px\] {
@@ -1492,10 +1508,6 @@ video {
   cursor: text;
 }
 
-.cursor-auto {
-  cursor: auto;
-}
-
 .touch-none {
   touch-action: none;
 }
@@ -1617,16 +1629,16 @@ video {
   gap: 1rem;
 }
 
+.gap-5 {
+  gap: 1.25rem;
+}
+
 .gap-unit-2 {
   gap: var(--nextui-spacing-unit-2);
 }
 
 .gap-unit-3 {
   gap: var(--nextui-spacing-unit-3);
-}
-
-.gap-5 {
-  gap: 1.25rem;
 }
 
 .gap-x-6 {
@@ -2013,6 +2025,11 @@ video {
   background-color: transparent !important;
 }
 
+.bg-\[\#596375\] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(89 99 117 / var(--tw-bg-opacity));
+}
+
 .bg-background {
   --tw-bg-opacity: 1;
   background-color: hsl(var(--nextui-background) / var(--nextui-background-opacity, var(--tw-bg-opacity)));
@@ -2198,54 +2215,12 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
-.bg-black {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
-}
-
-.bg-\[\#232a38\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(35 42 56 / var(--tw-bg-opacity));
-}
-
-.bg-\[\#2c3545\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(44 53 69 / var(--tw-bg-opacity));
-}
-
-.bg-\[\#3a4554\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(58 69 84 / var(--tw-bg-opacity));
-}
-
-.bg-\[\#444f62\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(68 79 98 / var(--tw-bg-opacity));
-}
-
-.bg-\[\#596375\] {
-  --tw-bg-opacity: 1;
-  background-color: rgb(89 99 117 / var(--tw-bg-opacity));
-}
-
-.bg-opacity-5 {
-  --tw-bg-opacity: 0.05;
-}
-
-.bg-opacity-10 {
-  --tw-bg-opacity: 0.1;
-}
-
-.bg-opacity-20 {
-  --tw-bg-opacity: 0.2;
-}
-
 .bg-opacity-25 {
   --tw-bg-opacity: 0.25;
 }
 
-.bg-opacity-50 {
-  --tw-bg-opacity: 0.5;
+.bg-opacity-5 {
+  --tw-bg-opacity: 0.05;
 }
 
 .bg-stripe-gradient {
@@ -2412,11 +2387,6 @@ video {
   padding-bottom: 1rem;
 }
 
-.py-5 {
-  padding-top: 1.25rem;
-  padding-bottom: 1.25rem;
-}
-
 .py-6 {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
@@ -2480,6 +2450,10 @@ video {
 
 .pr-6 {
   padding-right: 1.5rem;
+}
+
+.pt-0 {
+  padding-top: 0px;
 }
 
 .pt-1 {
@@ -2604,10 +2578,6 @@ video {
 
 .leading-7 {
   line-height: 1.75rem;
-}
-
-.leading-\[21px\] {
-  line-height: 21px;
 }
 
 .leading-tight {
