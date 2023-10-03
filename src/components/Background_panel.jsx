@@ -1,37 +1,52 @@
 import React, { useState } from 'react';
 
 export function Background_panel() {
-    const [isChecked, setIsChecked] = useState(false);
+    const [isFocused, setIsFocused] = useState(false);
 
-    const toggleCheckbox = () => {
-        setIsChecked(!isChecked);
+    const handleFocus = () => {
+        setIsFocused(true);
+    };
+
+    const handleBlur = () => {
+        setIsFocused(false);
     };
 
     return (
-        <div className="container">
+        <div className="container_button relative text-white">
             <input
-                className="checkbox"
-                type="checkbox"
-                checked={isChecked}
-                onChange={toggleCheckbox}
+                type="text"
+                name="text"
+                className={`input_button ${isFocused ? 'focused' : ''}`}
+                required
+                placeholder="Type to search..."
+                onFocus={handleFocus}
+                onBlur={handleBlur}
             />
-            <div className="mainbox flex align-middle justify-center">
-                <div className="iconContainer">
-                    <svg
-                        viewBox="0 0 512 512"
-                        height="1em"
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="search_icon"
-                    >
-                        <path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"></path>
-                    </svg>
-                </div>
-                <input
-                    className={`search_input ${isChecked ? 'hidden' : ''}`}
-                    placeholder="search"
-                    type="text"
-                />
+            <div className="icon absolute top-0 left-0 w-10 h-10 p-2 pointer-events-none">
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="ionicon w-full h-full"
+                    viewBox="0 0 512 512"
+                >
+                    <title>Search</title>
+                    <path
+                        d="M221.09 64a157.09 157.09 0 10157.09 157.09A157.1 157.1 0 00221.09 64z"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeMiterlimit="10"
+                        strokeWidth="32"
+                    ></path>
+                    <path
+                        fill="none"
+                        stroke="currentColor"
+                        strokeLinecap="round"
+                        strokeMiterlimit="10"
+                        strokeWidth="32"
+                        d="M338.29 338.29L448 448"
+                    ></path>
+                </svg>
             </div>
         </div>
     );
 }
+
