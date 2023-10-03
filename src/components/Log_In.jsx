@@ -1,5 +1,7 @@
+import React from "react";
+
 //? Next UI
-import { NextUIProvider, useDisclosure } from "@nextui-org/react";
+import { NextUIProvider,  Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure  } from "@nextui-org/react";
 
 //? SVG - ICONS
 import Apple_Icon from '../assets/svg/Apple_icon_.svg';
@@ -22,7 +24,7 @@ import Bb_Panel from '../assets/svg/Background_Panel_.svg';
 
 function Login() {
 
-    const { isOpen, onOpen, onOpenChange } = useDisclosure();
+    
 
     const Login = async () => {
         try {
@@ -37,6 +39,16 @@ function Login() {
                 : console.log(error.name);
         }
     };
+
+
+
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const [backdrop, setBackdrop] = React.useState('opaque')
+
+    const Without_access = (backdrop) => {
+        setBackdrop(backdrop)
+        onOpen();
+    }
 
     //? Cambiar el a w-full y h-full bg-relax
 
@@ -64,7 +76,7 @@ function Login() {
                     />
                 </div>
                 <span
-                    className="w-[300px] h-[29px] text-white text-[17px] font-light font-['Sansation Light'] flex p-5">
+                    className="cursor-pointer w-[300px] h-[29px] text-white text-[17px] font-light font-['Sansation Light'] flex p-5">
                     Forgot password ?
                 </span>
                 <div className="w-50 h-2 mt-14 flex flex-row items-center space-x-3">
@@ -81,14 +93,33 @@ function Login() {
                     <div onClick={Login} className="cursor-pointer">
                         <img className="w-14 h-14" src={Discord} />
                     </div>
-                    <div>
-                        <img className="w-12 h-12" src={Apple_Icon} alt="" />
+                    <div onClick={() => Without_access('blur')}>
+                        <img className="w-12 h-12 cursor-pointer" src={Apple_Icon} alt="" />
                     </div>
-                    <div>
-                        <img className="w-10 h-14" src={Google_Icon} alt="" />
+                    <div onClick={() => Without_access('blur')}>
+                        <img className="w-10 h-14 cursor-pointer" src={Google_Icon} alt="" />
                     </div>
                 </div>
             </div>
+            <Modal backdrop={backdrop} isOpen={isOpen} onClose={onClose}>
+                <ModalContent>
+                    {(onClose) => (
+                        <>
+                            <ModalHeader className="flex flex-col gap-1  bg-white bg-opacity-5">Whitouth Access</ModalHeader>
+                            <ModalBody>
+                                <h1>Oops!</h1>
+                                <img src="https://http.cat/406" />
+                                <p><b>Sorry!</b>, This option is currently disabled</p>
+                            </ModalBody>
+                            <ModalFooter>
+                                <Button color="danger" variant="light" onPress={onClose}>
+                                    Close
+                                </Button>
+                            </ModalFooter>
+                        </>
+                    )}
+                </ModalContent>
+            </Modal>
         </>
     )
 }
