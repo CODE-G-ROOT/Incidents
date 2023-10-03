@@ -8,7 +8,7 @@ const discord = data.CREDENTIALS_DISCORD;
 
 passport.serializeUser((user, done) => {
   done(null, user.id);
-});
+}); 
 
 passport.deserializeUser(async (id, done) => {
   try {
@@ -36,37 +36,34 @@ passport.use(
     async (accessToken, refreshToken, profile, done) => {
       try {
         const db = await connectToMongoDB();
-        const users = db.collection("users");
+        const users = db.collection("discord");
 
-        console.log('Estoy en la db: '+ db);
-        console.log('Soy el usuario: '+ users);
-
-        const existUser = await users.findOne({ id: profile.id });
-
-        console.log('existo? ' + existUser);
+        const existUser = await users.findOne({ "discord_id": profile.id });
 
         if (existUser) {
           profile.id_user = existUser.id_user;
           profile.avatar = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}`;
           return done(null, profile);
-        } else {
-          const isInServer = profile.guilds.some(guild => guild.id === discord.server);
+        } else { 
+          const isInServer = profile.guilds.some(guild => guild.name === 'CampusLands 🚀');
 
           if (profile.guilds.length < 1 || !isInServer) {
             return done(null, false, { message: "401" });
+
           } else {
+            console.log('antes del nuevo usuario');
             const newUser = {
-              id_user: await autoIncrementar("user", "id_user"),
-              username: profile.username,
-              global_name: profile.global_name,
-              discord_id: profile.id,
-              authentication: profile.guilds,
-              rol: 'user',
-              created_in: new Date(),
+              "id_user": await autoIncrementar("discord", "id_user"),
+              "username": profile.username,
+              "global_name": profile.global_name,
+              "discord_id": profile.id,
+              "authentication": profile.guilds,
+              "rol": 'user',
+              "created_in": profile.fetchedAt,
             };
 
-            console.log(newUser);
-
+            console.log(newUser); 
+            console.log('despues del nuevo usuario');
             profile.id_user = newUser.id_user;
             profile.avatar = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}`;
             await users.insertOne(newUser);
