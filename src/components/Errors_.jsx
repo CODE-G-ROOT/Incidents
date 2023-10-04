@@ -1,5 +1,7 @@
 import React from "react";
 
+import { useRouteError } from "react-router-dom";
+
 import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
 
 export function Error_401() {
@@ -86,13 +88,17 @@ export function Error_404() {
 }
 
 export function Error_Page_404() {
+    const error = useRouteError();
+    console.error(error);
     return (
         <>
             <div class="bg-gray-800">
                 <div class="h-screen flex flex-col justify-center items-center">
-                    <h1 class="text-8xl font-bold text-white">404</h1>
-                    <p class="text-4xl font-medium text-white">Page Not Found</p>
-                    <a href="/" class="mt-4 text-xl text-blue-600 hover:underline">Go back home</a>
+                    <h1 class="text-8xl font-bold text-white">
+                        <b>{error.statusText || error.message}</b>
+                    </h1>
+                    <p class="text-4xl font-medium text-white">Sorry, an unexpected error has occurred.</p>
+                    <a href="/home" class="mt-4 text-xl text-blue-600 hover:underline">Go back home</a>
                 </div>
             </div>
         </>
