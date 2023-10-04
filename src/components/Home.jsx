@@ -16,10 +16,7 @@ export const Admin_Page = () => {
                     </div>
                 </div>
                 <Navbar_Admin></Navbar_Admin>
-                <div className="fixed bottom-4 right-0">
-                    <Button_Agregate></Button_Agregate>
-
-                </div>
+                
             </div>
         </>
     )
@@ -36,6 +33,10 @@ export const User_Page = () => {
                     </div>
                 </div>
                 <Navbar_User></Navbar_User>
+                <div className="fixed bottom-4 right-0">
+                    <Button_Agregate></Button_Agregate>
+
+                </div>
             </div>
         </>
     )

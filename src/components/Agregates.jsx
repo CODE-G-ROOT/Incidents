@@ -1,6 +1,5 @@
 import React from "react";
 import { Link, ScrollShadow, Textarea, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
-import Frame from '../assets/svg/Frame.svg'
 
 export function Buttons_All() {
 
@@ -440,7 +439,7 @@ export function Modal_Info_Incidence() {
 
 
     return (
-        <div className="full flex flex-col p-20 space-y-10">
+        <div className="full flex flex-col mt-20 space-y-10">
             {/* simulando un header */}
             <div className="flex w-full justify-between">
                 <div className="w-full flex gap-10 justify-between">
@@ -672,54 +671,3 @@ export function Modal_New_Incidence() {
     )
 };
 
-
-export const Prueba = () => {
-    const miObjeto = {
-        nombre: 'John',
-        edad: 30,
-        ciudad: 'Nueva York',
-    };
-
-    return (
-        <div>
-            {Object.keys(miObjeto).map((clave) => (
-                <div key={clave}>
-                    <strong>{clave}:</strong> {miObjeto[clave]}
-                </div>
-            ))}
-        </div>
-    );
-
-};
-
-
-
-
-export const HeartIcon = ({
-    fill = 'currentColor',
-    filled,
-    size,
-    height,
-    width,
-    label,
-    ...props
-}) => {
-    return (
-        <svg
-            width={size || width || 24}
-            height={size || height || 24}
-            viewBox="0 0 575 575"
-            fill={filled ? fill : 'none'}
-            xmlns="http://www.w3.org/2000/svg"
-            {...props}
-        >
-            <path
-                d="M487.073 87.9262C482.54 83.4261 476.855 80.2624 470.642 78.783C464.43 77.3038 457.928 77.5659 451.854 79.5408L101.344 196.457C94.8432 198.517 89.099 202.457 84.8363 207.78C80.5736 213.103 77.984 219.569 77.3944 226.363C76.8048 233.156 78.2415 239.972 81.5233 245.949C84.8054 251.927 89.7849 256.797 95.8334 259.948L241.26 331.823L313.136 477.729C316.025 483.439 320.445 488.235 325.903 491.577C331.361 494.919 337.642 496.678 344.042 496.656H346.438C353.292 496.151 359.835 493.597 365.219 489.323C370.602 485.051 374.577 479.258 376.625 472.698L495.219 123.145C497.337 117.106 497.696 110.589 496.254 104.354C494.812 98.1193 491.628 92.4222 487.073 87.9262ZM116.198 229.52L422.146 127.457L252.281 297.323L116.198 229.52ZM345.719 458.802L277.677 322.719L447.542 152.853L345.719 458.802Z"
-                stroke={fill}
-                strokeWidth={1.5}
-                strokeLinecap="round"
-                strokeLinejoin="round"
-            />
-        </svg>
-    );
-};
