@@ -1,7 +1,7 @@
 import React from "react";
 
 //? Next UI
-import { NextUIProvider,  Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure  } from "@nextui-org/react";
+import { Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure  } from "@nextui-org/react";
 
 //? SVG - ICONS
 import Apple_Icon from '../assets/svg/Apple_icon_.svg';
@@ -10,18 +10,7 @@ import Discord from '../assets/svg/Discord_icon_.svg';
 
 //? SVG - ADDS
 import Small_line from '../assets/svg/Small_line.svg';
-import Big_line from '../assets/svg/Big_line.svg';
 import Title_line from '../assets/svg/Title_line.svg';
-
-//? Backgrounds
-import Bb_Login from '../assets/svg/Background_Log_in_.svg';
-import Bb_Panel from '../assets/svg/Background_Panel_.svg';
-
-// //? Enviroment Variables
-// import data from '../../auto_setting.js';
-
-// const { SERVER_FRONT: { host, port } } = data;
-
 function Login() {
 
     
