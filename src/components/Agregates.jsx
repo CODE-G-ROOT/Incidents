@@ -368,12 +368,12 @@ export function Card() {
             </ScrollShadow>
 
             <Modal backdrop={backdrop} isOpen={isOpen} onClose={onClose} size="5xl" >
-                <ModalContent className="bg-[#596375] bg-opacity-25 ">
+                <ModalContent className="bg-white ">
                     {(onClose) => (
                         <>
                             <ModalHeader className="flex flex-col gap-5 text-white">Incidence</ModalHeader>
-                            <ModalBody>
-                                <Card_Example></Card_Example>
+                            <ModalBody className="mt-80">
+                                <Modal_Info_Incidence></Modal_Info_Incidence>
                             </ModalBody>
                             <ModalFooter>
                                 <Button color="danger" variant="light" onPress={onClose}>
@@ -388,9 +388,7 @@ export function Card() {
     )
 };
 
-
-
-export function Card_Example() {
+export function Modal_Info_Incidence() {
 
     const equip = {
         name: "mouse",
@@ -404,18 +402,18 @@ export function Card_Example() {
     };
 
 
+
+
     return (
         <div className="full flex flex-col p-20 space-y-10">
             {/* simulando un header */}
             <div className="flex w-full justify-between">
-                <div className="w-2/3 flex gap-10 justify-between">
-                    <div className="1/2">
+                <div className="w-full flex gap-10 justify-between">
+                    <div className="flex flex-col w-1/2 gap-2">
                         <h3 className="text-2xl font-semibold leading-7 text-gray-900">ID:</h3>
-                        <p className=" max-w-2xl text-2xl leading-7 text-gray-500">546518</p>
-
+                        <p className=" max-w-2xl text-xl leading-7 text-gray-500">546518</p>
                     </div>
-                    <div className="w-1/2 flex flex-col items-end pr-40 gap-5 ">
-                        {/* esto va a ir flex para separalas */}
+                    <div className="w-1/2 flex flex-col gap-5 ">
                         <div className="flex space-x-20 ">
                             <div className="px-4 sm:px-0">
                                 <h3 className="text-base font-semibold leading-7 text-gray-900">Creation</h3>
@@ -436,19 +434,19 @@ export function Card_Example() {
             {/* el body flex col*/}
             <div>
                 <dl className="divide-y divide-gray-100">
-                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-0">
                         <dt className="text-base font-semibold leading-7 text-gray-900">Report By:</dt>
                         <dd className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</dd>
                     </div>
-                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-0">
                         <dt className="text-sm font-medium leading-6 text-gray-900">Category</dt>
                         <dd className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Margot Foster</dd>
                     </div>
-                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-0">
                         <dt className="text-sm font-medium leading-6 text-gray-900">Type</dt>
                         <dd className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Backend Developer</dd>
                     </div>
-                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-0">
                         <dt className="text-sm font-medium leading-6 text-gray-900">Equipment</dt>
                         <dd className="flex gap-20">
                             <dd className="flex gap-20">
@@ -461,7 +459,7 @@ export function Card_Example() {
                             </dd>
                         </dd>
                     </div>
-                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-0">
                         <dt className="text-sm font-medium leading-6 text-gray-900">Location</dt>
                         <dd className="flex gap-20">
                             {Object.keys(locate).map((data) => (
@@ -472,25 +470,25 @@ export function Card_Example() {
                             ))}
                         </dd>
                     </div>
-                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <div className="px-4 py-6 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-0">
                         <dt className="text-sm font-medium leading-6 text-gray-900">Description</dt>
                         <dd className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">$120,000</dd>
                     </div>
-                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
+                    <div className="px-4 py-6 flex flex-col sm:gap-4 sm:px-0">
                         <dt className="text-sm font-medium leading-6 text-gray-900">DESCRIPTION</dt>
-                        <dd className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+                        <dd className="mt-1 w-full text-sm leading-6 text-gray-500 justify-end">
                             <Textarea
                                 isReadOnly
                                 labelPlacement="outside"
                                 placeholder="Enter your description"
                                 defaultValue="NextUI is a React UI library that provides a set of accessible, reusable, and beautiful components.NextUI is a React UI library that provides a set of accessible, reusable, and beautiful components.NextUI is a React UI library that provides a set of accessible, reusable, and beautiful components.NextUI is a React UI library that provides a set of accessible, reusable, and beautiful components.NextUI is a React UI library that provides a set of accessible, reusable, and beautiful components.NextUI is a React UI library that provides a set of accessible, reusable, and beautiful components.NextUI is a React UI library that provides a set of accessible, reusable, and beautiful components.NextUI is a React UI library that provides a set of accessible, reusable, and beautiful components.NextUI is a React UI library that provides a set of accessible, reusable, and beautiful components.NextUI is a React UI library that provides a set of accessible, reusable, and beautiful components.NextUI is a React UI library that provides a set of accessible, reusable, and beautiful components."
-                                className="max-w-ls"
+                                className="max-w-ls "
                             />
                         </dd>
                     </div>
-                    <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-0">
-                        <dt className="text-sm font-medium leading-6 text-gray-900">OBSERVACIÓN</dt>
-                        <dd className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">
+                    <div className="px-4 py-6 flex flex-col sm:gap-4 sm:px-0">
+                        <dt className="text-sm w-full font-medium leading-6 text-gray-900">OBSERVACIÓN</dt>
+                        <dd className="mt-1 w-full text-sm leading-6 text-gray-500 justify-end">
                             <Textarea
                                 labelPlacement="outside"
                                 placeholder="Enter your description"
@@ -504,7 +502,8 @@ export function Card_Example() {
 
         </div>
     )
-}
+};
+
 
 export const Prueba = () => {
     const miObjeto = {

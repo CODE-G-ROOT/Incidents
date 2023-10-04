@@ -850,6 +850,10 @@ video {
   margin-top: 1.5rem;
 }
 
+.mt-80 {
+  margin-top: 20rem;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -1089,10 +1093,6 @@ video {
 
 .w-2\.5 {
   width: 0.625rem;
-}
-
-.w-2\/3 {
-  width: 66.666667%;
 }
 
 .w-2\/5 {
@@ -2510,10 +2510,6 @@ video {
 
 .pr-2 {
   padding-right: 0.5rem;
-}
-
-.pr-40 {
-  padding-right: 10rem;
 }
 
 .pr-6 {
@@ -6559,8 +6555,8 @@ video {
     transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
   }
 
-  .sm\:grid-cols-3 {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .sm\:grid-cols-2 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .sm\:flex-col {
