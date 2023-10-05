@@ -18,22 +18,26 @@ export function Modal_Info_Incidence() {
 
 
     return (
-        <div className="full flex flex-col p-14 mt-20 space-y-10">
+        <div className="full flex flex-col p-14 space-y-10">
             {/* simulando un header */}
             <div className="flex w-full justify-between">
                 <div className="w-full flex gap-10 justify-between">
-                    <div className="flex flex-col w-1/2 gap-2">
+                    <div className="flex flex-col w-1/3 gap-2">
                         <h3 className="text-2xl font-semibold leading-7 text-gray-900">ID:</h3>
                         <p className=" max-w-2xl text-xl leading-7 text-gray-500">546518</p>
                     </div>
-                    <div className="w-1/2 flex flex-col gap-5 ">
+                    <div className="w-2/3 flex flex-col gap-5 ">
                         <div className="flex space-x-20 ">
-                            <div className="px-4 sm:px-0">
+                            <div className=" sm:px-0">
                                 <h3 className="text-base font-semibold leading-7 text-gray-900">Creation</h3>
                                 <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</p>
                             </div>
-                            <div className="px-4 sm:px-0">
+                            <div className=" sm:px-0">
                                 <h3 className="text-base font-semibold leading-7 text-gray-900">Last Update:</h3>
+                                <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</p>
+                            </div>
+                            <div className=" sm:px-0">
+                                <h3 className="text-base font-semibold leading-7 text-gray-900">Close Date:</h3>
                                 <p className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">Personal details and application.</p>
                             </div>
                         </div>
@@ -82,10 +86,6 @@ export function Modal_Info_Incidence() {
                                 </div>
                             ))}
                         </dd>
-                    </div>
-                    <div className="px-4 py-6 sm:grid sm:grid-cols-2 sm:gap-4 sm:px-0">
-                        <dt className="text-sm font-medium leading-6 text-gray-900">Description</dt>
-                        <dd className="mt-1 max-w-2xl text-sm leading-6 text-gray-500">$120,000</dd>
                     </div>
                     <div className="px-4 py-6 flex flex-col sm:gap-4 sm:px-0">
                         <dt className="text-sm font-medium leading-6 text-gray-900">DESCRIPTION</dt>

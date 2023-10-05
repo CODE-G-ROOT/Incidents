@@ -318,11 +318,14 @@ export function Card() {
                         <>
                             <ModalHeader className="flex flex-col gap-5 text-white">Incidence</ModalHeader>
                             <ModalBody className="mt-80">
-                                <Modal_Info_Incidence></Modal_Info_Incidence>
+                                <Modal_Info_Incidence/>
                             </ModalBody>
-                            <ModalFooter>
+                            <ModalFooter >
                                 <Button color="danger" variant="light" onPress={onClose}>
                                     Close
+                                </Button>
+                                <Button color="success" variant="light" onPress={onClose}>
+                                    Checked
                                 </Button>
                             </ModalFooter>
                         </>

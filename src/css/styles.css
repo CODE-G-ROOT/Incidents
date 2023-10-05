@@ -744,6 +744,10 @@ video {
   margin: 1rem;
 }
 
+.m-10 {
+  margin: 2.5rem;
+}
+
 .mx-0 {
   margin-left: 0px;
   margin-right: 0px;
@@ -1229,6 +1233,18 @@ video {
 
 .w-0\.5 {
   width: 0.125rem;
+}
+
+.w-1\/3 {
+  width: 33.333333%;
+}
+
+.w-1\/5 {
+  width: 20%;
+}
+
+.w-2\/3 {
+  width: 66.666667%;
 }
 
 .min-w-0 {
@@ -2365,6 +2381,10 @@ video {
 
 .p-5 {
   padding: 1.25rem;
+}
+
+.p-10 {
+  padding: 2.5rem;
 }
 
 .\!px-1 {
