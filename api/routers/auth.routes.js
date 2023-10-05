@@ -10,7 +10,7 @@ const auth = Router();
 
 
 auth.get("/login", passport.authenticate("discord"));
-auth.get("/login/redirect", passport.authenticate("discord", { failureRedirect: `http://${data.SERVER_FRONT.host}:${data.SERVER_FRONT.port}/404`, successRedirect: `http://${data.SERVER_FRONT.host}:${data.SERVER_FRONT.port}/incidences`, }))
+auth.get("/login/redirect", passport.authenticate("discord", { failureRedirect: `http://${data.SERVER_FRONT.host}:${data.SERVER_FRONT.port}/404`, successRedirect: `http://${data.SERVER_FRONT.host}:${data.SERVER_FRONT.port}/admin`, }))
 
 
 export default auth;
