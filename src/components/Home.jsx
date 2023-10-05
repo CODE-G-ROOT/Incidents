@@ -10,13 +10,11 @@ export const Admin_Page = () => {
         <>
             <div className="flex w-full h-[500px]">
                 <div className="w-full ml-96 flex flex-col">
-                    <Buttons_All></Buttons_All>
                     <div className="px-20 pt-32">
                         <Card></Card>
                     </div>
                 </div>
                 <Navbar_Admin></Navbar_Admin>
-                
             </div>
         </>
     )
@@ -27,7 +25,6 @@ export const User_Page = () => {
         <>
             <div className="flex w-full h-[500px]">
                 <div className="w-full ml-96 flex flex-col">
-                    <Buttons_All></Buttons_All>
                     <div className="px-20 pt-32">
                         <Card></Card>
                     </div>

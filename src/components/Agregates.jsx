@@ -1,14 +1,15 @@
 import React from "react";
-import { Link, ScrollShadow, Textarea, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
+import { Link, Input, ScrollShadow, Textarea, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
+import { Link as Link_Route } from "react-router-dom";
 
 export function Buttons_All() {
 
     const data = ["ID", "STATUS", "CATEGORY", "TYPE"];
 
     return (
-        <div className="flex space-x-10 text-center w-full fixed py-5 px-72 bg-white">
+        <div className="ml-96 z-20 flex space-x-10 text-center w-full fixed  pt-10 px-72 bg-white">
             {data.map((key) => (
-                <big><Link className="text-black text-2xl flex justify-center px-3 py-2 hover:text-white rounded-full hover:bg-slate-600 w-40 transition-all  " href={key.toLowerCase()} underline="focus">{key}</Link></big>
+                <big><Link_Route to={key.toLowerCase()} className="text-black text-lg flex justify-center px-3 py-2 hover:text-white rounded-full hover:bg-slate-600 w-40 transition-all  " href={key.toLowerCase()} underline="focus">{key}</Link_Route></big>
             ))}
         </div>
     );
@@ -19,9 +20,9 @@ export function Buttons_Equipment() {
     const data = ["NAME", "MARC", "CODE"];
 
     return (
-        <div className="flex space-x-10 text-center w-full fixed py-5 px-72 bg-white">
+        <div className="ml-96 flex z-20 space-x-10 text-center w-full fixed  pt-10 px-72 bg-white">
             {data.map((key) => (
-                <big><Link className="text-black text-2xl flex justify-center px-3 py-2 hover:text-white rounded-full hover:bg-slate-600 w-40 transition-all  " href={key.toLowerCase()} underline="focus">{key}</Link></big>
+                <big><Link className="text-black text-lg flex justify-center px-3 py-2 hover:text-white rounded-full hover:bg-slate-600 w-40 transition-all  " href={key.toLowerCase()} underline="focus">{key}</Link></big>
             ))}
         </div>
     );
@@ -32,10 +33,43 @@ export function Buttons_Location() {
     const data = ["AREA", "ROOM"];
 
     return (
-        <div className="flex space-x-10 text-center w-full fixed py-5 px-72 bg-white">
+        <div className="ml-96 flex z-20 space-x-10 text-center w-full fixed  pt-10 px-72 bg-white">
             {data.map((key) => (
-                <big><Link className="text-black text-2xl flex justify-center px-3 py-2 hover:text-white rounded-full hover:bg-slate-600 w-40 transition-all  " href={key.toLowerCase()} underline="focus">{key}</Link></big>
+                <big><Link className="text-black text-lg flex justify-center px-3 py-2 hover:text-white rounded-full hover:bg-slate-600 w-40 transition-all  " href={key.toLowerCase()} underline="focus">{key}</Link></big>
             ))}
+        </div>
+    );
+};
+
+export function Input_Reports() {
+
+    return (
+        <div className="ml-96 flex z-20 space-x-10 text-center w-full fixed pt-10 px-72 bg-white">
+            <div key="underlined" className="w-full h-auto  mb-6  gap-4">
+                <Input type="email" variant="underlined" label="Insert ID" className="h-20 w-96"/>
+            </div>
+        </div>
+    );
+};
+
+export function Inputs_Users() {
+
+    return (
+        <div className="ml-96 flex z-20 space-x-10 text-center w-full fixed pt-10 px-72 bg-white">
+            <div key="underlined" className="w-full h-auto  mb-6  gap-4">
+                <Input type="email" variant="underlined" label="Insert ID" className="h-20 w-96"/>
+            </div>
+        </div>
+    );
+};
+
+export function Ocult() {
+
+    return (
+        <div className="ml-96 flex z-20 space-x-10 text-center w-full fixed pt-10 px-72 bg-white">
+            <div key="underlined" className="w-full h-auto  mb-6  gap-4">
+                <div type="email" variant="underlined" label="Insert ID" className="h-20 w-96"/>
+            </div>
         </div>
     );
 };
@@ -665,7 +699,6 @@ export function Modal_New_Incidence() {
         </div>
     )
 };
-
 
 export const DeleteButton = () => {
     return (

@@ -13,7 +13,7 @@ passport.serializeUser((user, done) => {
 passport.deserializeUser(async (id, done) => {
   try {
     const db = await connectToMongoDB();
-    const users = db.collection("users");
+    const users = db.collection("discord");
     const user = await users.findOne({ id });
 
     done(null, user);
