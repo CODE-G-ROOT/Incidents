@@ -92,6 +92,7 @@ function Login() {
                     </div>
                 </div>
             </div>
+            
             <Modal backdrop={backdrop} isOpen={isOpen} onClose={onClose}>
                 <ModalContent className="bg-[#596375] bg-opacity-25">
                     {(onClose) => (

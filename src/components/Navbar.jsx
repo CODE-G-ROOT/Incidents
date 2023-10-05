@@ -4,9 +4,9 @@ import React from "react";
 import Title_line from '../assets/svg/Title_line.svg'
 
 import { Avatar } from "@nextui-org/react";
-import { DeleteButton } from "./Agregates";
+import { DeleteButton } from "./Buttons";
 import { Link, Outlet } from "react-router-dom";
-
+import { Input_Search } from "./Buttons";
 
 
 export function Navbar_Admin() {
@@ -93,6 +93,7 @@ export function Navbar_User() {
                     </ul>
                 </div>
             </aside>
+            <Outlet/>
         </>
     )
 };
@@ -231,6 +232,7 @@ export function Menu_Users() {
                                 <Link
                                     to={`${key.toLowerCase()}_user`}
                                     className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white group"
+                                    
                                 >
                                     {data[key]}
                                     <span className="flex-1 ml-3 whitespace-nowrap">{key}</span>

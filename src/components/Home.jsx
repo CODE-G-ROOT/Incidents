@@ -2,8 +2,8 @@ import React from "react";
 import { ReactDOM } from "react";
 
 import { Navbar_Admin, Navbar_User } from "./Navbar";
-import { Buttons_All, Button_Agregate } from "./Agregates";
-import { Card } from "./Agregates";
+import { Buttons_All, Button_Agregate } from "./Buttons";
+import { Card } from '../components/Card'
 
 export const Admin_Page = () => {
     return (
