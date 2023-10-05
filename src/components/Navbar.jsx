@@ -264,7 +264,7 @@ export function User_Logo_Discord() {
 export function Exit_User() {
     return (
         <>
-            <a href="/home">
+            <a href="/">
                 <DeleteButton></DeleteButton>
             </a>
         </>
