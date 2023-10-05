@@ -17,9 +17,9 @@ function Login() {
 
     const Login = async () => {
         try {
-            let response = await fetch`http://localhost:5146/`;
+            let response = await fetch`http://192.168.129.72:5146/`;
             if (response.ok) {
-                window.location.href = "http://localhost:5146/login"
+                window.location.href = "http://192.168.129.72:5146/login"
             }
         } catch (error) {
             let type = error.name;
