@@ -17,11 +17,12 @@
 .input {
     width: 350px;
     height: 45px;
+    outline: none;
 }
 
-.input::placeholder {
+/* .input::placeholder {
     text-indent: 30px;
-}
+} */
 
 .para_span {
     color: #FFF;

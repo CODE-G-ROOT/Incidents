@@ -55,13 +55,13 @@ function Login() {
                     <input
                         type="text"
                         placeholder='Username'
-                        className="input rounded-2xl"
+                        className="input rounded-2xl pl-5  text-slate-600"
                     />
 
                     <input
                         type="password"
                         placeholder='Password'
-                        className="input rounded-2xl"
+                        className="input rounded-2xl pl-5 text-slate-600"
                     />
                 </div>
                 <span
