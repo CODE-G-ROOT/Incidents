@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, Input, ScrollShadow, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
 import { Link as Link_Route } from "react-router-dom";
+import { Modal_New_Incidence } from "./Modals";
 
 export function Buttons_All() {
 

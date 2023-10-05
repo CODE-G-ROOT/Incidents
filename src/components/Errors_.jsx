@@ -95,9 +95,10 @@ export function Error_Page_404() {
             <div class="bg-gray-800">
                 <div class="h-screen flex flex-col justify-center items-center">
                     <h1 class="text-8xl font-bold text-white">
-                        <b>{error.statusText || error.message}</b>
+                        <b>{error.status}</b>
                     </h1>
-                    <p class="text-4xl font-medium text-white">Sorry, an unexpected error has occurred.</p>
+                    <p class="text-4xl font-medium text-white">{error.statusText}</p>
+                    <p class="text-4xl font-medium text-white">{error.message}</p>
                     <a href="/home" class="mt-4 text-xl text-blue-600 hover:underline">Go back home</a>
                 </div>
             </div>

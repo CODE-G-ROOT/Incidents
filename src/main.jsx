@@ -11,112 +11,160 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 
 // ? Routers Directions
-import { Navbar_Admin, Navbar_User, Menu_Users,  } from './components/Navbar';
+import { Navbar_Admin, Navbar_User, Menu_Users, } from './components/Navbar';
 import { Oficial_Login } from './components/Oficial_Login';
 import { Admin_Page, User_Page } from './components/Home';
 import { Buttons_All, Ocult, Buttons_Equipment, Buttons_Location, Input_Search } from './components/Buttons';
-import { Error_Page_404 } from './components/Errors_';
+import { Error_Page_404 as ErrorPage } from './components/Errors_';
 
 const router = createBrowserRouter([
+
   {
-    path: "/home",
+    path: "/",
     element: <Oficial_Login />,
-    errorElement: <Error_Page_404 />,
+    errorElement: <ErrorPage />,
   },
   {
-    path: "incidences",
-    element: <Admin_Page />,
-    errorElement: <Error_Page_404 />,
+    path: "/users",
+    element: <User_Page />,
     children: [
       {
         path: "all",
         element: <Buttons_All />,
-        errorElement: <Error_Page_404 />,
         children: [
           {
             path: "id",
-            element: <Input_Search all_id={true}/>,
-            errorElement: <Error_Page_404 />,
+            element: <Input_Search all_id={true} />,
           },
           {
             path: "status",
             element: <Input_Search all_status={true} />,
-            errorElement: <Error_Page_404 />,
           },
           {
             path: "category",
             element: <Input_Search all_category={true} />,
-            errorElement: <Error_Page_404 />,
           },
           {
             path: "type",
             element: <Input_Search all_type={true} />,
-            errorElement: <Error_Page_404 />,
           },
         ]
       },
       {
         path: "equipment",
         element: <Buttons_Equipment />,
-        errorElement: <Error_Page_404 />,
         children: [
           {
             path: "name",
-            element: <Input_Search name={true}/>,
-            errorElement: <Error_Page_404 />,
+            element: <Input_Search name={true} />,
           },
           {
             path: "marc",
             element: <Input_Search marc={true} />,
-            errorElement: <Error_Page_404 />,
           },
           {
             path: "code",
             element: <Input_Search equipment_name={true} />,
-            errorElement: <Error_Page_404 />,
           },
         ]
       },
       {
         path: "location",
         element: <Buttons_Location />,
-        errorElement: <Error_Page_404 />,
         children: [
           {
             path: "area",
-            element: <Input_Search area={true}/>,
-            errorElement: <Error_Page_404 />,
+            element: <Input_Search area={true} />,
           },
           {
             path: "room",
             element: <Input_Search room={true} />,
-            errorElement: <Error_Page_404 />,
           },
         ]
       },
       {
         path: "reports",
         element: <Input_Search report={true} />,
-        errorElement: <Error_Page_404 />,
+      },
+    ]
+  },
+  {
+    path: "/admin",
+    element: <Admin_Page/>,
+    children: [
+      {
+        path: "all",
+        element: <Buttons_All />,
+        children: [
+          {
+            path: "id",
+            element: <Input_Search all_id={true} />,
+          },
+          {
+            path: "status",
+            element: <Input_Search all_status={true} />,
+          },
+          {
+            path: "category",
+            element: <Input_Search all_category={true} />,
+          },
+          {
+            path: "type",
+            element: <Input_Search all_type={true} />,
+          },
+        ]
+      },
+      {
+        path: "equipment",
+        element: <Buttons_Equipment />,
+        children: [
+          {
+            path: "name",
+            element: <Input_Search name={true} />,
+          },
+          {
+            path: "marc",
+            element: <Input_Search marc={true} />,
+          },
+          {
+            path: "code",
+            element: <Input_Search equipment_name={true} />,
+          },
+        ]
+      },
+      {
+        path: "location",
+        element: <Buttons_Location />,
+        children: [
+          {
+            path: "area",
+            element: <Input_Search area={true} />,
+          },
+          {
+            path: "room",
+            element: <Input_Search room={true} />,
+          },
+        ]
+      },
+      {
+        path: "reports",
+        element: <Input_Search report={true} />,
       },
       {
         path: "all_user",
-        errorElement: <Ocult />,
+        element: <Ocult />,
       },
       {
         path: "id_user",
-        element: <Input_Search id={true}/>,
-        errorElement: <Error_Page_404 />,
+        element: <Input_Search id={true} />,
       },
       {
         path: "rol_user",
-        element: <Input_Search rol={true}/>,
-        errorElement: <Error_Page_404 />,
+        element: <Input_Search rol={true} />,
       },
       {
         path: "name_user",
-        element: <Input_Search name={true}/>,
-        errorElement: <Error_Page_404 />,
+        element: <Input_Search name={true} />,
       },
     ]
   }
