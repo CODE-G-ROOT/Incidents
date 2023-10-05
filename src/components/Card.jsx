@@ -277,7 +277,7 @@ export function Card() {
             >
                 <ul role="list" className="divide-y cursor-pointer divide-gray-400 m-4">
                     {people.map((person) => (
-                        <li key={person.email} className="flex justify-between gap-x-6 py-5" onClick={() => Modal_Info('blur')}>
+                        <li key={person.email} className="hover:bg-slate-100 p-3 rounded-sm flex justify-between gap-x-6 py-5 " onClick={() => Modal_Info('blur')}>
                             <div className="flex min-w-0 gap-x-4">
                                 {/* imagen */}
                                 <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src={person.imageUrl} alt="" />
@@ -307,7 +307,6 @@ export function Card() {
                                 )}
                             </div>
                         </li>
-
                     ))}
                 </ul>
             </ScrollShadow>

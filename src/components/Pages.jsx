@@ -3,14 +3,14 @@ import { ReactDOM } from "react";
 
 import { Navbar_Admin, Navbar_User } from "./Navbar";
 import { Buttons_All, Button_Agregate } from "./Buttons";
-import { Card } from '../components/Card'
+import { Card } from './Card'
 
 export const Admin_Page = () => {
     return (
         <>
             <div className="flex w-full h-[500px]">
                 <div className="w-full ml-96 flex flex-col">
-                    <div className="px-20 pt-32">
+                    <div className="px-20 pt-32 ">
                         <Card></Card>
                     </div>
                 </div>

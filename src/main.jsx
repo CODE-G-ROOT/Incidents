@@ -13,7 +13,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 // ? Routers Directions
 import { Navbar_Admin, Navbar_User, Menu_Users, } from './components/Navbar';
 import { Oficial_Login } from './components/Oficial_Login';
-import { Admin_Page, User_Page } from './components/Home';
+import { Admin_Page, User_Page } from './components/Pages';
 import { Buttons_All, Ocult, Buttons_Equipment, Buttons_Location, Input_Search } from './components/Buttons';
 import { Error_Page_404 as ErrorPage } from './components/Errors_';
 
