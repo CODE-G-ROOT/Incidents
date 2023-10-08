@@ -41,7 +41,8 @@ exp.use(cors(`http://${data.SERVER_FRONT.host}:${data.SERVER_FRONT.port}`))
 exp.use(auth);
 exp.use('/users', user);
 exp.use('/incidencias', incidences);
-exp.use("/", (req, res) => res.send({
+exp.use("/", (req, res) => 
+    res.status(404).send({
     Error: 404,
     ErrorMessage: "Page Not Found",
     ErrorReference: "https:http.cat/404"
