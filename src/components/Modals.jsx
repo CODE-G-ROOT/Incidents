@@ -10,7 +10,7 @@ export function Modal_Info_Incidence(key) {
     const [apiData, setApiData] = useState([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        axios.get('http://192.168.129.72:5146/incidencias/all')
+        axios.get('http://192.168.110.41:5146/incidencias/all')
             .then(function (response) {
                 setApiData(response.data[info]);
                 setLoading(false);
