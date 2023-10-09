@@ -111,7 +111,7 @@ export function Card_() {
 };
 
 export const CustomCard = () => (
-    <Card className="w-full h-auto space-y-5 p-4" radius="2xl">
+    <div className="w-full h-auto space-y-5 p-4" radius="2xl">
         <div className="h-96 w-full rounded-lg bg-default-300"></div>
         <div className="space-x-5 h-60 w-full grid grid-cols-2">
             <div className="w-full h-full space-y-5">
@@ -129,5 +129,27 @@ export const CustomCard = () => (
                 <div className="h-10 w-2/5 rounded-lg bg-default-300"></div>
             </div>
         </div>
-    </Card>
+    </div>
+);
+
+
+export const Hamter = () => (
+    <div aria-label="Orange and tan hamster running in a metal wheel" role="img" className="wheel-and-hamster">
+        <div className="wheel"></div>
+        <div className="hamster">
+            <div className="hamster__body">
+                <div className="hamster__head">
+                    <div className="hamster__ear"></div>
+                    <div className="hamster__eye"></div>
+                    <div className="hamster__nose"></div>
+                </div>
+                <div className="hamster__limb hamster__limb--fr"></div>
+                <div className="hamster__limb hamster__limb--fl"></div>
+                <div className="hamster__limb hamster__limb--br"></div>
+                <div className="hamster__limb hamster__limb--bl"></div>
+                <div className="hamster__tail"></div>
+            </div>
+        </div>
+        <div className="spoke"></div>
+    </div>
 );
