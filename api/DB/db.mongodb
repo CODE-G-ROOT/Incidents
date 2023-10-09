@@ -1,12 +1,12 @@
 use("incidents_system");
-function autoIncrementar (categoria, id){
+function autoIncrementar(categoria, id) {
     use("incidents_system");
     let data = db[categoria]
         .find()
-        .sort({[id]: -1})
+        .sort({ [id]: -1 })
         .toArray();
-    if(data.length < 1) return 1; 
-    
+    if (data.length < 1) return 1;
+
     let lastNumber = data[0][id];
     return lastNumber + 1;
 }
@@ -203,27 +203,101 @@ db.users.insertOne(
 );
 
 
-db.incidents.insertOne({
-    id: autoIncrementar("incidents", 'id'),
-    category: "Hardware",
-    type: "Error",
-    description: "La pantalla no prende",
-    equipment: {
-        name: "Pantalla",
-        marca: "Compumax",
-        cod: "PT-145"
+db.incidents.aggregate([
+    {
+        $lookup: {
+            from: "users",
+            localField: "report_by",
+            foreignField: "id",
+            as: "report"
+        }
     },
-    location: {
-        area: "Review",
-        pizza: "12",
+    {
+        $unwind: "$report"
     },
-    status: "malo",
-    observation: "Requiere mantenimiento",
-    creation_date: new Date(),
-    update_date: new Date(),
-    close_date: null,
-    report_by: 1
-});
+
+    {
+        $group: {
+            _id: "$_id",
+            id: { $first: "$id" },
+            category: { $first: "$category" },
+            type: { $first: "$type" },
+            description: { $first: "$description" },
+            equipment: { $first: "$equipment" },
+            location: { $first: "$location" },
+            status: { $first: "$status" },
+            observation: { $first: "$observation" },
+            creation_date: { $first: "$creation_date" },
+            update_date: { $first: "$update_date" },
+            close_date: { $first: "$close_date" },
+            report_by: { $addToSet: "$report" },
+        }
+    },
+    {
+        $match: {
+            "report_by.id": 1
+        }
+    },
+    {
+        $project: {
+            _id: 0,
+            id: 1,
+            category: 1,
+            type: 1,
+            description: 1,
+            equipment: 1,
+            location: 1,
+            status: 1,
+            observation: 1,
+            creation_date: {
+                date: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            update_date: {
+                date: {
+                    $dateToString: {
+                        date: "$update_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$creation_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            close_date: {
+                date: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%Y-%m-%d"
+                    }
+                },
+                hour: {
+                    $dateToString: {
+                        date: "$close_date",
+                        format: "%H:%M:%S"
+                    }
+                }
+            },
+            report_by: {
+                id: 1,
+                name: 1,
+                email: 1,
+            },
+        }
+    }])
 
 use("incidents_system");
 db.users.aggregate([

@@ -910,14 +910,6 @@ video {
   height: auto !important;
 }
 
-.h-0 {
-  height: 0px;
-}
-
-.h-0\.5 {
-  height: 0.125rem;
-}
-
 .h-1 {
   height: 0.25rem;
 }
@@ -1099,14 +1091,6 @@ video {
   min-height: var(--nextui-spacing-unit-8);
 }
 
-.w-0 {
-  width: 0px;
-}
-
-.w-0\.5 {
-  width: 0.125rem;
-}
-
 .w-1 {
   width: 0.25rem;
 }
@@ -1171,20 +1155,12 @@ video {
   width: 60%;
 }
 
-.w-32 {
-  width: 8rem;
-}
-
 .w-4 {
   width: 1rem;
 }
 
 .w-4\/5 {
   width: 80%;
-}
-
-.w-40 {
-  width: 10rem;
 }
 
 .w-5 {
@@ -1645,10 +1621,6 @@ video {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.grid-cols-3 {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-}
-
 .flex-row {
   flex-direction: row;
 }
@@ -2104,12 +2076,6 @@ video {
   border-color: rgb(255 255 255 / var(--tw-border-opacity));
 }
 
-.border-x-white {
-  --tw-border-opacity: 1;
-  border-left-color: rgb(255 255 255 / var(--tw-border-opacity));
-  border-right-color: rgb(255 255 255 / var(--tw-border-opacity));
-}
-
 .border-b-current {
   border-bottom-color: currentColor;
 }
@@ -2185,11 +2151,6 @@ video {
 
 .bg-background\/80 {
   background-color: hsl(var(--nextui-background) / 0.8);
-}
-
-.bg-black {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
 .bg-content1 {
@@ -2373,10 +2334,6 @@ video {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.bg-\[3askdfjl\#\] {
-  background-color: 3askdfjl#;
 }
 
 .bg-opacity-25 {
@@ -3144,11 +3101,6 @@ video {
 
 .shadow-warning\/40 {
   --tw-shadow-color: hsl(var(--nextui-warning) / 0.4);
-  --tw-shadow: var(--tw-shadow-colored);
-}
-
-.shadow-inherit {
-  --tw-shadow-color: inherit;
   --tw-shadow: var(--tw-shadow-colored);
 }
 
@@ -4859,17 +4811,8 @@ video {
   display: none;
 }
 
-.group:hover .group-hover\:w-full {
-  width: 100%;
-}
-
 .group:hover .group-hover\:border-current {
   border-color: currentColor;
-}
-
-.group:hover .group-hover\:bg-black {
-  --tw-bg-opacity: 1;
-  background-color: rgb(0 0 0 / var(--tw-bg-opacity));
 }
 
 .group:hover .group-hover\:text-current {
@@ -6792,6 +6735,16 @@ video {
 
   .sm\:\[--slide-exit\:0px\] {
     --slide-exit: 0px;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:mb-0 {
+    margin-bottom: 0px;
+  }
+
+  .md\:flex-nowrap {
+    flex-wrap: nowrap;
   }
 }
 

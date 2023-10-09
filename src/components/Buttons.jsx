@@ -1,46 +1,98 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, Input, ScrollShadow, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDisclosure } from "@nextui-org/react";
-import { Link as Link_Route } from "react-router-dom";
+// import { Link as div } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Modal_New_Incidence } from "./Modals";
 
 export function Buttons_All() {
+    const [inputValues, setInputValues] = useState({
+        ID: '',
+        STATUS: '',
+        CATEGORY: '',
+        TYPE: '',
+    });
 
     const data = ["ID", "STATUS", "CATEGORY", "TYPE"];
+
+    const handleChange = (event, key) => {
+        setInputValues({
+            ...inputValues,
+            [key]: event.target.value,
+        });
+    };
+
+    const handleKeyPress = (event, key) => {
+        if (event.key === 'Enter') {
+            console.log(`Valor del input ${key}:`, inputValues[key]);
+        }
+    };
+
+
 
     return (
         <div className="ml-96 z-20 flex space-x-20 text-center w-full fixed  pt-10 px-72 ">
             {data.map((key) => (
-                <big className="flex justify-center relativez">
-                    <Link_Route to={key.toLowerCase()} className="text-black text-base flex justify-center px-3 py-2rounded-full w-40 transition-all  " href={key.toLowerCase()} underline="focus">
-                        {key}
-                        <div className="h-6 w-32 absolute group flex justify-center" id="animar">
-                            <div className="bg-white w-0.5 h-0.5 absolute bottom-0 transition-all group-hover:w-full group-hover:bg-black" id="adentro"></div>
+                <div key={key}>
+                    <div className="w-full flex flex-col gap-4">
+                        <div key="underlined" className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                            <Input
+                                type="email"
+                                variant="underlined"
+                                label={key}
+                                value={inputValues[key]}
+                                onChange={(event) => handleChange(event, key)}
+                                onKeyPress={(event) => handleKeyPress(event, key)}
+                            />
                         </div>
-                    </Link_Route>
-                </big>
-            ))
-            }
+                    </div>
+                </div>
+            ))}
         </div >
     );
 };
 
 export function Buttons_Equipment() {
+    const data = ["NAME", "MARC", "COD"];
+    const [inputValues, setInputValues] = useState({
+        NAME: '',
+        MARC: '',
+        COD: '',
+    });
 
-    const data = ["NAME", "MARC", "CODE"];
+
+    const handleChange = (event, key) => {
+        setInputValues({
+            ...inputValues,
+            [key]: event.target.value,
+        });
+    };
+
+    const handleKeyPress = (event, key) => {
+        if (event.key === 'Enter') {
+            console.log(`Valor del input ${key}:`, inputValues[key]);
+        }
+    };
+
+
 
     return (
         <div className="ml-96 z-20 flex space-x-20 text-center w-full fixed  pt-10 px-72 ">
             {data.map((key) => (
-                <big className="flex justify-center relativez">
-                    <Link_Route to={key.toLowerCase()} className="text-black text-base flex justify-center px-3 py-2rounded-full w-40 transition-all  " href={key.toLowerCase()} underline="focus">
-                        {key}
-                        <div className="h-6 w-32 absolute group flex justify-center" id="animar">
-                            <div className="bg-white w-0.5 h-0.5 absolute bottom-0 transition-all group-hover:w-full group-hover:bg-black" id="adentro"></div>
+                <div key={key}>
+                    <div className="w-full flex flex-col gap-4">
+                        <div key="underlined" className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                            <Input
+                                type="email"
+                                variant="underlined"
+                                label={key}
+                                value={inputValues[key]}
+                                onChange={(event) => handleChange(event, key)}
+                                onKeyPress={(event) => handleKeyPress(event, key)}
+                            />
                         </div>
-                    </Link_Route>
-                </big>
-            ))
-            }
+                    </div>
+                </div>
+            ))}
         </div >
     );
 };
@@ -48,130 +100,581 @@ export function Buttons_Equipment() {
 export function Buttons_Location() {
 
     const data = ["AREA", "ROOM"];
+    const [inputValues, setInputValues] = useState({
+        AREA: '',
+        ROOM: '',
+    });
+
+
+    const handleChange = (event, key) => {
+        setInputValues({
+            ...inputValues,
+            [key]: event.target.value,
+        });
+    };
+
+    const handleKeyPress = (event, key) => {
+        if (event.key === 'Enter') {
+            console.log(`Valor del input ${key}:`, inputValues[key]);
+        }
+    };
+
+
 
     return (
         <div className="ml-96 z-20 flex space-x-20 text-center w-full fixed  pt-10 px-72 ">
             {data.map((key) => (
-                <big className="flex justify-center relativez">
-                    <Link_Route to={key.toLowerCase()} className="text-black text-base flex justify-center px-3 py-2rounded-full w-40 transition-all  " href={key.toLowerCase()} underline="focus">
-                        {key}
-                        <div className="h-6 w-32 absolute group flex justify-center" id="animar">
-                            <div className="bg-white w-0.5 h-0.5 absolute bottom-0 transition-all group-hover:w-full group-hover:bg-black" id="adentro"></div>
+                <div key={key}>
+                    <div className="w-full flex flex-col gap-4">
+                        <div key="underlined" className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                            <Input
+                                type="email"
+                                variant="underlined"
+                                label={key}
+                                value={inputValues[key]}
+                                onChange={(event) => handleChange(event, key)}
+                                onKeyPress={(event) => handleKeyPress(event, key)}
+                            />
                         </div>
-                    </Link_Route>
-                </big>
-            ))
-            }
+                    </div>
+                </div>
+            ))}
         </div >
     );
 };
 
 export function Input_Search({ report, id, rol, name, all_id, all_status, all_category, all_type, equipment_name, marc, code, area, room }) {
 
-    if (report) return (
-        <div className="ml-96 flex z-20 space-x-10 text-center w-full fixed pt-10 px-72 bg-white">
-            <div key="underlined" className="w-full h-auto  mb-6  gap-4">
-                <Input type="email" variant="underlined" label="Search by report id" className="h-20 w-96" />
-            </div>
-        </div>
-    );
+    if (report) {
+        const [inputValue, setInputValue] = useState('');
+        const data = ["REPORT"];
+        const history = useNavigate();
 
-    else if (id) return (
-        <div className="ml-96 flex z-20 space-x-10 text-center w-full fixed pt-10 px-72 bg-black">
-            <div key="underlined" className="w-full h-auto  mb-6  gap-4">
-                <Input type="email" variant="underlined" label="Search by id" className="h-20 w-96" />
-            </div>
-        </div>
-    );
+        const handleChange = (event) => {
+            setInputValue(event.target.value);
+        };
 
-    else if (rol) return (
-        <div className="ml-96 flex z-20 space-x-10 text-center w-full fixed pt-10 px-72 bg-white">
-            <div key="underlined" className="w-full h-auto  mb-6  gap-4">
-                <Input type="email" variant="underlined" label="Search by rol name" className="h-20 w-96" />
-            </div>
-        </div>
-    );
+        const handleKeyPress = (event) => {
+            if (event.key === 'Enter') {
+                console.log('Valor del input:', inputValue);
 
-    else if (name) return (
-        <div className="ml-96 flex z-20 space-x-10 text-center w-full fixed pt-10 px-72 bg-white">
-            <div key="underlined" className="w-full h-auto  mb-6  gap-4">
-                <Input type="email" variant="underlined" label="Search by name" className="h-20 w-96" />
-            </div>
-        </div>
-    );
+                // Redirigir a la página correspondiente usando react-router-dom
+                history(`/admin/reports?id=${inputValue.toLowerCase()}`);
+            }
+        };
 
-    else if (all_id) return (
-        <div className="ml-96 flex z-20 space-x-10 text-center w-full fixed pt-10 px-72 bg-white">
-            <div key="underlined" className="w-full h-auto  mb-6  gap-4">
-                <Input type="email" variant="underlined" label="Search by name" className="h-20 w-96" />
-            </div>
-        </div>
-    );
+        return (
+            <div className="ml-96 z-20 flex space-x-20 text-center w-full fixed pt-10 px-72 ">
+                {data.map((key) => (
+                    <div key={key}>
+                        <div className="w-full flex flex-col gap-4">
+                            <div key="underlined" className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                                <Input
+                                    type="text"
+                                    variant="underlined"
+                                    label={key}
+                                    value={inputValue}
+                                    onChange={handleChange}
+                                    onKeyPress={handleKeyPress}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div >
+        )
+    }
 
-    else if (all_status) return (
-        <div className="ml-96 flex z-20 space-x-10 text-center w-full fixed pt-10 px-72 bg-white">
-            <div key="underlined" className="w-full h-auto  mb-6  gap-4">
-                <Input type="email" variant="underlined" label="Search by name" className="h-20 w-96" />
-            </div>
-        </div>
-    );
+    else if (id) {
+        const [inputValue, setInputValue] = useState('');
+        const data = ["ID"];
 
-    else if (all_category) return (
-        <div className="ml-96 flex z-20 space-x-10 text-center w-full fixed pt-10 px-72 bg-white">
-            <div key="underlined" className="w-full h-auto  mb-6  gap-4">
-                <Input type="email" variant="underlined" label="Search by name" className="h-20 w-96" />
-            </div>
-        </div>
-    );
+        const history = useNavigate();
 
-    else if (marc) return (
-        <div className="ml-96 flex z-20 space-x-10 text-center w-full fixed pt-10 px-72 bg-white">
-            <div key="underlined" className="w-full h-auto  mb-6  gap-4">
-                <Input type="email" variant="underlined" label="Search by name" className="h-20 w-96" />
-            </div>
-        </div>
-    );
+        const handleChange = (event) => {
+            setInputValue(event.target.value);
+        };
 
-    else if (code) return (
-        <div className="ml-96 flex z-20 space-x-10 text-center w-full fixed pt-10 px-72 bg-white">
-            <div key="underlined" className="w-full h-auto  mb-6  gap-4">
-                <Input type="email" variant="underlined" label="Search by name" className="h-20 w-96" />
-            </div>
-        </div>
-    );
+        const handleKeyPress = (event) => {
+            if (event.key === 'Enter') {
+                console.log('Valor del input:', inputValue);
 
-    else if (all_type) return (
-        <div className="ml-96 flex z-20 space-x-10 text-center w-full fixed pt-10 px-72 bg-white">
-            <div key="underlined" className="w-full h-auto  mb-6  gap-4">
-                <Input type="email" variant="underlined" label="Search by name" className="h-20 w-96" />
-            </div>
-        </div>
-    );
+                // Redirigir a la página correspondiente usando react-router-dom
+                history(`/users/all?id=${inputValue.toLowerCase()}`);
+            }
+        };
 
-    else if (equipment_name) return (
-        <div className="ml-96 flex z-20 space-x-10 text-center w-full fixed pt-10 px-72 bg-white">
-            <div key="underlined" className="w-full h-auto  mb-6  gap-4">
-                <Input type="email" variant="underlined" label="Search by name" className="h-20 w-96" />
-            </div>
-        </div>
-    );
+        return (
+            <div className="ml-96 z-20 flex space-x-20 text-center w-full fixed  pt-10 px-72 ">
+                {data.map((key) => (
+                    <div key={key}>
+                        <div className="w-full flex flex-col gap-4">
+                            <div key="underlined" className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                                <Input
+                                    type="text"
+                                    variant="underlined"
+                                    label={key}
+                                    value={inputValue}
+                                    onChange={handleChange}
+                                    onKeyPress={handleKeyPress}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div >
+        )
+    }
 
-    else if (area) return (
-        <div className="ml-96 flex z-20 space-x-10 text-center w-full fixed pt-10 px-72 bg-white">
-            <div key="underlined" className="w-full h-auto  mb-6  gap-4">
-                <Input type="email" variant="underlined" label="Search by name" className="h-20 w-96" />
-            </div>
-        </div>
-    );
+    else if (rol) {
+        const [inputValue, setInputValue] = useState('');
+        const data = ["ID"];
 
-    else if (room) return (
-        <div className="ml-96 flex z-20 space-x-10 text-center w-full fixed pt-10 px-72 bg-white">
-            <div key="underlined" className="w-full h-auto  mb-6  gap-4">
-                <Input type="email" variant="underlined" label="Search by name" className="h-20 w-96" />
-            </div>
-        </div>
-    );
+        const history = useNavigate();
 
+        const handleChange = (event) => {
+            setInputValue(event.target.value);
+        };
+
+        const handleKeyPress = (event) => {
+            if (event.key === 'Enter') {
+                console.log('Valor del input:', inputValue);
+
+                // Redirigir a la página correspondiente usando react-router-dom
+                history(`/users/all?rol=${inputValue.toLowerCase()}`);
+            }
+        };
+
+        return (
+            <div className="ml-96 z-20 flex space-x-20 text-center w-full fixed  pt-10 px-72 ">
+                {data.map((key) => (
+                    <div key={key}>
+                        <div className="w-full flex flex-col gap-4">
+                            <div key="underlined" className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                                <Input
+                                    type="text"
+                                    variant="underlined"
+                                    label={key}
+                                    value={inputValue}
+                                    onChange={handleChange}
+                                    onKeyPress={handleKeyPress}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div >
+        )
+    }
+
+    else if (name) {
+        const [inputValue, setInputValue] = useState('');
+        const data = ["NAME"];
+
+        const history = useNavigate();
+
+        const handleChange = (event) => {
+            setInputValue(event.target.value);
+        };
+
+        const handleKeyPress = (event) => {
+            if (event.key === 'Enter') {
+                console.log('Valor del input:', inputValue);
+
+                // Redirigir a la página correspondiente usando react-router-dom
+                history(`/incidencias/users?name=${inputValue.toLowerCase()}`);
+            }
+        };
+
+        return (
+            <div className="ml-96 z-20 flex space-x-20 text-center w-full fixed  pt-10 px-72 ">
+                {data.map((key) => (
+                    <div key={key}>
+                        <div className="w-full flex flex-col gap-4">
+                            <div key="underlined" className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                                <Input
+                                    type="text"
+                                    variant="underlined"
+                                    label={key}
+                                    value={inputValue}
+                                    onChange={handleChange}
+                                    onKeyPress={handleKeyPress}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div >
+        )
+    }
+
+
+
+
+    else if (all_id) {
+        const [inputValue, setInputValue] = useState('');
+        const data = ["ID"];
+
+        const history = useNavigate();
+
+        const handleChange = (event) => {
+            setInputValue(event.target.value);
+        };
+
+        const handleKeyPress = (event) => {
+            if (event.key === 'Enter') {
+                console.log('Valor del input:', inputValue);
+
+                // Redirigir a la página correspondiente usando react-router-dom
+                history(`/incidencias/all?id=${inputValue.toLowerCase()}`);
+            }
+        };
+
+        return (
+            <div className="ml-96 z-20 flex space-x-20 text-center w-full fixed  pt-10 px-72 ">
+                {data.map((key) => (
+                    <div key={key}>
+                        <div className="w-full flex flex-col gap-4">
+                            <div key="underlined" className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                                <Input
+                                    type="text"
+                                    variant="underlined"
+                                    label={key}
+                                    value={inputValue}
+                                    onChange={handleChange}
+                                    onKeyPress={handleKeyPress}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div >
+        )
+    }
+
+    else if (all_status) {
+        const [inputValue, setInputValue] = useState('');
+        const data = ["STATUS"];
+
+        const history = useNavigate();
+
+        const handleChange = (event) => {
+            setInputValue(event.target.value);
+        };
+
+        const handleKeyPress = (event) => {
+            if (event.key === 'Enter') {
+                console.log('Valor del input:', inputValue);
+
+                // Redirigir a la página correspondiente usando react-router-dom
+                history(`/incidencias/all?status=${inputValue.toLowerCase()}`);
+            }
+        };
+
+        return (
+            <div className="ml-96 z-20 flex space-x-20 text-center w-full fixed  pt-10 px-72 ">
+                {data.map((key) => (
+                    <div key={key}>
+                        <div className="w-full flex flex-col gap-4">
+                            <div key="underlined" className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                                <Input
+                                    type="text"
+                                    variant="underlined"
+                                    label={key}
+                                    value={inputValue}
+                                    onChange={handleChange}
+                                    onKeyPress={handleKeyPress}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div >
+        )
+    }
+
+    else if (all_category) {
+        const [inputValue, setInputValue] = useState('');
+        const data = ["CATEGORY"];
+
+        const history = useNavigate();
+
+        const handleChange = (event) => {
+            setInputValue(event.target.value);
+        };
+
+        const handleKeyPress = (event) => {
+            if (event.key === 'Enter') {
+                console.log('Valor del input:', inputValue);
+
+                // Redirigir a la página correspondiente usando react-router-dom
+                history(`/incidencias/all?category=${inputValue.toLowerCase()}`);
+            }
+        };
+        return (
+            <div className="ml-96 z-20 flex space-x-20 text-center w-full fixed  pt-10 px-72 ">
+                {data.map((key) => (
+                    <div key={key}>
+                        <div className="w-full flex flex-col gap-4">
+                            <div key="underlined" className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                                <Input
+                                    type="text"
+                                    variant="underlined"
+                                    label={key}
+                                    value={inputValue}
+                                    onChange={handleChange}
+                                    onKeyPress={handleKeyPress}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div >
+        )
+    }
+
+    else if (marc) {
+        const [inputValue, setInputValue] = useState('');
+        const data = ["MARC"];
+
+        const history = useNavigate();
+
+        const handleChange = (event) => {
+            setInputValue(event.target.value);
+        };
+
+        const handleKeyPress = (event) => {
+            if (event.key === 'Enter') {
+                console.log('Valor del input:', inputValue);
+
+                // Redirigir a la página correspondiente usando react-router-dom
+                history(`/incidencias/equipment?marc=${inputValue.toLowerCase()}`);
+            }
+        };
+
+        return (
+            <div className="ml-96 z-20 flex space-x-20 text-center w-full fixed  pt-10 px-72 ">
+                {data.map((key) => (
+                    <div key={key}>
+                        <div className="w-full flex flex-col gap-4">
+                            <div key="underlined" className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                                <Input
+                                    type="text"
+                                    variant="underlined"
+                                    label={key}
+                                    value={inputValue}
+                                    onChange={handleChange}
+                                    onKeyPress={handleKeyPress}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div >
+        )
+    }
+
+    else if (code) {
+        const [inputValue, setInputValue] = useState('');
+        const data = ["CODE"];
+
+        const history = useNavigate();
+
+        const handleChange = (event) => {
+            setInputValue(event.target.value);
+        };
+
+        const handleKeyPress = (event) => {
+            if (event.key === 'Enter') {
+                console.log('Valor del input:', inputValue);
+
+                // Redirigir a la página correspondiente usando react-router-dom
+                history(`/incidencias/equipment?code=${inputValue.toLowerCase()}`);
+            }
+        };
+        return (
+            <div className="ml-96 z-20 flex space-x-20 text-center w-full fixed  pt-10 px-72 ">
+                {data.map((key) => (
+                    <div key={key}>
+                        <div className="w-full flex flex-col gap-4">
+                            <div key="underlined" className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                                <Input
+                                    type="text"
+                                    variant="underlined"
+                                    label={key}
+                                    value={inputValue}
+                                    onChange={handleChange}
+                                    onKeyPress={handleKeyPress}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div >
+        )
+    }
+
+    else if (all_type) {
+        const [inputValue, setInputValue] = useState('');
+        const data = ["TYPE"];
+        const history = useNavigate();
+
+        const handleChange = (event) => {
+            setInputValue(event.target.value);
+        };
+
+        const handleKeyPress = (event) => {
+            if (event.key === 'Enter') {
+                console.log('Valor del input:', inputValue);
+
+                // Redirigir a la página correspondiente usando react-router-dom
+                history(`/incidencias/equipment?type=${inputValue.toLowerCase()}`);
+            }
+        };
+        return (
+            <div className="ml-96 z-20 flex space-x-20 text-center w-full fixed  pt-10 px-72 ">
+                {data.map((key) => (
+                    <div key={key}>
+                        <div className="w-full flex flex-col gap-4">
+                            <div key="underlined" className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                                <Input
+                                    type="text"
+                                    variant="underlined"
+                                    label={key}
+                                    value={inputValue}
+                                    onChange={handleChange}
+                                    onKeyPress={handleKeyPress}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div >
+        )
+    }
+
+    else if (equipment_name) {
+        const [inputValue, setInputValue] = useState('');
+        const data = ["NAME"];
+
+        const history = useNavigate();
+
+        const handleChange = (event) => {
+            setInputValue(event.target.value);
+        };
+
+        const handleKeyPress = (event) => {
+            if (event.key === 'Enter') {
+                console.log('Valor del input:', inputValue);
+
+                // Redirigir a la página correspondiente usando react-router-dom
+                history(`/incidencias/equipment?name=${inputValue.toLowerCase()}`);
+            }
+        };
+
+        return (
+            <div className="ml-96 z-20 flex space-x-20 text-center w-full fixed  pt-10 px-72 ">
+                {data.map((key) => (
+                    <div key={key}>
+                        <div className="w-full flex flex-col gap-4">
+                            <div key="underlined" className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                                <Input
+                                    type="text"
+                                    variant="underlined"
+                                    label={key}
+                                    value={inputValue}
+                                    onChange={handleChange}
+                                    onKeyPress={handleKeyPress}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div >
+        )
+    }
+
+    else if (area) {
+        const [inputValue, setInputValue] = useState('');
+        const data = ["AREA"];
+
+        const history = useNavigate();
+
+        const handleChange = (event) => {
+            setInputValue(event.target.value);
+        };
+
+        const handleKeyPress = (event) => {
+            if (event.key === 'Enter') {
+                console.log('Valor del input:', inputValue);
+
+                // Redirigir a la página correspondiente usando react-router-dom
+                history(`/incidencias/location?area=${inputValue.toLowerCase()}`);
+            }
+        };
+
+        return (
+            <div className="ml-96 z-20 flex space-x-20 text-center w-full fixed  pt-10 px-72 ">
+                {data.map((key) => (
+                    <div key={key}>
+                        <div className="w-full flex flex-col gap-4">
+                            <div key="underlined" className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                                <Input
+                                    type="text"
+                                    variant="underlined"
+                                    label={key}
+                                    value={inputValue}
+                                    onChange={handleChange}
+                                    onKeyPress={handleKeyPress}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div >
+        )
+    }
+
+    else if (room) {
+        const [inputValue, setInputValue] = useState('');
+        const data = ["ROOM"];
+
+        const history = useNavigate();
+
+        const handleChange = (event) => {
+            setInputValue(event.target.value);
+        };
+
+        const handleKeyPress = (event) => {
+            if (event.key === 'Enter') {
+                console.log('Valor del input:', inputValue);
+
+                // Redirigir a la página correspondiente usando react-router-dom
+                history(`/incidencias/location?room=${inputValue.toLowerCase()}`);
+            }
+        };
+
+        return (
+            <div className="ml-96 z-20 flex space-x-20 text-center w-full fixed  pt-10 px-72 ">
+                {data.map((key) => (
+                    <div key={key}>
+                        <div className="w-full flex flex-col gap-4">
+                            <div key="underlined" className="flex w-full flex-wrap md:flex-nowrap mb-6 md:mb-0 gap-4">
+                                <Input
+                                    type="text"
+                                    variant="underlined"
+                                    label={key}
+                                    value={inputValue}
+                                    onChange={handleChange}
+                                    onKeyPress={handleKeyPress}
+                                />
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div >
+        )
+    }
 };
 
 export function Ocult() {
@@ -249,5 +752,6 @@ export const DeleteButton = () => {
         </>
     );
 };
+
 
 

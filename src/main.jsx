@@ -16,6 +16,7 @@ import { Oficial_Login } from './components/Oficial_Login';
 import { Admin_Page, User_Page } from './components/Pages';
 import { Buttons_All, Ocult, Buttons_Equipment, Buttons_Location, Input_Search } from './components/Buttons';
 import { Error_Page_404 as ErrorPage } from './components/Errors_';
+import { Card_ } from './components/Card';
 
 const router = createBrowserRouter([
 
@@ -24,7 +25,7 @@ const router = createBrowserRouter([
     element: <Oficial_Login />,
     errorElement: <ErrorPage />,
     children: [
-      
+
     ]
   },
   {
@@ -93,7 +94,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin",
-    element: <Admin_Page/>,
+    element: <Admin_Page />,
     children: [
       {
         path: "all",
@@ -152,6 +153,12 @@ const router = createBrowserRouter([
       {
         path: "reports",
         element: <Input_Search report={true} />,
+        children: [
+          {
+            path: "?id=:id",
+            element: <Card_ />,
+          },
+        ]
       },
       {
         path: "all_user",
