@@ -15,15 +15,6 @@ export const get_incidences = async(data) => {
     return await incidents.get_incidences(data);
 };
 
-// organiza las incidencias por fechas de la más reciente a la menos reciente
-export const get_incidences_date = async() => {
-    return await incidents.get_incidences_date();
-};
-
-export const get_incidences_state = async(status) => {
-    return await incidents.get_incidences_state(status);
-};
-
 // incidencia por equipos; esta también es dinámica
 export const get_incidences_equipo = async(data) => {
     return await incidents.get_incidences_equipo(data);
