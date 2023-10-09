@@ -18,8 +18,8 @@ function Login() {
     const Login = async () => {
         try {
             let response = await fetch`http://localhost:5146/`;
-            if (response.ok) {
-                window.location.href = "http://localhost:5146/login"
+            if (!response.ok) {
+                window.location.href = "http://localhost:5146/login/redirect"
             }
         } catch (error) {
             let type = error.name;
