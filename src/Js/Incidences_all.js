@@ -1,4 +1,4 @@
-const API = "http://localhost:5146";
+const API = "http://192.168.129.72:5146";
 
 export const FIND_incidence_all = (all) => {
     const { id, status, type } = all;
@@ -21,7 +21,7 @@ export const FIND_incidence_all = (all) => {
 const CALL_INCIDENCES_ALL = async () => {
     async function fetch_data() {
         try {
-            const incidence_Data = await fetch('http://localhost:5146/incidencias/all');
+            const incidence_Data = await fetch('http://192.168.129.72:5146/incidencias/all');
             const datos = await incidence_Data.json();
             return datos
         } catch (error) {

@@ -25,7 +25,7 @@ export function Card_() {
     useEffect(() => {
         async function fetch_data() {
             try {
-                const incidence_Data = await fetch('http://localhost:5146/incidencias/all');
+                const incidence_Data = await fetch('http://192.168.129.72:5146/incidencias/all');
                 const datos = await incidence_Data.json();
                 setData(datos)
             } catch (error) {

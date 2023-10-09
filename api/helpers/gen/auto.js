@@ -11,7 +11,7 @@ VITE_FRONT_PORT=
 VITE_BACK_PORT=
 DISCORD_CLIENT_ID=1156187400515629086
 DISCORD_CLIENT_SECRET=HdUu45e7nlJ4ZnQhaoMqRzgh8NP0bgY_
-DISCORD_URL="http://localhost:5510/login/redirect"
+DISCORD_URL="http://192.168.129.72:5510/login/redirect"
 
 `;
 
@@ -30,11 +30,11 @@ const data = {
         SECRET: config.SERCRET_KEY
     },
     SERVER_FRONT: {
-        host: config.VITE_HOST || "localhost",
+        host: config.VITE_HOST || "192.168.129.72",
         port: config.VITE_FRONT_PORT || 5520
     },
     SERVER_BACK: {
-        host: config.VITE_HOST  || "localhost",
+        host: config.VITE_HOST  || "192.168.129.72",
         port: config.VITE_BACK_PORT || 5510
     },
     CREDENTIALS_DISCORD: {

@@ -35,12 +35,12 @@ ATLAS_DB="incidents_system"
 MONGO_ATLAS_CONNECT="tu_servidor_de_atlas"
 JWT_PRIVATE_KEY=""
 SERCRET_KEY=""
-VITE_HOST="localhost"
+VITE_HOST="192.168.129.72"
 VITE_FRONT_PORT=5147
 VITE_BACK_PORT=5146
 DISCORD_CLIENT_ID=1156187400515629086
 DISCORD_CLIENT_SECRET=MBKnLD2A9SaQYHZEZD4Zk0hPH30pn6la
-DISCORD_URL="http://localhost:5146/login/redirect"
+DISCORD_URL="http://192.168.129.72:5146/login/redirect"
 ```
 
 Recuerda proporcionar los valores adecuados para las variables que requieren configuración.
@@ -67,11 +67,11 @@ La aplicación ahora debería estar en funcionamiento y puedes acceder a ella en
 
 Por defecto, los usuarios pueden acceder a la siguiente ruta:
 
-- [http://localhost:5148/users](http://localhost:5148/users)
+- [http://192.168.129.72:5148/users](http://192.168.129.72:5148/users)
 
 Además, hay una ruta oculta para acceder al panel de administrador:
 
-- [http://localhost:5148/admin](http://localhost:5148/admin)
+- [http://192.168.129.72:5148/admin](http://192.168.129.72:5148/admin)
 
 ¡Disfruta explorando la aplicación y aprendiendo sobre rutas y configuración de código React!
 
@@ -114,12 +114,12 @@ ATLAS_DB="incidents_system"
 MONGO_ATLAS_CONNECT="tu_servidor_de_atlas"
 JWT_PRIVATE_KEY=""
 SERCRET_KEY=""
-VITE_HOST="localhost"
+VITE_HOST="192.168.129.72"
 VITE_FRONT_PORT=5147
 VITE_BACK_PORT=5146
 DISCORD_CLIENT_ID=1156187400515629086
 DISCORD_CLIENT_SECRET=MBKnLD2A9SaQYHZEZD4Zk0hPH30pn6la
-DISCORD_URL="http://localhost:5146/login/redirect"
+DISCORD_URL="http://192.168.129.72:5146/login/redirect"
 ```
 
 Recuerda proporcionar los valores adecuados para las variables que requieren configuración.
@@ -146,11 +146,11 @@ La aplicación ahora debería estar en funcionamiento y puedes acceder a ella en
 
 Por defecto, los usuarios pueden acceder a la siguiente ruta:
 
-- [http://localhost:5148/users](http://localhost:5148/users)
+- [http://192.168.129.72:5148/users](http://192.168.129.72:5148/users)
 
 Además, hay una ruta oculta para acceder al panel de administrador:
 
-- [http://localhost:5148/admin](http://localhost:5148/admin)
+- [http://192.168.129.72:5148/admin](http://192.168.129.72:5148/admin)
 
 ¡Disfruta explorando la aplicación y aprendiendo sobre rutas y configuración de código React!
 
