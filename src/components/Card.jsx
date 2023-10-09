@@ -1,5 +1,5 @@
-import React from "react";
-import { useDisclosure, ScrollShadow, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button} from "@nextui-org/react";
+import React, { useEffect, useState } from "react";
+import { useDisclosure, ScrollShadow, Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button } from "@nextui-org/react";
 import { Modal_Info_Incidence } from "./Modals";
 
 const people = [
@@ -261,12 +261,35 @@ const people = [
 export function Card() {
 
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [backdrop, setBackdrop] = React.useState('opaque')
+    const [backdrop, setBackdrop] = React.useState('opaque');
+    const [data, setData] = useState([]);
+
 
     const Modal_Info = (backdrop) => {
         setBackdrop(backdrop)
         onOpen();
     }
+
+    useEffect(() => {
+        async function fetch_data() {
+            try {
+                const incidence_Data = await fetch('http://localhost:5146/incidencias/all');
+                const datos = await incidence_Data.json();
+                setData(datos)
+                console.log(data);
+                // console.log(datos);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        fetch_data();
+    }, []);
+
+    // const API = async () => {
+
+    // }
+
+    // API();
 
     return (
         <>
@@ -276,35 +299,38 @@ export function Card() {
                 orientation="horizontal"
             >
                 <ul role="list" className="divide-y cursor-pointer divide-gray-400 m-4">
-                    {people.map((person) => (
-                        <li key={person.email} className="hover:bg-slate-100 p-3 rounded-sm flex justify-between gap-x-6 py-5 " onClick={() => Modal_Info('blur')}>
-                            <div className="flex min-w-0 gap-x-4">
-                                {/* imagen */}
-                                <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src={person.imageUrl} alt="" />
-                                {/* name e email */}
-                                <div className="min-w-0 flex-auto">
-                                    <p className="text-sm font-semibold leading-6 text-gray-900">{person.name}</p>
-                                    <p className="mt-1 truncate text-xs leading-5 text-gray-500">{person.email}</p>
+                    {data.map((json) => (
+                        <li className="flex justify-between gap-x-6 py-5" onClick={() => Modal_Info('blur')}>
+                            <div className="flex min-w-0 gap-x-4 w-full">
+
+                                <div className="flex gap-x-4 w-60 relative">
+                                    <img className="h-12 w-12 flex-none rounded-full bg-gray-50" src={'https://http.cat/400'} alt="" />
+                                    <div className="min-w-0 flex-auto">
+                                        <p className="text-sm font-semibold leading-6 text-gray-900" key={json.report_by[0].name}>{json.report_by[0].name}</p>
+                                        <p className="mt-1 truncate text-xs leading-5 text-gray-500">{json.report_by[0].email}</p>
+                                    </div>
+                                    <div className="w-[1px] h-full absolute right-0 bg-slate-400"></div>
+                                </div>
+
+
+                                <div className="flex justify-around w-3/5 flex-col ">
+                                    <div className="w-full">
+                                        <div className="flex gap-3">
+                                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">{json.equipment.name}</p>
+                                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">{json.location.area}</p>
+                                            <p className="mt-1 truncate text-xs leading-5 text-gray-500">{json.status}</p>
+                                        </div>
+                                        <p className="mt-1 w-full truncate text-xs leading-5 text-gray-500">{json.description}</p>
+                                    </div>
+
                                 </div>
                             </div>
 
                             {/* message */}
                             <div className="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                                {/* <p className="text-sm leading-6 text-gray-900">{person.role}</p> */}
 
-                                {/* fecha de publicación */}
-                                {person.lastSeen ? (
-                                    <p className="mt-1 mr-10 text-xs leading-5 text-gray-500">
-                                        Last seen <time dateTime={person.lastSeenDateTime}>{person.lastSeen}</time>
-                                    </p>
-                                ) : (
-                                    <div className="mt-1 flex items-center gap-x-1.5">
-                                        <div className="flex-none rounded-full bg-emerald-500/20 p-1">
-                                            <div className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
-                                        </div>
-                                        <p className="text-xs leading-5 text-gray-500">Online</p>
-                                    </div>
-                                )}
+                                <p className="mt-1 mr-10 text-xs leading-5 text-gray-500">{json.creation_date.date}</p>
+                                <p className="mt-1 mr-10 text-xs leading-5 text-gray-500">{json.creation_date.hour}</p>
                             </div>
                         </li>
                     ))}
@@ -317,7 +343,7 @@ export function Card() {
                         <>
                             <ModalHeader className="flex flex-col gap-5 text-white">Incidence</ModalHeader>
                             <ModalBody className="mt-80">
-                                <Modal_Info_Incidence/>
+                                <Modal_Info_Incidence />
                             </ModalBody>
                             <ModalFooter >
                                 <Button color="danger" variant="light" onPress={onClose}>

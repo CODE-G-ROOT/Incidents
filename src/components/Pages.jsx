@@ -8,9 +8,9 @@ import { Card } from './Card'
 export const Admin_Page = () => {
     return (
         <>
-            <div className="flex w-full h-[500px]">
-                <div className="w-full ml-96 flex flex-col">
-                    <div className="px-20 pt-32 ">
+            <div className="flex w-screem h-[500px]">
+                <div className="w-9/12 ml-96 flex flex-col">
+                    <div className="px-20 w-full pt-32 ">
                         <Card></Card>
                     </div>
                 </div>
@@ -25,7 +25,7 @@ export const User_Page = () => {
         <>
             <div className="flex w-full h-[500px]">
                 <div className="w-full ml-96 flex flex-col">
-                    <div className="px-20 pt-32">
+                    <div className="px-20 w-2/3 pt-32">
                         <Card></Card>
                     </div>
                 </div>
